@@ -184,7 +184,7 @@ jobs:
 
           nix-build -j0 --keep-going || true
           find /nix/store -maxdepth 1 -mindepth 1 | sort > paths-from-nixos-cache.txt
-          nix-build -E 'with import <nixpkgs> {}; closureInfo { rootPaths = [ (import ./. {}) ]; }'
+          nix-build -E 'with import <nixpkgs> {}; closureInfo { rootPaths = [ (import ./. {}).packages.default ]; }'
 
           echo "$NIX_BINARY_CACHE_KEY" > bincache-key.priv
           nix --extra-experimental-features nix-command key convert-secret-to-public < bincache-key.priv > bincache-key.pub

@@ -150,7 +150,7 @@ or with [custom Nixpak options] for nixpak)
 instead of plain binaries.
 
 [Flatseal]: https://github.com/tchx84/Flatseal
-[custom Nixpak]: #nixpak-custom-options
+[custom Nixpak options]: #custom-options
 
 ### with flatpak
 
@@ -167,53 +167,66 @@ See [this page][nix-bincache] for details on how to set up binary caches.
 
 [nix-bincache]: https://yukigram.github.io/yukigram
 
-#### nixpak (locked nixpkgs)
+#### with nixpak
 
 without flakes:
 ```nix
-import <yukigram> {}
+(import <yukigram> {}).packages.default
 ```
 
 with flakes:
 ```nix
-yukigram.packages.${system}.default
+inputs.yukigram.packages.${system}.default
 ```
 
-#### nixpak (custom options)
+`default` can be replaced with `nixpak` for explicitness.
+
+#### without nixpak
+
+without flakes:
+```nix
+(import <yukigram> {}).packages.nonisolated
+```
+
+with flakes:
+```nix
+inputs.yukigram.packages.${system}.nonisolated
+```
+
+#### custom options
 
 Custom nixpak options are required to launch Yukigram nixpak under X11.
 
-without flakes:
 ```nix
-import <yukigram> {
-    nixpkgs = <nixpkgs>;
-    # or
-    pkgs = import <nixpkgs> {};
-
-    customNixpakConfig = {
+let
+  d = import <yukigram> {}; # without flakes
+  d = inputs.yukigram.d.${system}; # with flakes
+  yukigram = d.override (prev: {
+    # customize nixpak
+    nixpak.yukigram = prev.nixpak.yukigram.override {
+      appId = "io.github.yukigram.backed";
+      customNixpakConfig = {
         bubblewrap.sockets.x11 = true;
+      }
+    }
+
+    # or bring your own patches (disables binary caches)
+    packages.nonisolated = prev.packages.nonisolated.override (prev: {
+      unwrapped = prev.unwrapped.overrideAttrs (prev: {
+        patches = prev.patches ++ [./my-cool.patch];
+      };
     };
-}
-```
 
-with flakes:
-```nix
-yukigram.packages.${system}.default.override {
-    nixpkgs = my-pinned-nixpkgs;
-    # or
-    pkgs = my-pkgs;
+    # or bring your own nixpkgs (may disable binary caches)
+    sources.nixpkgs = <nixpkgs>;
 
-    customNixpakConfig = {
-        bubblewrap.sockets.x11 = true;
-    };
-}
-```
+    # or use a custom instance of nixpkgs (may disable binary caches)
+    inputs.pkgs = import <nixpkgs> {};
 
-#### non-isolated package
-
-without flakes:
-```nix
-pkgs.callPackage <yukigram/package.nix> {}
+    # or make nonisolated package the default one
+    packages.default = prev.packages.nonisolated;
+  });
+in yukigram.packages.default;
 ```
 
 ### on PostmarketOS

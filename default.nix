@@ -1,29 +1,53 @@
-{
-  sources ? import ./npins,
-  system ? builtins.currentSystem,
-  nixpkgs ? sources.nixpkgs,
-  pkgs ? import nixpkgs {inherit system;},
-  nixpak ? import sources.nixpak,
-  lib ? pkgs.lib,
-  mkNixPak ? config: nixpak.lib.nixpak {inherit lib pkgs;} {inherit config;},
-  appId ? "io.github.yukigram",
-  customNixpakConfig ? {},
-}:
-(mkNixPak {
-  imports = [
-    nixpak.profiles.gui-base
-    nixpak.profiles.mpris2-player
-    nixpak.profiles.network
-    customNixpakConfig
-  ];
-  app.package = pkgs.callPackage ./package.nix {};
-  flatpak.appId = appId;
-  dbus.policies = {
-    # https://github.com/flathub/org.telegram.desktop/commit/c647652ce6ed0dc6a89490f0c811371da8eb42f8
-    "org.freedesktop.Notifications" = "talk";
-    "org.kde.StatusNotifierWatcher" = "talk";
-    "com.canonical.AppMenu.Registrar" = "talk";
-    "com.canonical.indicator.application" = "talk";
-    "org.ayatana.indicator.application" = "talk";
-  };
-}).config.env
+let
+  # SPDX-SnippetBegin
+  # SPDX-SnippetCopyrightText: Contributors to the Sprinkles project
+  # SPDX-License-Identifier: MIT OR Apache-2.0
+  fix = f: let x = f x; in x;
+  fixWithOverride = o: f: (final: let prev = f final; in prev // o final prev);
+  toOverride = x:
+    if builtins.isFunction x
+    then
+      final: prev: let
+        xWithPrev = x prev;
+      in
+        if builtins.isFunction xWithPrev
+        then x final prev
+        else xWithPrev
+    else final: prev: x;
+  fixOverridableWith = e: f:
+    (fix f)
+    // e
+    // {
+      override = o: fixOverridableWith e (fixWithOverride (toOverride o) f);
+    };
+  fixOverridable = f: fixOverridableWith {} f;
+  # SPDX-SnippetEnd
+  makeOverridable = func: defargs:
+    (func defargs)
+    // {
+      override = args: makeOverridable func (defargs // args);
+    };
+in
+  {
+    sources ? import ./npins,
+    system ? builtins.currentSystem,
+  }:
+    fixOverridable (self: {
+      inherit sources;
+
+      inputs = {
+        pkgs = import self.sources.nixpkgs {inherit system;};
+        nixpak = import self.sources.nixpak;
+      };
+
+      packages = {
+        default = self.packages.nixpak;
+        nonisolated = self.inputs.pkgs.callPackage ./package.nix {};
+        nixpak = self.nixpak.yukigram.config.env;
+      };
+
+      nixpak.yukigram = makeOverridable (import ./nixpak.nix) {
+        inherit (self.inputs) pkgs nixpak;
+        yukigram = self.packages.nonisolated;
+      };
+    })
