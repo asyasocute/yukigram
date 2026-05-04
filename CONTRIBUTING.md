@@ -203,6 +203,10 @@ with what upstream expects.
 
 [org.telegram.desktop]: https://github.com/flathub/org.telegram.desktop
 
+### Updating PostmarketOS bulid
+
+1. update tdestkop version in `.github/workflows/bincache.yml`
+
 ### Updating Nix package
 
 1. change version in `package.nix` and set hash to `lib.fakeHash`
