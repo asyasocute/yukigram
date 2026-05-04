@@ -15,6 +15,12 @@ on:
       push_to_cachix:
         description: 'Push builds to cachix'
         type: boolean
+      disable_binary:
+        description: 'Disable static binary build'
+        type: boolean
+      disable_nixos:
+        description: 'Disable nix build'
+        type: boolean
 permissions:
   contents: read
   pages: write
@@ -24,6 +30,7 @@ jobs:
 
   binary:
     timeout-minutes: ${{ inputs.short_run && 10 || 360 }}
+    if: ${{ ! inputs.disable_binary }}
     name: Linux binary
     strategy:
       matrix:
@@ -165,6 +172,7 @@ jobs:
 
   nixos:
     timeout-minutes: ${{ inputs.short_run && 10 || 360 }}
+    if: ${{ ! inputs.disable_nixos }}
     name: NixOS binary cache build
     strategy:
       matrix:
