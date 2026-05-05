@@ -170,7 +170,15 @@ Be aware that this command discards all uncommitted changes.
     in `Telegram/SourceFiles/boxes/about_box.cpp`
 2. tag a new version with increased fourth component
     (v6.7.5.0 -> v6.7.5.1 -> v6.7.5.2)
-3. push `main` branch, and then push corresponding tag
+3. push `main` branch,
+    and then push corresponding tag
+4. (post-update only)
+    once nixpak and flatpak builds are somewhat tested,
+    push `release` branch,
+    and then post release announcement
+    in [Yukigram channel]
+
+[Yukigram channel]: https://t.me/yukigram
 
 ## Porting to newer tdesktop versions
 
