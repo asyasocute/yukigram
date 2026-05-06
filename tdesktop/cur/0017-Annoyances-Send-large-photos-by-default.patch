@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Wed, 6 May 2026 10:21:50 +0300
+Subject: [PATCH] (Annoyances) Send large photos by default
+
+---
+ Telegram/SourceFiles/ui/chat/attach/attach_send_files_way.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Telegram/SourceFiles/ui/chat/attach/attach_send_files_way.h b/Telegram/SourceFiles/ui/chat/attach/attach_send_files_way.h
+index ba758ae69b..a36599f1f5 100644
+--- a/Telegram/SourceFiles/ui/chat/attach/attach_send_files_way.h
++++ b/Telegram/SourceFiles/ui/chat/attach/attach_send_files_way.h
+@@ -68,7 +68,7 @@ private:
+ 		HasCompressedStickers = (1 << 2),
+ 		SendLargePhotos = (1 << 3),
+ 
+-		Default = GroupFiles | SendImagesAsPhotos,
++		Default = GroupFiles | SendImagesAsPhotos | SendLargePhotos,
+ 	};
+ 	friend inline constexpr bool is_flag_type(Flag) { return true; };
+ 
+-- 
+2.53.0
+
