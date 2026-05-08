@@ -74,7 +74,7 @@ index ef3d261c86..81e2f918b2 100644
  		int64 tonStake = 0;
  		int stars = 0;
 diff --git a/Telegram/SourceFiles/history/view/history_view_element.cpp b/Telegram/SourceFiles/history/view/history_view_element.cpp
-index 71a0108e0c..3118f84a0e 100644
+index 1cfff66d67..53d9e3c909 100644
 --- a/Telegram/SourceFiles/history/view/history_view_element.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_element.cpp
 @@ -698,6 +698,9 @@ QString DateTooltipText(not_null<Element*> view) {

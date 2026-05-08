@@ -120,7 +120,7 @@ index 829a5398ce..e7b0eb68de 100644
  		}).first;
  		fullSize += i->second.time.size()
 diff --git a/Telegram/SourceFiles/history/history_item.cpp b/Telegram/SourceFiles/history/history_item.cpp
-index ed1e8b9649..a960658ac1 100644
+index 006da2a1f7..b965969221 100644
 --- a/Telegram/SourceFiles/history/history_item.cpp
 +++ b/Telegram/SourceFiles/history/history_item.cpp
 @@ -1343,7 +1343,7 @@ void HistoryItem::setCommentsItemId(FullMsgId id) {
@@ -132,7 +132,7 @@ index ed1e8b9649..a960658ac1 100644
  	}
  	return QString();
  }
-@@ -7729,7 +7729,7 @@ PreparedServiceText HistoryItem::prepareCallScheduledText(
+@@ -7732,7 +7732,7 @@ PreparedServiceText HistoryItem::prepareCallScheduledText(
  	};
  	const auto time = QLocale().toString(
  		scheduled.time(),
