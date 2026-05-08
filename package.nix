@@ -2,6 +2,7 @@
   lib,
   stdenv,
   telegram-desktop,
+  gst_all_1,
 }:
 (telegram-desktop.override {
   pname = "yukigram";
@@ -22,6 +23,16 @@
       mainProgram = "yukigram";
     };
   });
+
+  # webkitgtk requires gstreamer for audio support
+  buildInputs =
+    (prev.buildInputs or [])
+    ++ [
+      gst_all_1.gstreamer
+      gst_all_1.gst-plugins-base
+      gst_all_1.gst-plugins-good
+      gst_all_1.gst-plugins-bad
+    ];
 
   # Disable substitution in `share/dbus-1/services/` as there is no absolute path now
   postFixup =
