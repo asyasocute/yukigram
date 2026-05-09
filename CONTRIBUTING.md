@@ -6,7 +6,7 @@ This is mostly a collection of notes and other tips.
 
 The following assumes the following directory structure:
 - `yukigram`, this repo.
-- `tdesktop`, upstream Telegram Desktop.
+- `tdesktop`, upstream Telegram Desktop with flattened submodules.
 - `yukigram-worktree`, a [git worktree][git-worktree] of `tdesktop`.
 
 [git-worktree]: https://git-scm.com/docs/git-worktree
@@ -19,8 +19,19 @@ git clone https://github.com/telegramdesktop/tdesktop
 cd tdesktop
 git submodule update --init --recursive
 git checkout -b test
+../yukigram/s/flatten.sh
 git worktree add ../yukigram-worktree
 ```
+
+### Scripts
+
+Folder `s` contains a collection of mildly useful scripts.
+
+#### `flatten.sh`
+
+Flatten all the submodules in the current directory.
+Current directory must be a top-level repository,
+i.e. `.git` must be a directory.
 
 ### Git hooks
 
@@ -40,7 +51,7 @@ ln -s ../../hooks/pre-commit .git/hooks
 
 ```shell
 cd yukigram-worktree
-git checkout --detach test && git submodule update --recursive
+git checkout --detach test
 DEVEL=true CONFIG=Debug ./build.sh
 ```
 
@@ -80,6 +91,24 @@ Data is stored somewhere under `~/.var/app/io.github.yukigram.devel`.
 Patchset supports only one version out of the box.
 This version is indicated in tag names, commit names, and `base-commit` footer.
 
+`prerequisite-patch-id` footer shows
+`#flatten` commit's stable patch id.
+
+### Applying with `patch`
+
+This patchset can be applied with `patch`
+over a tdesktop clone with all submodules,
+e.g. from `tdesktop-$version-full` release archive.
+
+```shell
+cd tdesktop-full
+cat ../yukigram/tdesktop/cur/*.patch | patch -p1
+```
+
+It is not recommended to use `patch` for development.
+
+### Applying with `git-am`
+
 Patches are stored in a Maildir-like format,
 and can be applied with [git am][git-am].
 Three-way am is recommended to simplify conflicts.
@@ -90,6 +119,7 @@ Three-way am is recommended to simplify conflicts.
 TAG=v6.7.3
 git reset --hard $TAG
 git submodule update --init --recursive
+../yukigram/s/flatten.sh
 git am -3 ../yukigram/tdesktop
 # resolve conflicts
 ```
@@ -148,7 +178,7 @@ git rebase --interactive --autosquash $TAG
 
 ```shell
 cd yukigram
-git format-patch --zero-commit -N -o ../yukigram/tdesktop/cur --base $TAG $TAG
+git format-patch --zero-commit -N -o ../yukigram/tdesktop/cur --base HEAD^{/#flatten}{^,}
 ```
 
 If patches were renamed or reordered,

@@ -130,17 +130,8 @@ and understand code easier.
 
 Please inspect these patches yourselves to make sure that you really trust the code.
 
-Note that due to limitations of [`git am`][git-am]
-and its usage in this repo
-it is currently not possible to patch submodules.
-Some features may currently be unimplementable
-because of heavy use of submodules in upstream tdesktop.
-Support for such patching may be added in the future,
-when it becomes essential.
-
 Some more information can be found in [`CONTRIBUTING.md`].
 
-[git-am]: https://git-scm.com/docs/git-am
 [range-diff]: https://git-scm.com/docs/git-range-diff
 [`CONTRIBUTING.md`]: ./CONTRIBUTING.md
 
@@ -297,11 +288,18 @@ on how to add patches to packages
 and package Telegram Desktop (of correct version)
 with your selection of patches.
 
+The recommended way of applying patches
+for building for repositories
+is by using `patch`.
+See [#applying-with-patch]
+in contributing notes for details.
+
 Unofficial packages that seem correct
 and may be used instead of a manual from-source build:
 
 - AUR package [`yukigram-desktop`][aur-yukigram]
 
+[#applying-with-patch]: CONTRIBUTING.md#applying-with-patch
 [aur-yukigram]: https://aur.archlinux.org/packages/yukigram-desktop
 
 ## Previous versions
