@@ -18,7 +18,7 @@ use `1.` as list marker to make diffs shorter in case of drops or reorders
 1. (Fix) Support `$XDG_DATA_HOME/Yukigram` as a fallback data directory for Yukigram
     (current one is `$XDG_DATA_HOME/io.github.yukigram`,
     or with `.devel` appended for development builds)
-1. (Annoyances) No sponsored messages
+1. (Annoyances) No sponsored messages and channels
 1. (Annoyances) No copy restrictions
     (forward restrictions are still in place)
 1. (Annoyances) Use [OpenStreetMap] instead of Google Maps when opening a location

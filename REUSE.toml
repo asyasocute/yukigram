@@ -15,7 +15,7 @@ path = [
     "tdesktop/cur/*-Fix-Disable-dbus-activation.patch",
     "tdesktop/cur/*-Fix-Opt-Symbolic-tray-icon-from-icon-theme.patch",
     "tdesktop/cur/*-Fix-Support-xdg-data-Yukigram-as-compat-datadir.patch",
-    "tdesktop/cur/*-Annoyances-Hide-sponsored-messages.patch",
+    "tdesktop/cur/*-Annoyances-Disable-ads.patch",
     "tdesktop/cur/*-Annoyances-Remove-copy-restrictions.patch",
     "tdesktop/cur/*-Annoyances-Open-location-in-OpenStreetMap.patch",
     "tdesktop/cur/*-Annoyances-Unregister-url-schemes.patch",
