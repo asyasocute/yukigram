@@ -134,8 +134,17 @@ git am -3 ../yukigram/tdesktop
 
 ## Adding a new patch
 
-Add a commit as you normally do.
-Use `git rebase -i $TAG` to reorder patches if needed.
+Once you've applied current patchset,
+you can add a commit as you normally do.
+Use `git rebase -i HEAD^{/#flatten}`
+to reorder patches if needed.
+
+Use of `HEAD^{/#flatten}` is needed
+to avoid repeating `$TAG`
+and therefore make commands version-independent,
+and to avoid rebasing over "submodule flattening"
+which, if done, yields weird warnings
+about submodule directories not being empty.
 
 Patches, except for Yukigram structure ones
 (such as "branding" or "build support"),
@@ -171,7 +180,7 @@ To apply all fixups:
 
 ```shell
 cd tdesktop
-git rebase --interactive --autosquash $TAG
+git rebase --interactive --autosquash HEAD^{/#flatten}
 ```
 
 ## Formatting patches
@@ -180,6 +189,27 @@ git rebase --interactive --autosquash $TAG
 cd yukigram
 git format-patch --zero-commit -N -o ../yukigram/tdesktop/cur --base HEAD^{/#flatten}{^,}
 ```
+
+`--zero-commit` is needed
+to make first line of `.patch` files
+(the `From ... Mon Sep 17 00:00:00 2001` line)
+stable across rebases and reapplies.
+
+`-N` disables patch numbering,
+making `[PATCH 45/67]` in subject line
+become `[PATCH]`,
+which allows patches to be
+more stable across reorders and patch additions.
+
+`--base HEAD^{/#flatten}{^,}` sets
+
+- base commit to `HEAD^{/#flatten}^`,
+    i.e. the commit immediately preceding the submodule flattening
+- formatted commits range to `HEAD^{/#flatten}`,
+    i.e. all commits reachable from `HEAD`,
+    but not from `HEAD^{/#flatten}`,
+    or, in plain words,
+    everything after the submodule flattening.
 
 If patches were renamed or reordered,
 `yukigram/tdesktop/cur` directory might need cleaning.
