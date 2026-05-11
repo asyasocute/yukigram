@@ -29,6 +29,7 @@ use `1.` as list marker to make diffs shorter in case of drops or reorders
 1. (Annoyances) Disable AI compose button by default
 1. (Annoyances) Unshare phone number by default when adding contact
 1. (Annoyances) Send large photos by default
+1. (Annoyances) Disable AI Instant View summaries
 1. (Feature) tg://nya link support
 1. (Feature) Immediate restart button
 1. (Feature, optional) Control calls with MPRIS
@@ -90,7 +91,6 @@ Contributions welcome!
 
 - Ban button for join requests
 - Client-side user muting (as in 64Gram)
-- Disable Cocoon AI summary in Instant View
 - Ability to change font size
 - Ability to change monospace font
     (or use one from xdg-desktop-portal-gtk)

@@ -24,6 +24,7 @@ path = [
     "tdesktop/cur/*-Annoyances-Disable-AI-compose-button-by-default.patch",
     "tdesktop/cur/*-Annoyances-Unshare-phone-number-by-default.patch",
     "tdesktop/cur/*-Annoyances-Send-large-photos-by-default.patch",
+    "tdesktop/cur/*-Annoyances-Disable-AI-IV-summaries.patch",
     "tdesktop/cur/*-Feature-tg-nya-handler.patch",
     "tdesktop/cur/*-Feature-Immediate-restart.patch",
     "tdesktop/cur/*-Feature-Opt-Control-calls-with-MPRIS.patch",
