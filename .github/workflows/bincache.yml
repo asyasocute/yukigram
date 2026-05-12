@@ -139,6 +139,12 @@ jobs:
         run: |
           sed -i s/io.github.yukigram/io.github.yukigram.devel/ yukigram/flatpak/io.github.yukigram.yml
 
+      - name: Setup GPG
+        id: gpg
+        uses: crazy-max/ghaction-import-gpg@v7
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+
       - name: Build
         run: |
           set -exuo pipefail
@@ -149,6 +155,7 @@ jobs:
             --force-clean \
             --repo=repo \
             --arch=${{ matrix.arch }} \
+            --gpg-sign=${{ steps.gpg.outputs.fingerprint }} \
             build_dir \
             io.github.yukigram.yml
           popd
@@ -162,6 +169,7 @@ jobs:
           Url=https://yukigram.github.io/yukigram
           Homepage=https://t.me/yukigram
           Icon=https://raw.githubusercontent.com/flatpak/flatpak/main/flatpak.png
+          GPGKey=$(gpg2 --armor --export ${{ steps.gpg.outputs.fingerprint }} | sed -E '/-----|^=/d' | tr -d '\n')
           EOF
 
       - name: Upload artifact

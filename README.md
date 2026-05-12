@@ -53,8 +53,8 @@ instead of plain binaries.
 ### with flatpak
 
 ```shell
-flatpak remote-add --if-not-exists yukigram https://yukigram.github.io/yukigram/index.flatpakrepo
-sudo flatpak install io.github.yukigram
+flatpak remote-add --user --if-not-exists yukigram https://yukigram.github.io/yukigram/index.flatpakrepo
+flatpak install --user io.github.yukigram
 ```
 
 ### with nix
