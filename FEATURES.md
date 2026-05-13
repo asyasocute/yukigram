@@ -48,6 +48,8 @@ use `1.` as list marker to make diffs shorter in case of drops or reorders
 1. (Feature) Allow opening group from peer info
 1. (Feature) Show mutual contacts
 1. (Feature) Show media DC
+1. (Feature) Show more details in Active Sessions list
+    (API ID, is unofficial client, session login date)
 1. (UI, optional) Disable animated emoji (animoji)
 1. (UI, optional) Move post comments button to the right (more compact)
 1. (UI, optional) Single-column mobile-like layout
