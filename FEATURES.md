@@ -82,6 +82,8 @@ use `1.` as list marker to make diffs shorter in case of drops or reorders
     (from `emoji` font as defined by fontconfig)
     instead of bundled emoji packs
 1. (UI, optional) Custom monospace font
+1. (UI, optional) Hide popular stickers in suggested stickers
+    (suggest only from installed packs)
 
 Some patches originate from [64Gram], [Forkgram] and [Kotatogram].
 

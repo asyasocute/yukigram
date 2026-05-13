@@ -57,6 +57,7 @@ path = [
     "tdesktop/cur/*-UI-Opt-Hide-message-tail.patch",
     "tdesktop/cur/*-UI-Opt-System-emoji.patch",
     "tdesktop/cur/*-UI-Opt-Custom-monospace-font.patch",
+    "tdesktop/cur/*-UI-Opt-Hide-popular-stickers-in-suggested.patch",
 ]
 SPDX-License-Identifier = "GPL-3.0-only WITH LicenseRef-sqlitestudio-OpenSSL-exception"
 SPDX-FileCopyrightText = "Yukigram contributors <https://github.com/yukigram/yukigram>"
