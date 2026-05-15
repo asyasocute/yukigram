@@ -235,8 +235,7 @@ Be aware that this command discards all uncommitted changes.
     and then push corresponding tag
 4. (post-update only)
     once nixpak and flatpak builds are somewhat tested,
-    push `release` branch,
-    and then post release announcement
+    post release announcement
     in [Yukigram channel]
 
 [Yukigram channel]: https://t.me/yukigram
