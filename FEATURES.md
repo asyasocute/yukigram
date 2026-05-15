@@ -61,31 +61,38 @@ but these are more or less The Features,
 i.e. they add shortcuts
 or something that could not have been done before.
 
+### Minor tweaks
 - tg://nya link support
 - Immediate restart button
-- :zap: :gear: Control calls with MPRIS
-    (play/pause/play-pause: accept, next/prev/stop: decline/hangup)
 - Allow more than 3/6 accounts
-- tg://openmessage and tg://user links support
-- Show sticker/emoji pack owner
-- Shortcuts for forward (Alt+F), copy (Alt+C) and copy media only (Alt+Shift+C)
-- Show channel/group member join date
 - Clickable links in user bio
 - :zap: Hide "similar channels" section on channel join message by default
     (it can still be toggled by clicking on join message itself)
-- Hide "Join group" bottom button
-    when it is possible to send messages without joining
-    (e.g. in linked discussion groups)
-- :zap: Always show edit timer
-- :star: Allow opening group from peer info
-- Show mutual contacts
-- Show media DC
-- :zap: Show more details in Active Sessions list
-    (API ID, is unofficial client, session login date)
 - :zap: Additional emoji aliases
     (`:docker:` -> :whale:,
     `:podman:` -> :whale2:,
     `:bottom:` -> :pleading_face:)
+
+### Additional information
+- tg://openmessage and tg://user links support
+- Show sticker/emoji pack owner
+- Show channel/group member join date
+- :zap: Always show edit timer
+- Show mutual contacts
+- Show media DC
+- :zap: Show more details in Active Sessions list
+    (API ID, is unofficial client, session login date)
+
+### Shortcuts
+- Shortcuts for forward (Alt+F), copy (Alt+C) and copy media only (Alt+Shift+C)
+- :star: Allow opening group from peer info
+- Hide "Join group" bottom button
+    when it is possible to send messages without joining
+    (e.g. in linked discussion groups)
+
+### Major
+- :zap: :gear: Control calls with MPRIS
+    (play/pause/play-pause: accept, next/prev/stop: decline/hangup)
 
 ## User interface
 
