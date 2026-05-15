@@ -25,7 +25,7 @@ on:
         description: 'Disable postmarketOS build'
         type: boolean
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -472,3 +472,23 @@ jobs:
 
       - name: Deploy GitHub Pages site
         uses: actions/deploy-pages@v5
+
+  release-branch:
+    name: Update release branch
+    needs: [website]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clone yukigram
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Update branch
+        run: |
+          set -exuo pipefail
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git switch release
+          git reset --hard ${{ github.ref_name }}
+          git push --force
