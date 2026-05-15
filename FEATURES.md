@@ -25,9 +25,6 @@ without them.
 
 ## Fixes of various bugs
 
-These patches have category `Fix`
-and generally are fixes for broken behaviour of various kinds.
-
 - Disable D-Bus activation
     (unbreak `.desktop` launching under non-GNOME)
 - Allow using symbolic (monochrome) tray icon from icon theme
@@ -35,6 +32,8 @@ and generally are fixes for broken behaviour of various kinds.
 - Support `$XDG_DATA_HOME/Yukigram` as a fallback data directory for Yukigram
     (current one is `$XDG_DATA_HOME/io.github.yukigram`,
     or with `.devel` appended for development builds)
+
+These are placed under `(Fix)` category.
 
 ## Annoyances
 
@@ -54,12 +53,16 @@ This is what I mean by "minus the bullshit"
 
 [OpenStreetMap]: https://openstreetmap.org
 
+These are placed under `(Annoyances)` category.
+
 ## Features
 
 I know this list is already called "features",
 but these are more or less The Features,
 i.e. they add shortcuts
 or something that could not have been done before.
+
+These are placed under `(Features)` category.
 
 ### Minor tweaks
 - tg://nya link support
@@ -99,6 +102,8 @@ or something that could not have been done before.
 A catch-all group for everything.
 Most of these are opinionated and optional,
 and Telegram Desktop defaults are keeped wherever possible.
+
+These are placed under `(UI)` category.
 
 ### Interface
 - :star: :gear: Single-column mobile-like layout
