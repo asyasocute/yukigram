@@ -24,6 +24,9 @@ on:
       disable_pmos:
         description: 'Disable postmarketOS build'
         type: boolean
+      prerelease:
+        description: 'Mark as pre-release'
+        type: boolean
 permissions:
   contents: write
   pages: write
@@ -492,3 +495,48 @@ jobs:
           git switch release
           git reset --hard ${{ github.ref_name }}
           git push --force
+
+  release:
+    name: Release artifacts
+    if: github.ref_type == 'tag'
+    needs: [binary, flatpak, postmarketos, nixos]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v8
+
+      - name: Fix binary permissions
+        run: |
+          set -exuo pipefail
+
+          for d in binary-x86_64; do
+            pushd $d
+              chmod +x bin/yukigram
+            popd
+          done
+
+      - name: Extract postmarketOS apk files
+        run: |
+          set -exuo pipefail
+
+          for arch in x86_64 aarch64 armv7; do
+            p=postmarketos-$arch/packages/edge/$arch/
+            cp $p/$(< $p/yukigram.apk.link) yukigram-$arch.apk
+          done
+
+      - name: Pack artifacts
+        run: |
+          set -exuo pipefail
+          set -o dotglob # to pack hidden top-level files
+          for a in nixos-{x86_64,aarch64} {binary,flatpak}-x86_64 postmarketos-{x86_64,aarch64,armv7}; do
+            pushd $a
+              tar czf ../$a.tar.gz *
+            popd
+          done
+
+      - name: Publish
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: "*.tar.gz,*.apk"
+          prerelease: ${{ inputs.prerelease }}
