@@ -128,6 +128,7 @@ These are placed under `(UI)` category.
 - :star: :gear: Hide per-chat wallpaper and use wallpaper from theme instead
 - :zap: Channel statistics button in kebab menu
     near quick Recent Actions button
+- Go to first message button
 
 ### Messages
 - :gear: Disable animated emoji (animoji)
