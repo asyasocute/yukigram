@@ -7,9 +7,10 @@
 telegram-desktop.overrideAttrs (final: prev: {
   pname = "yukigram";
   unwrapped = prev.unwrapped.overrideAttrs (final: prev: {
-    name = "yukigram-unwrapped";
-    version = "6.8.2";
+    pname = "yukigram-unwrapped";
+    version = "6.8.2.2";
     src = prev.src.overrideAttrs {
+      rev = "v6.8.2";
       hash = "sha256-1zKAywh6EXGDi5t7CKQRWADRKX0mFEMyeIoK4hrTFFQ=";
     };
     patches = let
