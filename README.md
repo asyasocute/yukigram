@@ -171,16 +171,6 @@ Download `yukigram-$ARCH.apk` from releases.
 Not really recommended unless for quick checks,
 as automatic updates are unsupported with bare `.apk` files.
 
-- [aarch64 (64-bit ARMv8)][apk-aarch64]
-- [armv7 (32-bit ARMv7)][apk-armv7]
-- [x86_64 (64-bit x86)][apk-x86_64]
-- [APKBUILD]
-
-[apk-aarch64]: https://yukigram.github.io/yukigram/packages/edge/aarch64/yukigram.apk
-[apk-armv7]: https://yukigram.github.io/yukigram/packages/edge/armv7/yukigram.apk
-[apk-x86_64]: https://yukigram.github.io/yukigram/packages/edge/x86_64/yukigram.apk
-[APKBUILD]: https://yukigram.github.io/yukigram/pmaports/yukigram/APKBUILD
-
 ### with other package manager
 
 #### from binaries
