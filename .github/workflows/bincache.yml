@@ -266,7 +266,7 @@ jobs:
           if git describe --exact-match HEAD; then
             # tagged version
             pkgver=$(git describe HEAD)
-            pkgver=${pkgver//-/_/} # semver suffixes
+            pkgver=${pkgver//-/_} # semver suffixes
             pkgrel=0
           else
             # git version
