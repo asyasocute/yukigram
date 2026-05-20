@@ -77,7 +77,6 @@ These are placed under `(Features)` category.
     `:bottom:` -> :pleading_face:)
 
 ### Additional information
-- tg://openmessage and tg://user links support
 - Show sticker/emoji pack owner
 - Show channel/group member join date
 - :zap: Always show edit timer
@@ -85,12 +84,6 @@ These are placed under `(Features)` category.
 - Show media DC
 - :zap: Show more details in Active Sessions list
     (API ID, is unofficial client, session login date)
-- Mention users by id
-    (When creating a new link,
-    e.g. with Ctrl+K on a selection,
-    supply `tg://user?id=<user-id>` link
-    or the bare id itself
-    to create a mention)
 
 ### Shortcuts
 - Shortcuts for forward (Alt+F), copy (Alt+C) and copy media only (Alt+Shift+C)
@@ -101,7 +94,15 @@ These are placed under `(Features)` category.
 
 ### Major
 - :zap: :gear: Control calls with MPRIS
-    (play/pause/play-pause: accept, next/prev/stop: decline/hangup)
+    (play/pause/play-pause: accept,
+    next/prev/stop: decline/hangup)
+- tg://openmessage and tg://user links support
+- Mention users by id
+    (When creating a new link,
+    e.g. with Ctrl+K on a selection,
+    supply `tg://user?id=<user-id>` link
+    or the bare id itself
+    to create a mention)
 
 ## User interface
 
