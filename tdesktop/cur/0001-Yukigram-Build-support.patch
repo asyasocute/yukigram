@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Yuki Sireneva <yuki.utk8g@gmail.com>
 Date: Thu, 16 Apr 2026 20:50:31 +0300
-Subject: [PATCH] Yukigram build support
+Subject: [PATCH] (Yukigram) Build support
 
 ---
  Telegram/build/docker/centos_env/install.sh |  5 +++++

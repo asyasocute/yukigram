@@ -15,10 +15,9 @@ printf "%s\n" tdesktop/cur/????-Category-*
 
 ## Structural patches
 
-These patches have no category attached to them,
-and other patches may not apply cleanly
+Other patches may not apply cleanly
 (or not apply at all)
-without them.
+without these.
 
 - Yukigram build support
 - Yukigram branding
@@ -27,6 +26,8 @@ without them.
 - Yukigram settings deeplinks
     (`tg://settings/yukigram/...`)
 - Mirror select Experimental settings to Yukigram settings page
+
+These are placed under `(Yukigram)` category.
 
 ## Fixes of various bugs
 

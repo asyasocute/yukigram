@@ -7,12 +7,12 @@ version = 1
 [[annotations]]
 path = [
     "tdesktop/cur/",
-    "tdesktop/cur/*-Yukigram-build-support.patch",
-    "tdesktop/cur/*-Yukigram-branding.patch",
-    "tdesktop/cur/*-Yukigram-options-framework.patch",
-    "tdesktop/cur/*-Yukigram-settings.patch",
-    "tdesktop/cur/*-Yukigram-settings-deep-links.patch",
-    "tdesktop/cur/*-Mirror-select-Experimental-settings.patch",
+    "tdesktop/cur/*-Yukigram-Build-support.patch",
+    "tdesktop/cur/*-Yukigram-Branding.patch",
+    "tdesktop/cur/*-Yukigram-Options-framework.patch",
+    "tdesktop/cur/*-Yukigram-Settings.patch",
+    "tdesktop/cur/*-Yukigram-Settings-deep-links.patch",
+    "tdesktop/cur/*-Yukigram-Experimental-settings-mirror.patch",
     "tdesktop/cur/*-Fix-Disable-dbus-activation.patch",
     "tdesktop/cur/*-Fix-Opt-Symbolic-tray-icon-from-icon-theme.patch",
     "tdesktop/cur/*-Fix-Support-xdg-data-Yukigram-as-compat-datadir.patch",

@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Yuki Sireneva <sylfn@disroot.org>
 Date: Mon, 27 Apr 2026 13:02:33 +0300
-Subject: [PATCH] Mirror select Experimental settings
+Subject: [PATCH] (Yukigram) Experimental settings mirror
 
 ---
  Telegram/CMakeLists.txt                       |  1 +
