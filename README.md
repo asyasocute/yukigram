@@ -207,6 +207,10 @@ Make a backup of your data!
 Downgrading versions is not supported.
 
 > [!IMPORTANT]
+> Pre-release versions prior to 6.8.3.2
+> had a fallback to these paths
+> and could corrupt production tdata.
+>
 > Versions prior to 6.7.8.1 are NOT devel-aware.
 > Running devel-oblivious development versions
 > *will* corrupt production version's tdata.

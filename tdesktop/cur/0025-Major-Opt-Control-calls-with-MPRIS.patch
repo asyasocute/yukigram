@@ -24,7 +24,7 @@ Co-Authored-By: Sonya Sireneva <sleirsgoevy@gmail.com>
  create mode 100644 Telegram/SourceFiles/yukigram/settings/mpris_call_hangup.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 3ba3a10971..4476488d2d 100644
+index 5554564f51..614910ff43 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
 @@ -1946,6 +1946,8 @@ PRIVATE
