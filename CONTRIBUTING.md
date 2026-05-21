@@ -141,8 +141,13 @@ e.g. from `tdesktop-$version-full` release archive.
 
 ```shell
 cd tdesktop-full
-cat ../yukigram/tdesktop/cur/*.patch | patch -p1
+for p in ../yukigram/tdesktop/cur/*.patch; do
+    printf '==== %s ====\n' "$p"
+    patch -p1 <"$p"
+done
 ```
+
+Batch-applying patches is broken.
 
 It is not recommended to use `patch` for development.
 

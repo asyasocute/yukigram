@@ -77,7 +77,10 @@ jobs:
         run: |
           set -exuo pipefail
           pushd yukigram-worktree
-          cat ../yukigram/tdesktop/cur/*.patch | patch -p1
+          for p in ../yukigram/tdesktop/cur/*.patch; do
+            printf '==== %s ====\n' "$p"
+            patch -p1 <"$p"
+          done
           popd
 
       - name: Use .devel appId
