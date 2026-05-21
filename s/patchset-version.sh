@@ -27,7 +27,7 @@ sed -i -E -f - Telegram/SourceFiles/boxes/about_box.cpp <<EOF
 /box->setTitle/s/: ".*"/: "$VERSION"/
 EOF
 git add Telegram/SourceFiles/boxes/about_box.cpp
-git commit --fixup 'HEAD^{/Yukigram) Version}'
+git commit --fixup 'HEAD^{/Yukigram) Version}' --allow-empty
 ../yukigram/s/rebase.sh
 ../yukigram/s/format-patch.sh
 popd

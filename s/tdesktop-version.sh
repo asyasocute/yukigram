@@ -80,7 +80,7 @@ sed -i -E -f - run-in-docker.sh <<EOF
 /centos_env/s/sha256:.* /$HASH /
 EOF
 git add run-in-docker.sh
-git commit --fixup 'HEAD^{/Yukigram) Build support}'
+git commit --fixup 'HEAD^{/Yukigram) Build support}' --allow-empty
 ../yukigram/s/rebase.sh
 
 # Clean up patches directory in case patches were dropped
