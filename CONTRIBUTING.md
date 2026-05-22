@@ -63,6 +63,14 @@ Nothing will be pushed.
 This expects both `yukigram` and `tdesktop`
 to be in a relatively clean state.
 
+Do not create a normal release
+without adding a pre-release immediately before.
+This allows double-checking
+the correctness of release
+before publishing the release itself
+and "maining" beta versions
+instead of "dual-wielding" both beta and stable.
+
 #### `tdesktop-version.sh`
 
 Rebases the patchset to another tdesktop version.
