@@ -1,0 +1,59 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Sun, 24 May 2026 20:42:59 +0300
+Subject: [PATCH] (Info) More info in PeerListBox
+
+---
+ Telegram/SourceFiles/boxes/peer_list_box.cpp | 24 ++++++++++++++------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
+
+diff --git a/Telegram/SourceFiles/boxes/peer_list_box.cpp b/Telegram/SourceFiles/boxes/peer_list_box.cpp
+index 046c2bfb2b..7a68304b6f 100644
+--- a/Telegram/SourceFiles/boxes/peer_list_box.cpp
++++ b/Telegram/SourceFiles/boxes/peer_list_box.cpp
+@@ -27,6 +27,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "lang/lang_keys.h"
+ #include "storage/file_download.h"
+ #include "data/data_peer_values.h"
++#include "data/data_channel.h"
+ #include "data/data_chat.h"
+ #include "data/data_session.h"
+ #include "data/data_changes.h"
+@@ -644,18 +645,27 @@ void PeerListRow::refreshStatus() {
+ 			_statusValidTill = crl::now()
+ 				+ Data::OnlineChangeTimeout(user, time);
+ 		}
+-	} else if (auto chat = peer()->asChat()) {
++	} else if (const auto chat = peer()->asChat()) {
+ 		if (!chat->amIn()) {
+ 			setStatusText(tr::lng_chat_status_unaccessible(tr::now));
+ 		} else if (chat->count > 0) {
+-			setStatusText(tr::lng_chat_status_members(tr::now, lt_count_decimal, chat->count));
++			setStatusText("legacy group, " + tr::lng_chat_status_members(tr::now, lt_count_decimal, chat->count));
+ 		} else {
+-			setStatusText(tr::lng_group_status(tr::now));
++			setStatusText("legacy group");
+ 		}
+-	} else if (peer()->isMegagroup()) {
+-		setStatusText(tr::lng_group_status(tr::now));
+-	} else if (peer()->isChannel()) {
+-		setStatusText(tr::lng_channel_status(tr::now));
++	} else if (const auto channel = peer()->asChannel(); channel->membersCountKnown()) {
++		setStatusText(
++			( channel->isMonoforum() ? "monoforum"
++			: channel->isForum() ? "forum"
++			: channel->isMegagroup() ? tr::lng_group_status(tr::now)
++			: channel->isBroadcast() ? tr::lng_channel_status(tr::now)
++			: "channel-like" ) +
++
++			( !channel->membersCountKnown() ? "" : ", " +
++			( channel->isBroadcast() ? tr::lng_chat_status_subscribers : tr::lng_chat_status_members
++			) (tr::now, lt_count_decimal, channel->membersCount())
++			)
++		);
+ 	}
+ }
+ 
+-- 
+2.53.0
+

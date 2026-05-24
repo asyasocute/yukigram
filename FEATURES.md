@@ -94,6 +94,8 @@ These are placed under `(Minor)` category.
 - :zap: Show more details in Active Sessions list
     (API ID, is unofficial client, session login date)
 - :gear: Show inferred peer DC
+- :star: Chat types in some in peer list boxes
+- :star: More info in folder chat list
 
 These are placed under `(Info)` category.
 

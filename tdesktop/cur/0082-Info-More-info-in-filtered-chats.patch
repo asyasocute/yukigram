@@ -1,0 +1,160 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Sun, 24 May 2026 22:08:57 +0300
+Subject: [PATCH] (Info) More info in filtered chats
+
+This patch is adapted from Kotatogram.
+Original author: RadRussianRus <radrussianrus@gmail.com>
+---
+ .../filters/edit_filter_chats_preview.cpp     | 66 +++++++++++++++++--
+ Telegram/SourceFiles/window/window.style      |  8 +++
+ Telegram/lib_ui/ui/widgets/widgets.style      |  2 +
+ 3 files changed, 70 insertions(+), 6 deletions(-)
+
+diff --git a/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp b/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp
+index 193866516a..2486800fcb 100644
+--- a/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp
++++ b/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp
+@@ -9,6 +9,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ 
+ #include "boxes/filters/edit_filter_chats_list.h"
+ #include "data/data_peer.h"
++#include "data/data_user.h"
++#include "data/data_chat.h"
++#include "data/data_channel.h"
+ #include "history/history.h"
+ #include "lang/lang_keys.h"
+ #include "ui/text/text_options.h"
+@@ -104,6 +107,8 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+ 	const auto nameLeft = st.namePosition.x();
+ 	p.setFont(st::windowFilterSmallItem.nameStyle.font);
+ 	const auto nameTop = st.namePosition.y();
++	const auto chatNameTop = st.chatNamePosition.y();
++	const auto chatDescTop = st.chatDescPosition.y();
+ 	for (const auto &[flag, button] : _removeFlag) {
+ 		PaintFilterChatsTypeIcon(
+ 			p,
+@@ -121,6 +126,7 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+ 			FilterChatsTypeName(flag));
+ 		top += st.height;
+ 	}
++	QStringList statuses;
+ 	for (auto &[history, userpic, name, button] : _removePeer) {
+ 		const auto peer = history->peer;
+ 		const auto savedMessages = peer->isSelf();
+@@ -168,6 +174,48 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+ 				top + iconTop,
+ 				width(),
+ 				st.photoSize);
++			if (const auto user = history->peer->asUser()) {
++				const auto flags = user->flags();
++
++				if (user->isInaccessible()) {
++					statuses << tr::lng_chat_status_unaccessible(tr::now);
++				} else {
++					if (user->isSupport()) {
++						statuses << tr::lng_status_support(tr::now);
++					}
++					if (user->isBot()) {
++						statuses << tr::lng_status_bot(tr::now);
++					} else if (flags & UserDataFlag::MutualContact) {
++						statuses << "mutual contact";
++					} else if (flags & UserDataFlag::Contact) {
++						statuses << "contact";
++					} else {
++						statuses << "non-contact";
++					}
++				}
++			} else if (const auto chat = history->peer->asChat()) {
++				statuses << "legacy group";
++				if (!chat->amIn()) {
++					statuses << "not a member";
++				} else if (chat->amCreator()) {
++					statuses << "owner";
++				} else if (chat->hasAdminRights()) {
++					statuses << "admin";
++				}
++			} else if (const auto channel = history->peer->asChannel()) {
++				statuses << (channel->isMonoforum() ? "monoforum"
++					: channel->isForum() ? "forum"
++					: channel->isMegagroup() ? tr::lng_group_status(tr::now)
++					: channel->isBroadcast() ? tr::lng_channel_status(tr::now)
++					: "channel-like");
++				if (!channel->amIn()) {
++					statuses << (channel->isBroadcast() ? "not subscribed" : "not a member");
++				} else if (channel->amCreator()) {
++					statuses << "owner";
++				} else if (channel->hasAdminRights()) {
++					statuses << "admin";
++				}
++			}
+ 			p.setPen(st::contactsNameFg);
+ 			if (name.isEmpty()) {
+ 				name.setText(
+@@ -175,12 +223,18 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+ 					history->peer->name(),
+ 					Ui::NameTextOptions());
+ 			}
+-			name.drawLeftElided(
+-				p,
+-				nameLeft,
+-				top + nameTop,
+-				button->x() - nameLeft,
+-				width());
++			if (statuses.empty()) {
++				name.drawLeftElided(p, nameLeft, top + nameTop, button->x() - nameLeft, width());
++			} else {
++				auto nameStr = Ui::Text::String{ st::windowFilterChatNameStyle, name.toString(), Ui::NameTextOptions() };
++				nameStr.drawLeftElided(p, nameLeft, top + chatNameTop, button->x() - nameLeft, width());
++
++				p.setPen(st::windowSubTextFg);
++				p.setFont(st::windowFilterChatDescStyle.font);
++				p.drawTextLeft(nameLeft, top + chatDescTop, width(), statuses.join(", "));
++
++				statuses.clear();
++			}
+ 		}
+ 		top += st.height;
+ 	}
+diff --git a/Telegram/SourceFiles/window/window.style b/Telegram/SourceFiles/window/window.style
+index c4806e1b06..e9baf442f7 100644
+--- a/Telegram/SourceFiles/window/window.style
++++ b/Telegram/SourceFiles/window/window.style
+@@ -284,6 +284,8 @@ windowFilterSmallItem: PeerListItem(defaultPeerListItem) {
+ 	height: 44px;
+ 	photoPosition: point(13px, 5px);
+ 	namePosition: point(59px, 14px);
++	chatNamePosition: point(62px, 5px);
++	chatDescPosition: point(62px, 23px);
+ 	photoSize: 34px;
+ 	checkbox: RoundImageCheckbox(defaultPeerListCheckbox) {
+ 		imageRadius: 17px;
+@@ -326,6 +328,12 @@ windowFilterChatsSectionSubtitle: FlatLabel(defaultFlatLabel) {
+ 	textFg: searchedBarFg;
+ }
+ windowFilterChatsSectionSubtitlePadding: margins(22px, 5px, 22px, 5px);
++windowFilterChatNameStyle: TextStyle(defaultTextStyle) {
++	font: font(11px semibold);
++}
++windowFilterChatDescStyle: TextStyle(defaultTextStyle) {
++	font: font(11px);
++}
+ 
+ windowArchiveToast: Toast(defaultToast) {
+ 	minWidth: boxWideWidth;
+diff --git a/Telegram/lib_ui/ui/widgets/widgets.style b/Telegram/lib_ui/ui/widgets/widgets.style
+index edf17a858d..ed8a8bb2e8 100644
+--- a/Telegram/lib_ui/ui/widgets/widgets.style
++++ b/Telegram/lib_ui/ui/widgets/widgets.style
+@@ -1377,6 +1377,8 @@ PeerListItem {
+ 	height: pixels;
+ 	photoPosition: point;
+ 	namePosition: point;
++	chatNamePosition: point;
++	chatDescPosition: point;
+ 	nameStyle: TextStyle;
+ 	nameFg: color;
+ 	nameFgChecked: color;
+-- 
+2.53.0
+
