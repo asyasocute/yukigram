@@ -67,6 +67,7 @@ path = [
     "tdesktop/cur/*-Style-Revert-Added-pill-design-to-top-bar-suggestion.patch",
     "tdesktop/cur/*-Fix-Appstream-changelog.patch",
     "tdesktop/cur/*-Yukigram-Changelog.patch",
+    "tdesktop/cur/*-Major-Split-Stickers-and-GIFs-chat-permission-toggle.patch",
 ]
 SPDX-License-Identifier = "GPL-3.0-or-later WITH LicenseRef-sqlitestudio-OpenSSL-exception"
 SPDX-FileCopyrightText = "Yukigram contributors <https://github.com/yukigram/yukigram>"

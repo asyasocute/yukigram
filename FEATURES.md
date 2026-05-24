@@ -122,6 +122,7 @@ These are placed under `(Shortcut)` category.
     supply `tg://user?id=<user-id>` link
     or the bare id itself
     to create a mention)
+- Split "Stickers and GIFs" chat permission toggle
 
 These are placed under `(Major)` category.
 
