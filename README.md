@@ -171,7 +171,17 @@ Download `yukigram-$ARCH.apk` from releases.
 Not really recommended unless for quick checks,
 as automatic updates are unsupported with bare `.apk` files.
 
-### with other package manager
+### distro packages
+
+Unofficial packages that seem correct and maintained:
+
+- AUR package [`yukigram-desktop`][aur-yukigram-desktop] (from source, releases)
+- AUR package [`yukigram-bin`][aur-yukigram-bin] (binary, releases, x86_64-only)
+
+[aur-yukigram-desktop]: https://aur.archlinux.org/packages/yukigram-desktop
+[aur-yukigram-bin]: https://aur.archlinux.org/packages/yukigram-bin
+
+### manual installation
 
 #### from binaries
 
@@ -193,13 +203,7 @@ is by using `patch`.
 See [#applying-with-patch]
 in contributing notes for details.
 
-Unofficial packages that seem correct
-and may be used instead of a manual from-source build:
-
-- AUR package [`yukigram-desktop`][aur-yukigram]
-
 [#applying-with-patch]: CONTRIBUTING.md#applying-with-patch
-[aur-yukigram]: https://aur.archlinux.org/packages/yukigram-desktop
 
 ## Previous versions
 
