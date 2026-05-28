@@ -16,10 +16,10 @@ Original author: RadRussianRus <radrussianrus@gmail.com>
  create mode 100644 Telegram/SourceFiles/yukigram/settings/history_peer_type_icons.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 377e281b67..ee266e5de9 100644
+index df4eb26343..4e6b991b69 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1953,6 +1953,8 @@ PRIVATE
+@@ -1955,6 +1955,8 @@ PRIVATE
      yukigram/settings/disable_animoji.h
      yukigram/settings/force_mobile_layout.cpp
      yukigram/settings/force_mobile_layout.h

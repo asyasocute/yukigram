@@ -1,0 +1,351 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Thu, 28 May 2026 18:14:43 +0000
+Subject: [PATCH] (Yukigram) Translation framework
+
+This patch is adapted from Kotatogram.
+Original author: RadRussianRus <radrussianrus@gmail.com>
+---
+ Telegram/CMakeLists.txt                      |   2 +
+ Telegram/Resources/langs/yukigram/en.json    |   3 +
+ Telegram/Resources/qrc/telegram/yukigram.qrc |   3 +
+ Telegram/SourceFiles/yukigram/lang.cpp       | 168 +++++++++++++++++++
+ Telegram/SourceFiles/yukigram/lang.h         | 115 +++++++++++++
+ 5 files changed, 291 insertions(+)
+ create mode 100644 Telegram/Resources/langs/yukigram/en.json
+ create mode 100644 Telegram/SourceFiles/yukigram/lang.cpp
+ create mode 100644 Telegram/SourceFiles/yukigram/lang.h
+
+diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
+index 9eecfac1ce..00f224b188 100644
+--- a/Telegram/CMakeLists.txt
++++ b/Telegram/CMakeLists.txt
+@@ -1941,6 +1941,8 @@ PRIVATE
+     window/themes/window_themes_generate_name.cpp
+     window/themes/window_themes_generate_name.h
+     yukigram/appid.h
++    yukigram/lang.cpp
++    yukigram/lang.h
+     apiwrap.cpp
+     apiwrap.h
+     config.h
+diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
+new file mode 100644
+index 0000000000..a54f5182fa
+--- /dev/null
++++ b/Telegram/Resources/langs/yukigram/en.json
+@@ -0,0 +1,3 @@
++{
++    "_to_keep_the_diffs_nice": "Please make sure this string is kept at the bottom"
++}
+\ No newline at end of file
+diff --git a/Telegram/Resources/qrc/telegram/yukigram.qrc b/Telegram/Resources/qrc/telegram/yukigram.qrc
+index 9efde8c043..769124b26c 100644
+--- a/Telegram/Resources/qrc/telegram/yukigram.qrc
++++ b/Telegram/Resources/qrc/telegram/yukigram.qrc
+@@ -1,4 +1,7 @@
+ <RCC>
++  <qresource prefix="/yukigram_lang">
++    <file alias="en.json">../../Telegram/Resources/langs/yukigram/en.json</file>
++  </qresource>
+   <qresource prefix="/misc">
+     <file alias="io.github.yukigram.desktop">@CMAKE_CURRENT_BINARY_DIR@/@YUKIGRAM_APP_ID@.desktop</file>
+   </qresource>
+diff --git a/Telegram/SourceFiles/yukigram/lang.cpp b/Telegram/SourceFiles/yukigram/lang.cpp
+new file mode 100644
+index 0000000000..ca13575f00
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/lang.cpp
+@@ -0,0 +1,168 @@
++/*
++This file is part of Kotatogram Desktop,
++the unofficial app based on Telegram Desktop.
++
++For license and copyright information please follow this link:
++https://github.com/kotatogram/kotatogram-desktop/blob/dev/LEGAL
++*/
++#include "yukigram/lang.h"
++
++#include "base/parse_helper.h"
++#include "lang/lang_instance.h"
++#include "lang/lang_tag.h"
++#include "ui/text/text_utilities.h"
++
++#include <QtCore/QJsonDocument>
++#include <QtCore/QJsonObject>
++#include <QtCore/QJsonArray>
++#include <unordered_map>
++
++namespace Yukigram {
++namespace Lang {
++namespace {
++
++const auto kDefaultLanguage = u"en"_q;
++const std::vector<QString> kPostfixes = { "#zero", "#one", "#two", "#few", "#many", "#other" };
++
++QString BaseLangCode;
++QString LangCode;
++
++std::unordered_map<QString, QString> Values;
++
++rpl::event_stream<> LangChanges;
++
++void ParseLanguageData(const QString &langCode) {
++	const auto filename = u":/yukigram_lang/%1.json"_q.arg(langCode);
++
++	QFile file(filename);
++	if (!file.exists()) {
++		return;
++	}
++	if (!file.open(QIODevice::ReadOnly)) {
++		LOG(("Yukigram::Lang Info: file %1 could not be read.").arg(filename));
++		return;
++	}
++	auto error = QJsonParseError{ 0, QJsonParseError::NoError };
++	const auto document = QJsonDocument::fromJson(base::parse::stripComments(file.readAll()), &error);
++	file.close();
++
++	if (error.error != QJsonParseError::NoError) {
++		LOG(("Yukigram::Lang Info: file %1 has failed to parse. Error: %2").arg(filename, error.errorString()));
++		return;
++	} else if (!document.isObject()) {
++		LOG(("Yukigram::Lang Info: file %1 has failed to parse. Error: object expected").arg(filename));
++		return;
++	}
++
++	for (const auto [key, value] : document.object().asKeyValueRange()) {
++		if (key.front() == QChar('_')) {
++			continue;
++		}
++		if (!value.isString()) {
++			LOG(("Yukigram::Lang Info: wrong value for key %1 in file %2, string expected").arg(key, filename));
++		}
++		Values[key.toString()] = value.toString();
++	}
++}
++
++} // namespace
++
++QString TransformLangCode(QString &&langCode) {
++	if (langCode.endsWith("-raw")) {
++		return langCode.chopped(4);
++	}
++	return langCode;
++}
++
++void Reload() {
++	BaseLangCode = TransformLangCode(::Lang::GetInstance().baseId());
++
++	LangCode = TransformLangCode(::Lang::GetInstance().id());
++	if (LangCode.isEmpty()) {
++		LangCode = BaseLangCode;
++	}
++
++	Values.clear();
++
++	if (BaseLangCode != kDefaultLanguage) {
++		ParseLanguageData(kDefaultLanguage);
++	}
++
++	ParseLanguageData(BaseLangCode);
++
++	if (LangCode != BaseLangCode) {
++		ParseLanguageData(LangCode);
++	}
++
++	LangChanges.fire({});
++}
++
++TextWithEntities TranslateWithEntities(const QString &key, EntVar var1, EntVar var2, EntVar var3, EntVar var4) {
++	if (!Values.contains(key)) {
++		return Ui::Text::Italic(key);
++	}
++	TextWithEntities phrase = { Values[key] };
++
++	for (const auto &v : { var1, var2, var3, var4 }) {
++		if (!v.key.isEmpty()) {
++			auto skipNext = false;
++			const auto key = u"{%1}"_q.arg(v.key);
++			const auto neededLength = phrase.text.length() - key.length();
++			for (auto i = 0; i <= neededLength; i++) {
++				if (skipNext) {
++					skipNext = false;
++					continue;
++				}
++
++				if (phrase.text.at(i) == QChar('\\')) {
++					skipNext = true;
++				} else if (phrase.text.at(i) == QChar('{') && phrase.text.mid(i, key.length()) == key) {
++					phrase.text.replace(i, key.length(), v.value.text);
++					const auto endOld = i + key.length();
++					const auto endNew = i + v.value.text.length();
++
++					// Shift existing entities
++					if (endNew > endOld) {
++						const auto diff = endNew - endOld;
++						for (auto &entity : phrase.entities) {
++							if (entity.offset() > endOld) {
++								entity.shiftRight(diff);
++							} else if (entity.offset() <= i && entity.offset() + entity.length() >= endOld) {
++								entity.shrinkFromRight(-diff);
++							}
++						}
++					} else if (endNew < endOld) {
++						const auto diff = endOld - endNew;
++						for (auto &entity : phrase.entities) {
++							if (entity.offset() > endNew) {
++								entity.shiftLeft(diff);
++							} else if (entity.offset() <= i && entity.offset() + entity.length() >= endNew) {
++								entity.shrinkFromRight(diff);
++							}
++						}
++					}
++
++					// Add new entities
++					for (auto entity : v.value.entities) {
++						phrase.entities.append(EntityInText(entity.type(), entity.offset() + i, entity.length(), entity.data()));
++					}
++					break;
++				}
++			}
++		}
++	}
++
++	return phrase;
++}
++
++TextWithEntities TranslateWithEntities(const QString &key, float64 value, EntVar var1, EntVar var2, EntVar var3, EntVar var4) {
++	const auto shift = ::Lang::Plural(0, value, lt_count).keyShift;
++	return TranslateWithEntities(key + kPostfixes.at(shift), var1, var2, var3, var4);
++}
++
++rpl::producer<> Events() {
++	return LangChanges.events();
++}
++
++} // namespace Lang
++} // namespace Yukigram
+diff --git a/Telegram/SourceFiles/yukigram/lang.h b/Telegram/SourceFiles/yukigram/lang.h
+new file mode 100644
+index 0000000000..6257999dec
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/lang.h
+@@ -0,0 +1,115 @@
++/*
++This file is part of Kotatogram Desktop,
++the unofficial app based on Telegram Desktop.
++
++For license and copyright information please follow this link:
++https://github.com/kotatogram/kotatogram-desktop/blob/dev/LEGAL
++*/
++#pragma once
++
++namespace Yukigram {
++namespace Lang {
++
++struct Var {
++	QString key;
++	QString value;
++};
++
++struct EntVar {
++	EntVar() = default;
++	EntVar(const Var &other) : key(other.key), value(other.value) {}
++	QString key;
++	TextWithEntities value;
++};
++
++void Reload();
++
++TextWithEntities TranslateWithEntities(const QString &key,
++	EntVar var1 = EntVar{},
++	EntVar var2 = EntVar{},
++	EntVar var3 = EntVar{},
++	EntVar var4 = EntVar{});
++TextWithEntities TranslateWithEntities(const QString &key, float64 value,
++	EntVar var1 = EntVar{},
++	EntVar var2 = EntVar{},
++	EntVar var3 = EntVar{},
++	EntVar var4 = EntVar{});
++
++rpl::producer<> Events();
++
++} // namespace Lang
++} // namespace Yukigram
++
++// Shorthands
++
++inline TextWithEntities ktre(const QString &key,
++	Yukigram::Lang::EntVar var1 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var2 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var3 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var4 = Yukigram::Lang::EntVar{}) {
++	return Yukigram::Lang::TranslateWithEntities(key, var1, var2, var3, var4);
++}
++
++inline TextWithEntities ktre(const QString &key, float64 value,
++	Yukigram::Lang::EntVar var1 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var2 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var3 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var4 = Yukigram::Lang::EntVar{}) {
++	return Yukigram::Lang::TranslateWithEntities(key, value, var1, var2, var3, var4);
++}
++
++inline QString ktr(const QString &key,
++	Yukigram::Lang::Var var1 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var2 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var3 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var4 = Yukigram::Lang::Var{}) {
++	return ktre(key, var1, var2, var3, var4).text;
++}
++
++inline QString ktr(const QString &key, float64 value,
++	Yukigram::Lang::Var var1 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var2 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var3 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var4 = Yukigram::Lang::Var{}) {
++	return ktre(key, value, var1, var2, var3, var4).text;
++}
++
++inline rpl::producer<QString> rktr(const QString &key,
++	Yukigram::Lang::Var var1 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var2 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var3 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var4 = Yukigram::Lang::Var{}) {
++	return rpl::single(ktr(key, var1, var2, var3, var4)) | rpl::then(Yukigram::Lang::Events() | rpl::map([=]{
++		return ktr(key, var1, var2, var3, var4);
++	}));
++}
++
++inline rpl::producer<QString> rktr(const QString &key, float64 value,
++	Yukigram::Lang::Var var1 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var2 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var3 = Yukigram::Lang::Var{},
++	Yukigram::Lang::Var var4 = Yukigram::Lang::Var{}) {
++	return rpl::single(ktr(key, value, var1, var2, var3, var4)) | rpl::then(Yukigram::Lang::Events() | rpl::map([=]{
++		return ktr(key, value, var1, var2, var3, var4);
++	}));
++}
++
++inline rpl::producer<TextWithEntities> rktre(const QString &key,
++	Yukigram::Lang::EntVar var1 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var2 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var3 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var4 = Yukigram::Lang::EntVar{}) {
++	return rpl::single(ktre(key, var1, var2, var3, var4)) | rpl::then(Yukigram::Lang::Events() | rpl::map([=]{
++		return ktre(key, var1, var2, var3, var4);
++	}));
++}
++
++inline rpl::producer<TextWithEntities> rktre(const QString &key, float64 value,
++	Yukigram::Lang::EntVar var1 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var2 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var3 = Yukigram::Lang::EntVar{},
++	Yukigram::Lang::EntVar var4 = Yukigram::Lang::EntVar{}) {
++	return rpl::single(ktre(key, value, var1, var2, var3, var4)) | rpl::then(Yukigram::Lang::Events() | rpl::map([=]{
++		return ktre(key, value, var1, var2, var3, var4);
++	}));
++}
+-- 
+2.53.0
+

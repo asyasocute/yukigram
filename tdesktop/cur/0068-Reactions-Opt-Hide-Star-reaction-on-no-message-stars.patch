@@ -13,10 +13,10 @@ Subject: [PATCH] (Reactions)(Opt) Hide Star reaction on no message stars
  create mode 100644 Telegram/SourceFiles/yukigram/settings/star_hide_empty.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index fa516ba62d..bf59cbd677 100644
+index 991165113a..6ef33d8a1c 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1976,6 +1976,8 @@ PRIVATE
+@@ -1978,6 +1978,8 @@ PRIVATE
      yukigram/settings/right_action_comments.h
      yukigram/settings/show_message_id.cpp
      yukigram/settings/show_message_id.h

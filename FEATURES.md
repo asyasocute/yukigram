@@ -25,6 +25,7 @@ without these.
 - Artwork
 - Version
 - Keywords for `.desktop` file
+- Translations framework (from Kotatogram)
 - Options framework
 - Yukigram settings page
 - Deeplinks for Yukigram settings

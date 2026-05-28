@@ -13,10 +13,10 @@ Subject: [PATCH] (Chat)(Opt) Hide bottom button bar
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_bottom_bar.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index aad2f1b07f..725bdffb90 100644
+index 97a7a78eea..7cb6d565c5 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1957,6 +1957,8 @@ PRIVATE
+@@ -1959,6 +1959,8 @@ PRIVATE
      yukigram/settings/disable_up_edit.h
      yukigram/settings/force_mobile_layout.cpp
      yukigram/settings/force_mobile_layout.h

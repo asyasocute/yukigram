@@ -16,10 +16,10 @@ Original author: RadRussianRus <radrussianrus@gmail.com>
  create mode 100644 Telegram/SourceFiles/yukigram/settings/disable_up_edit.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index b3fcfc520e..aad2f1b07f 100644
+index a218ff173b..97a7a78eea 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1953,6 +1953,8 @@ PRIVATE
+@@ -1955,6 +1955,8 @@ PRIVATE
      yukigram/settings/compact_chat_list.h
      yukigram/settings/disable_animoji.cpp
      yukigram/settings/disable_animoji.h

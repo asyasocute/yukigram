@@ -18,13 +18,13 @@ Subject: [PATCH] (Yukigram) Options framework
  create mode 100644 Telegram/SourceFiles/yukigram/options_runtime.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 9eecfac1ce..b4cbbbe6de 100644
+index 00f224b188..035279a328 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1941,6 +1941,10 @@ PRIVATE
-     window/themes/window_themes_generate_name.cpp
-     window/themes/window_themes_generate_name.h
+@@ -1943,6 +1943,10 @@ PRIVATE
      yukigram/appid.h
+     yukigram/lang.cpp
+     yukigram/lang.h
 +    yukigram/options.cpp
 +    yukigram/options_database.h
 +    yukigram/options_runtime.h

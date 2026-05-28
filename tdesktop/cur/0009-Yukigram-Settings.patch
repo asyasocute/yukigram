@@ -8,14 +8,14 @@ Co-Authored-By: Lunya <241520024+lunya-miaou@users.noreply.github.com>
  Telegram/CMakeLists.txt                       |   2 +
  Telegram/Resources/langs/lang.strings         |   1 +
  .../settings/sections/settings_main.cpp       |   8 +
- .../settings/sections/settings_yukigram.cpp   | 152 ++++++++++++++++++
+ .../settings/sections/settings_yukigram.cpp   | 153 ++++++++++++++++++
  .../settings/sections/settings_yukigram.h     |   9 ++
- 5 files changed, 172 insertions(+)
+ 5 files changed, 173 insertions(+)
  create mode 100644 Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
  create mode 100644 Telegram/SourceFiles/settings/sections/settings_yukigram.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index b4cbbbe6de..c29bbf0504 100644
+index 035279a328..8d100b6fcc 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
 @@ -1741,6 +1741,8 @@ PRIVATE
@@ -67,10 +67,10 @@ index 3d4eda91da..59ce88648c 100644
  		.title = tr::lng_settings_language(),
 diff --git a/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp b/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
 new file mode 100644
-index 0000000000..3bbc6ce748
+index 0000000000..7ba6a26351
 --- /dev/null
 +++ b/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
-@@ -0,0 +1,152 @@
+@@ -0,0 +1,153 @@
 +#include "settings/sections/settings_yukigram.h"
 +#include "yukigram/options_database.h"
 +
@@ -79,6 +79,7 @@ index 0000000000..3bbc6ce748
 +#include "base/options.h"
 +#include "core/application.h"
 +#include "lang/lang_keys.h"
++#include "yukigram/lang.h"
 +#include "settings/settings_builder.h"
 +#include "settings/sections/settings_main.h"
 +#include "ui/boxes/confirm_box.h"
@@ -115,7 +116,7 @@ index 0000000000..3bbc6ce748
 +
 +	const auto button = builder.addButton({
 +		.id = QString("yukigram/%1").arg(key),
-+		.title = rpl::single(name),
++		.title = rktr(u"opt/%1/name"_q.arg(key)),
 +		.st = icon ? nullptr : &st::settingsButtonNoIcon,
 +		.icon = { icon },
 +		.toggled = rpl::single(v->current()),
@@ -142,10 +143,10 @@ index 0000000000..3bbc6ce748
 +		}
 +	}, button->lifetime());
 +
-+	const auto &description = qs_sv(d.description);
-+	if (!description.isEmpty()) {
++	const auto descKey = u"opt/%1/desc"_q.arg(key);
++	if (!ktr(descKey).isEmpty()) {
 +		builder.addSkip(st::settingsCheckboxesSkip);
-+		builder.addDividerText(rpl::single(description));
++		builder.addDividerText(rktr(descKey));
 +		builder.addSkip(st::settingsCheckboxesSkip);
 +	}
 +}
@@ -164,7 +165,7 @@ index 0000000000..3bbc6ce748
 +			}
 +			builder.addSubsectionTitle({
 +				.id = u"yukigram/%1"_q.arg(category),
-+				.title = rpl::single(qs_sv(name)),
++				.title = rktr(u"optgroup/%1"_q.arg(category)),
 +				.keywords = { u"yukigram"_q, qs_sv(category) },
 +			});
 +		}

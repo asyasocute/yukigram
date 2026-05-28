@@ -103,6 +103,7 @@ SPDX-FileCopyrightText = "Yukigram contributors, 64Gram contributors <https://gi
 
 [[annotations]]
 path = [
+    "tdesktop/cur/*-Yukigram-Translation-framework.patch",
     "tdesktop/cur/*-Info-Always-show-edit-timer.patch",
     "tdesktop/cur/*-Message-Opt-Peer-type-icon-in-history.patch",
     "tdesktop/cur/*-Interface-Video-controls-for-GIFs.patch",
