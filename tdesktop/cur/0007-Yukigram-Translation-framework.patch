@@ -9,9 +9,11 @@ Original author: RadRussianRus <radrussianrus@gmail.com>
  Telegram/CMakeLists.txt                      |   2 +
  Telegram/Resources/langs/yukigram/en.json    |   3 +
  Telegram/Resources/qrc/telegram/yukigram.qrc |   3 +
+ Telegram/SourceFiles/core/application.cpp    |   2 +
+ Telegram/SourceFiles/lang/lang_instance.cpp  |   3 +
  Telegram/SourceFiles/yukigram/lang.cpp       | 168 +++++++++++++++++++
  Telegram/SourceFiles/yukigram/lang.h         | 115 +++++++++++++
- 5 files changed, 291 insertions(+)
+ 7 files changed, 296 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/en.json
  create mode 100644 Telegram/SourceFiles/yukigram/lang.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/lang.h
@@ -51,6 +53,54 @@ index 9efde8c043..769124b26c 100644
    <qresource prefix="/misc">
      <file alias="io.github.yukigram.desktop">@CMAKE_CURRENT_BINARY_DIR@/@YUKIGRAM_APP_ID@.desktop</file>
    </qresource>
+diff --git a/Telegram/SourceFiles/core/application.cpp b/Telegram/SourceFiles/core/application.cpp
+index 34d67906f5..79b9335067 100644
+--- a/Telegram/SourceFiles/core/application.cpp
++++ b/Telegram/SourceFiles/core/application.cpp
+@@ -49,6 +49,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "lang/lang_cloud_manager.h"
+ #include "lang/lang_hardcoded.h"
+ #include "lang/lang_instance.h"
++#include "yukigram/lang.h"
+ #include "inline_bots/bot_attach_web_view.h"
+ #include "mainwidget.h"
+ #include "tray.h"
+@@ -271,6 +272,7 @@ void Application::run() {
+ 	style::internal::StartFonts();
+ 
+ 	ValidateScale();
++	Yukigram::Lang::Reload();
+ 
+ 	refreshGlobalProxy(); // Depends on app settings being read.
+ 
+diff --git a/Telegram/SourceFiles/lang/lang_instance.cpp b/Telegram/SourceFiles/lang/lang_instance.cpp
+index eadb2659d1..a6e3912742 100644
+--- a/Telegram/SourceFiles/lang/lang_instance.cpp
++++ b/Telegram/SourceFiles/lang/lang_instance.cpp
+@@ -13,6 +13,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "ui/boxes/confirm_box.h"
+ #include "lang/lang_file_parser.h"
+ #include "lang/lang_tag.h" // kTextCommandLangTag.
++#include "yukigram/lang.h"
+ #include "base/platform/base_platform_info.h"
+ #include "base/qthelp_regex.h"
+ 
+@@ -247,6 +248,7 @@ Instance::Instance(not_null<Instance*> derived, const PrivateTag &)
+ 
+ void Instance::switchToId(const Language &data) {
+ 	reset(data);
++	Yukigram::Lang::Reload();
+ 	if (_id == u"#TEST_X"_q || _id == u"#TEST_0"_q) {
+ 		for (auto &value : _values) {
+ 			value = PrepareTestValue(value, _id[5]);
+@@ -272,6 +274,7 @@ void Instance::setBaseId(const QString &baseId, const QString &pluralId) {
+ void Instance::switchToCustomFile(const QString &filePath) {
+ 	if (loadFromCustomFile(filePath)) {
+ 		Local::writeLangPack();
++		Yukigram::Lang::Reload();
+ 		_updated.fire({});
+ 	}
+ }
 diff --git a/Telegram/SourceFiles/yukigram/lang.cpp b/Telegram/SourceFiles/yukigram/lang.cpp
 new file mode 100644
 index 0000000000..ca13575f00
