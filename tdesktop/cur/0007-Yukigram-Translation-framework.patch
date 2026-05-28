@@ -12,8 +12,8 @@ Original author: RadRussianRus <radrussianrus@gmail.com>
  Telegram/SourceFiles/core/application.cpp    |   2 +
  Telegram/SourceFiles/lang/lang_instance.cpp  |   3 +
  Telegram/SourceFiles/yukigram/lang.cpp       | 168 +++++++++++++++++++
- Telegram/SourceFiles/yukigram/lang.h         | 115 +++++++++++++
- 7 files changed, 296 insertions(+)
+ Telegram/SourceFiles/yukigram/lang.h         | 118 +++++++++++++
+ 7 files changed, 299 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/en.json
  create mode 100644 Telegram/SourceFiles/yukigram/lang.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/lang.h
@@ -277,10 +277,10 @@ index 0000000000..ca13575f00
 +} // namespace Yukigram
 diff --git a/Telegram/SourceFiles/yukigram/lang.h b/Telegram/SourceFiles/yukigram/lang.h
 new file mode 100644
-index 0000000000..6257999dec
+index 0000000000..ef73f8f41e
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/lang.h
-@@ -0,0 +1,115 @@
+@@ -0,0 +1,118 @@
 +/*
 +This file is part of Kotatogram Desktop,
 +the unofficial app based on Telegram Desktop.
@@ -294,12 +294,15 @@ index 0000000000..6257999dec
 +namespace Lang {
 +
 +struct Var {
++	Var() = default;
++	Var(const QString &k, const QString &v) : key(k), value(v) {}
 +	QString key;
 +	QString value;
 +};
 +
 +struct EntVar {
 +	EntVar() = default;
++	EntVar(const QString &k, const TextWithEntities &v) : key(k), value(v) {}
 +	EntVar(const Var &other) : key(other.key), value(other.value) {}
 +	QString key;
 +	TextWithEntities value;
