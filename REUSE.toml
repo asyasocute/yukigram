@@ -74,6 +74,8 @@ path = [
     "tdesktop/cur/*-Chat-Opt-Hide-bottom-button-bar.patch",
     "tdesktop/cur/*-Fix-Non-admin-monoforum-button-in-menu.patch",
     "tdesktop/cur/*-Style-Opt-Old-style-spoilers.patch",
+    "tdesktop/cur/*-Style-Fix-button-rounding-in-history-top-bar.patch",
+    "tdesktop/cur/*-Style-Fix-button-rounding-in-bot-keyboard.patch",
 ]
 SPDX-License-Identifier = "GPL-3.0-or-later WITH LicenseRef-sqlitestudio-OpenSSL-exception"
 SPDX-FileCopyrightText = "Yukigram contributors <https://github.com/yukigram/yukigram>"

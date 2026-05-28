@@ -172,6 +172,9 @@ These are placed under `(Chat)` category.
     (someone logged on, set birthday, buy premium, etc.)
 - :zap: :gear: Old-style spoilers
     (solid color, as in Telegram X)
+- Revert button rounding in history top bar
+    (Forward, Delete, Send now)
+- Revert button rounding in bot keyboard
 
 These are placed under `(Style)` category.
 
