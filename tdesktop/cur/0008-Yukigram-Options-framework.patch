@@ -5,14 +5,13 @@ Subject: [PATCH] (Yukigram) Options framework
 
 ---
  Telegram/CMakeLists.txt                       |  4 ++
- Telegram/Resources/langs/yukigram/en.json     |  9 +++
  Telegram/SourceFiles/core/launcher.cpp        |  3 +
  .../settings/settings_experimental.cpp        |  2 +
  Telegram/SourceFiles/yukigram/options.cpp     | 67 +++++++++++++++++++
  Telegram/SourceFiles/yukigram/options.h       | 26 +++++++
  .../SourceFiles/yukigram/options_database.h   | 25 +++++++
  .../SourceFiles/yukigram/options_runtime.h    | 10 +++
- 8 files changed, 146 insertions(+)
+ 7 files changed, 137 insertions(+)
  create mode 100644 Telegram/SourceFiles/yukigram/options.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/options.h
  create mode 100644 Telegram/SourceFiles/yukigram/options_database.h
@@ -33,24 +32,6 @@ index 00f224b188..035279a328 100644
      apiwrap.cpp
      apiwrap.h
      config.h
-diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index a54f5182fa..5698dc93e2 100644
---- a/Telegram/Resources/langs/yukigram/en.json
-+++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -1,3 +1,12 @@
- {
-+    "optgroup/interface": "Interface",
-+    "optgroup/tweaks": "Tweaks",
-+    "optgroup/dialogs": "Chat list",
-+    "optgroup/style": "Chat style",
-+    "optgroup/history": "Messages",
-+    "optgroup/reactions": "Reactions",
-+    "optgroup/compose": "Composing messages",
-+    "optgroup/picker": "Stickers and Emoji picker",
-+    "optgroup/system": "System",
-     "_to_keep_the_diffs_nice": "Please make sure this string is kept at the bottom"
- }
-\ No newline at end of file
 diff --git a/Telegram/SourceFiles/core/launcher.cpp b/Telegram/SourceFiles/core/launcher.cpp
 index 94c44cbc70..69e54bd90b 100644
 --- a/Telegram/SourceFiles/core/launcher.cpp
