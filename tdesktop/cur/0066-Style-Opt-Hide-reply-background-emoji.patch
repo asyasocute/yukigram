@@ -6,10 +6,10 @@ Subject: [PATCH] (Style)(Opt) Hide reply background emoji
 ---
  Telegram/CMakeLists.txt                             |  2 ++
  Telegram/Resources/langs/yukigram/en.json           |  2 ++
- .../SourceFiles/history/view/history_view_reply.cpp |  3 ++-
+ .../SourceFiles/history/view/history_view_reply.cpp |  4 ++++
  .../settings/hide_reply_background_emoji.cpp        | 13 +++++++++++++
  .../yukigram/settings/hide_reply_background_emoji.h |  5 +++++
- 5 files changed, 24 insertions(+), 1 deletion(-)
+ 5 files changed, 26 insertions(+)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_reply_background_emoji.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_reply_background_emoji.h
 
@@ -40,7 +40,7 @@ index 7031d44981..93456ba4e3 100644
      "opt/hide-send-as/desc": "",
      "opt/hide-send-as-premium/name": "Hide Send As channels requiring Premium",
 diff --git a/Telegram/SourceFiles/history/view/history_view_reply.cpp b/Telegram/SourceFiles/history/view/history_view_reply.cpp
-index 6ddb53ad9d..97c0bbf93d 100644
+index 6ddb53ad9d..9fbe455fc5 100644
 --- a/Telegram/SourceFiles/history/view/history_view_reply.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_reply.cpp
 @@ -35,6 +35,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -51,15 +51,16 @@ index 6ddb53ad9d..97c0bbf93d 100644
  #include "styles/style_chat.h"
  #include "styles/style_dialogs.h"
  #include "styles/style_polls.h"
-@@ -845,7 +846,7 @@ void Reply::paint(
- 	}
- 	Ui::Text::ValidateQuotePaintCache(*cache, quoteSt);
- 	Ui::Text::FillQuotePaint(p, rect, *cache, quoteSt);
--	if (backgroundEmojiData) {
-+	if (!Yukigram::Settings::HideReplyBackgroundEmoji->current() && backgroundEmojiData) {
- 		ValidateBackgroundEmoji(
- 			backgroundEmojiId,
- 			colorCollectible,
+@@ -270,6 +271,9 @@ void FillBackgroundEmoji(
+ 		bool quote,
+ 		const Ui::BackgroundEmojiCache &cache,
+ 		const QImage &firstGiftFrame) {
++	if (Yukigram::Settings::HideReplyBackgroundEmoji->current()) {
++		return;
++	}
+ 	p.setClipRect(rect);
+ 
+ 	const auto &frames = cache.frames;
 diff --git a/Telegram/SourceFiles/yukigram/settings/hide_reply_background_emoji.cpp b/Telegram/SourceFiles/yukigram/settings/hide_reply_background_emoji.cpp
 new file mode 100644
 index 0000000000..d1202134df
