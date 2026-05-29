@@ -6,16 +6,36 @@ Subject: [PATCH] (Info) More info in filtered chats
 This patch is adapted from Kotatogram.
 Original author: RadRussianRus <radrussianrus@gmail.com>
 ---
- .../filters/edit_filter_chats_preview.cpp     | 65 +++++++++++++++++--
+ Telegram/Resources/langs/yukigram/en.json     |  7 ++
+ .../filters/edit_filter_chats_preview.cpp     | 73 +++++++++++++++++--
  Telegram/SourceFiles/window/window.style      |  5 ++
  Telegram/lib_ui/ui/widgets/widgets.style      |  2 +
- 3 files changed, 66 insertions(+), 6 deletions(-)
+ 4 files changed, 81 insertions(+), 6 deletions(-)
 
+diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
+index 0512132cd9..0ea330c405 100644
+--- a/Telegram/Resources/langs/yukigram/en.json
++++ b/Telegram/Resources/langs/yukigram/en.json
+@@ -12,7 +12,14 @@
+     "box/peer-list/channel-like/monoforum": "monoforum",
+     "box/peer-list/channel-like/supergroup": "supergroup",
+     "box/peer-list/channel-like/unknown": "channel-like",
++    "box/peer-list/contact/mutual": "mutual contact",
++    "box/peer-list/contact/yes": "contact",
++    "box/peer-list/contact/no": "non-contact",
+     "box/peer-list/group": "legacy group",
++    "box/peer-list/status/not-member": "not a member",
++    "box/peer-list/status/not-subscribed": "not subscribed",
++    "box/peer-list/status/admin": "admin",
++    "box/peer-list/status/owner": "owner",
+     "box/peer-list/count/members#zero": "{kind}",
+     "box/peer-list/count/members#one": "{kind}, {count} member",
+     "box/peer-list/count/members#other": "{kind}, {count} members",
 diff --git a/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp b/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp
-index 193866516a..4e106ff205 100644
+index 193866516a..f2392c7064 100644
 --- a/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp
 +++ b/Telegram/SourceFiles/boxes/filters/edit_filter_chats_preview.cpp
-@@ -9,6 +9,9 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+@@ -9,8 +9,12 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
  
  #include "boxes/filters/edit_filter_chats_list.h"
  #include "data/data_peer.h"
@@ -24,8 +44,11 @@ index 193866516a..4e106ff205 100644
 +#include "data/data_channel.h"
  #include "history/history.h"
  #include "lang/lang_keys.h"
++#include "yukigram/lang.h"
  #include "ui/text/text_options.h"
-@@ -104,6 +107,8 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+ #include "ui/widgets/buttons.h"
+ #include "ui/painter.h"
+@@ -104,6 +108,8 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
  	const auto nameLeft = st.namePosition.x();
  	p.setFont(st::windowFilterSmallItem.nameStyle.font);
  	const auto nameTop = st.namePosition.y();
@@ -34,7 +57,7 @@ index 193866516a..4e106ff205 100644
  	for (const auto &[flag, button] : _removeFlag) {
  		PaintFilterChatsTypeIcon(
  			p,
-@@ -121,6 +126,7 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+@@ -121,6 +127,7 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
  			FilterChatsTypeName(flag));
  		top += st.height;
  	}
@@ -42,7 +65,7 @@ index 193866516a..4e106ff205 100644
  	for (auto &[history, userpic, name, button] : _removePeer) {
  		const auto peer = history->peer;
  		const auto savedMessages = peer->isSelf();
-@@ -168,6 +174,48 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+@@ -168,6 +175,55 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
  				top + iconTop,
  				width(),
  				st.photoSize);
@@ -58,40 +81,47 @@ index 193866516a..4e106ff205 100644
 +					if (user->isBot()) {
 +						statuses << tr::lng_status_bot(tr::now);
 +					} else if (flags & UserDataFlag::MutualContact) {
-+						statuses << "mutual contact";
++						statuses << ktr("box/peer-list/contact/mutual");
 +					} else if (flags & UserDataFlag::Contact) {
-+						statuses << "contact";
++						statuses << ktr("box/peer-list/contact/yes");
 +					} else {
-+						statuses << "non-contact";
++						statuses << ktr("box/peer-list/contact/no");
 +					}
 +				}
 +			} else if (const auto chat = history->peer->asChat()) {
-+				statuses << "legacy group";
++				statuses << "box/peer-list/group";
 +				if (!chat->amIn()) {
-+					statuses << "not a member";
++					statuses << ktr("box/peer-list/status/not-member");
 +				} else if (chat->amCreator()) {
-+					statuses << "owner";
++					statuses << ktr("box/peer-list/status/owner");
 +				} else if (chat->hasAdminRights()) {
-+					statuses << "admin";
++					statuses << ktr("box/peer-list/status/admin");
++				}
++				if (chat->count > 0) {
++					statuses << tr::lng_chat_status_members(tr::now, lt_count_decimal, chat->count);
 +				}
 +			} else if (const auto channel = history->peer->asChannel()) {
-+				statuses << (channel->isMonoforum() ? "monoforum"
-+					: channel->isForum() ? "forum"
-+					: channel->isMegagroup() ? tr::lng_group_status(tr::now)
-+					: channel->isBroadcast() ? tr::lng_channel_status(tr::now)
-+					: "channel-like");
++				statuses << ktr(channel->isMonoforum() ? "box/peer-list/channel-like/monoforum"
++					: channel->isForum() ? "box/peer-list/channel-like/forum"
++					: channel->isMegagroup() ? "box/peer-list/channel-like/supergroup"
++					: channel->isBroadcast() ? "box/peer-list/channel-like/broadcast"
++					: "box/peer-list/channel-like/unknown");
 +				if (!channel->amIn()) {
-+					statuses << (channel->isBroadcast() ? "not subscribed" : "not a member");
++					statuses << ktr(channel->isBroadcast() ? "box/peer-list/status/not-subscribed" : "box/peer-list/status/not-member");
 +				} else if (channel->amCreator()) {
-+					statuses << "owner";
++					statuses << ktr("box/peer-list/status/owner");
 +				} else if (channel->hasAdminRights()) {
-+					statuses << "admin";
++					statuses << ktr("box/peer-list/status/admin");
++				}
++				if (channel->membersCountKnown()) {
++					const auto phrase = channel->isBroadcast() ? tr::lng_chat_status_subscribers : tr::lng_chat_status_members;
++					statuses << phrase(tr::now, lt_count_decimal, channel->membersCount());
 +				}
 +			}
  			p.setPen(st::contactsNameFg);
  			if (name.isEmpty()) {
  				name.setText(
-@@ -175,12 +223,17 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
+@@ -175,12 +231,17 @@ void FilterChatsPreview::paintEvent(QPaintEvent *e) {
  					history->peer->name(),
  					Ui::NameTextOptions());
  			}

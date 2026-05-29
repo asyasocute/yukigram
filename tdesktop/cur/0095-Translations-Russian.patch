@@ -4,17 +4,17 @@ Date: Thu, 28 May 2026 22:20:22 +0000
 Subject: [PATCH] (Translations) Russian
 
 ---
- Telegram/Resources/langs/yukigram/ru.json    | 137 +++++++++++++++++++
+ Telegram/Resources/langs/yukigram/ru.json    | 144 +++++++++++++++++++
  Telegram/Resources/qrc/telegram/yukigram.qrc |   1 +
- 2 files changed, 138 insertions(+)
+ 2 files changed, 145 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/ru.json
 
 diff --git a/Telegram/Resources/langs/yukigram/ru.json b/Telegram/Resources/langs/yukigram/ru.json
 new file mode 100644
-index 0000000000..ffd30821de
+index 0000000000..e158c504e9
 --- /dev/null
 +++ b/Telegram/Resources/langs/yukigram/ru.json
-@@ -0,0 +1,137 @@
+@@ -0,0 +1,144 @@
 +{
 +    "about/1/text": "Неофициальный форк {tdesktop_link},\nкоторый добавляет фичи и убирает мусор.",
 +    "about/1/tdesktop": "Telegram Desktop",
@@ -29,7 +29,14 @@ index 0000000000..ffd30821de
 +    "box/peer-list/channel-like/monoforum": "монофорум",
 +    "box/peer-list/channel-like/supergroup": "супергруппа",
 +    "box/peer-list/channel-like/unknown": "похоже на канал",
++    "box/peer-list/contact/mutual": "взаимный контакт",
++    "box/peer-list/contact/yes": "контакт",
++    "box/peer-list/contact/no": "не контакт",
 +    "box/peer-list/group": "старая группа",
++    "box/peer-list/status/not-member": "нет в участниках",
++    "box/peer-list/status/not-subscribed": "нет в подписчиках",
++    "box/peer-list/status/admin": "администратор",
++    "box/peer-list/status/owner": "владелец",
 +    "box/peer-list/count/members#zero": "{kind}",
 +    "box/peer-list/count/members#one": "{kind}, {count} участник",
 +    "box/peer-list/count/members#two": "{kind}, {count} участников",
