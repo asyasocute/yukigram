@@ -9,10 +9,10 @@ Subject: [PATCH] (Minor) Peer info apply join button
  2 files changed, 3 insertions(+)
 
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index d2ec023258..48e9349e47 100644
+index bb533ee425..c9cbdc2258 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -40,6 +40,7 @@
+@@ -42,6 +42,7 @@
      "info/peer-id/supergroup": "Supergroup ID",
      "info/peer-id/user": "User ID",
      "info/peer-id/unknown": "Peer ID",

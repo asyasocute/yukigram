@@ -11,10 +11,10 @@ Original author: c0re100 <corehusky@gmail.com>
  2 files changed, 18 insertions(+)
 
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index 930ede9877..c017fd4607 100644
+index 80e3f46568..d4e4b3f51c 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -18,6 +18,7 @@
+@@ -20,6 +20,7 @@
      "info/peer-id/user": "User ID",
      "info/peer-id/unknown": "Peer ID",
      "intro/about": "Welcome to Yukigram, an unofficial patch-based Telegram Desktop fork.",

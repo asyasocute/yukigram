@@ -7,13 +7,13 @@ This patch is adapted from 64Gram.
 Original author: c0re100 <corehusky@gmail.com>
 ---
  Telegram/CMakeLists.txt                       |  2 ++
- Telegram/Resources/langs/yukigram/en.json     |  2 ++
+ Telegram/Resources/langs/yukigram/en.json     |  4 +++
  .../history/view/history_view_bottom_info.cpp | 25 ++++++++++++++++++-
  .../history/view/history_view_bottom_info.h   |  1 +
- .../history/view/history_view_element.cpp     |  4 +++
+ .../history/view/history_view_element.cpp     |  5 ++++
  .../yukigram/settings/show_message_id.cpp     | 14 +++++++++++
  .../yukigram/settings/show_message_id.h       |  5 ++++
- 7 files changed, 52 insertions(+), 1 deletion(-)
+ 7 files changed, 55 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.h
 
@@ -31,10 +31,19 @@ index 7539507d83..df4eb26343 100644
      yukigram/settings/time_with_seconds.h
      yukigram/settings/wide_messages.cpp
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index 48764bff74..55d0956679 100644
+index 48764bff74..e93ecdb7b0 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -36,6 +36,8 @@
+@@ -7,6 +7,8 @@
+     "box/forward/copy": "Copy to…",
+     "box/forward/steal": "Copy media only to…",
+     "box/sticker-set/owner/title": "Owner",
++    "history/tooltip/message-id": "Message ID: {id}",
++    "history/tooltip/message-id-hex": "Message ID (hex): {id}",
+     "intro/about": "Welcome to Yukigram, an unofficial patch-based Telegram Desktop fork.",
+     "nya": "Meow >.<",
+     "optgroup/interface": "Interface",
+@@ -36,6 +38,8 @@
      "opt/mpris-call-hangup/desc": "Use Prev/Next/Stop to hangup or decline.\nUse Play/Pause/PlayPause to accept.\nThis option conflicts with internal media player controls",
      "opt/show-channel-joined-below-about/name": "Show channel join date",
      "opt/show-channel-joined-below-about/desc": "",
@@ -106,16 +115,24 @@ index ef3d261c86..81e2f918b2 100644
  		int64 tonStake = 0;
  		int stars = 0;
 diff --git a/Telegram/SourceFiles/history/view/history_view_element.cpp b/Telegram/SourceFiles/history/view/history_view_element.cpp
-index 1cfff66d67..c481085d62 100644
+index 1cfff66d67..d44beecf29 100644
 --- a/Telegram/SourceFiles/history/view/history_view_element.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_element.cpp
-@@ -698,6 +698,10 @@ QString DateTooltipText(not_null<Element*> view) {
+@@ -62,6 +62,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "data/data_message_reactions.h"
+ #include "data/data_user.h"
+ #include "lang/lang_keys.h"
++#include "yukigram/lang.h"
+ #include "styles/style_chat.h"
+ #include "styles/style_dialogs.h"
+ 
+@@ -698,6 +699,10 @@ QString DateTooltipText(not_null<Element*> view) {
  	if (const auto stars = item->out() ? item->starsPaid() : 0) {
  		dateText += '\n' + tr::lng_you_paid_stars(tr::now, lt_count, stars);
  	}
 +	if (const auto msgId = view->data()->fullId().msg) {
-+		dateText += '\n' + QString("Message ID: %1").arg(msgId.bare);
-+		dateText += '\n' + QString("Message ID (hex): %1").arg(msgId.bare, 0, 16);
++		dateText += '\n' + ktr("history/tooltip/message-id", { "id", QString::number(msgId.bare) });
++		dateText += '\n' + ktr("history/tooltip/message-id-hex", { "id", QString::number(msgId.bare, 16) });
 +	}
  	return dateText;
  }

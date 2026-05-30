@@ -29,7 +29,7 @@ index 7cb6d565c5..a85ecf61ff 100644
      yukigram/settings/right_action_comments.h
      yukigram/settings/show_message_id.cpp
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index 86bae62d09..3eaeb29c38 100644
+index 3fae53f097..c36005a165 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
 @@ -31,6 +31,7 @@
@@ -37,10 +37,10 @@ index 86bae62d09..3eaeb29c38 100644
      "box/sticker-set/owner/title": "Owner",
      "drawer/new-supergroup/title": "New supergroup",
 +    "history/media/spoiler": "Spoilered media",
+     "history/tooltip/message-id": "Message ID: {id}",
+     "history/tooltip/message-id-hex": "Message ID (hex): {id}",
      "info/peer-dc/inferred": "Inferred DC",
-     "info/peer-id/broadcast": "Channel ID",
-     "info/peer-id/channel-like": "Channel-like ID",
-@@ -98,6 +99,8 @@
+@@ -100,6 +101,8 @@
      "opt/inferred-peer-dc/desc": "",
      "opt/mpris-call-hangup/name": "Control calls with MPRIS",
      "opt/mpris-call-hangup/desc": "Use Prev/Next/Stop to hangup or decline.\nUse Play/Pause/PlayPause to accept.\nThis option conflicts with internal media player controls",

@@ -9,13 +9,13 @@ Subject: [PATCH] (Interface) Sensible peer id and join date rendering
  2 files changed, 60 insertions(+), 49 deletions(-)
 
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index bd3bac306a..861ca16196 100644
+index ed03cc5e32..669f56920e 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -7,6 +7,14 @@
-     "box/forward/copy": "Copy to…",
-     "box/forward/steal": "Copy media only to…",
+@@ -9,6 +9,14 @@
      "box/sticker-set/owner/title": "Owner",
+     "history/tooltip/message-id": "Message ID: {id}",
+     "history/tooltip/message-id-hex": "Message ID (hex): {id}",
 +    "info/peer-id/broadcast": "Channel ID",
 +    "info/peer-id/channel-like": "Channel-like ID",
 +    "info/peer-id/forum": "Forum ID",

@@ -27,10 +27,10 @@ index f430f2b944..ef5ab54870 100644
      yukigram/settings/hide_send_as_premium.h
      yukigram/settings/hide_send_as.cpp
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index b74148394d..bd3bac306a 100644
+index 8ad8fbab4a..ed03cc5e32 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -32,6 +32,8 @@
+@@ -34,6 +34,8 @@
      "opt/force-mobile-layout/desc": "",
      "opt/forum-hide-chats-list/name": "Hide narrow column chat list in forums",
      "opt/forum-hide-chats-list/desc": "",
