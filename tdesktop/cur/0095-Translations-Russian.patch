@@ -4,17 +4,17 @@ Date: Thu, 28 May 2026 22:20:22 +0000
 Subject: [PATCH] (Translations) Russian
 
 ---
- Telegram/Resources/langs/yukigram/ru.json    | 147 +++++++++++++++++++
+ Telegram/Resources/langs/yukigram/ru.json    | 148 +++++++++++++++++++
  Telegram/Resources/qrc/telegram/yukigram.qrc |   1 +
- 2 files changed, 148 insertions(+)
+ 2 files changed, 149 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/ru.json
 
 diff --git a/Telegram/Resources/langs/yukigram/ru.json b/Telegram/Resources/langs/yukigram/ru.json
 new file mode 100644
-index 0000000000..0bd321f5a0
+index 0000000000..deb09de67f
 --- /dev/null
 +++ b/Telegram/Resources/langs/yukigram/ru.json
-@@ -0,0 +1,147 @@
+@@ -0,0 +1,148 @@
 +{
 +    "about/1/text": "Неофициальный форк {tdesktop_link},\nкоторый добавляет фичи и убирает мусор.",
 +    "about/1/tdesktop": "Telegram Desktop",
@@ -54,7 +54,7 @@ index 0000000000..0bd321f5a0
 +    "box/peer-list/count/subscribers#other": "{kind}, {count} подписчиков",
 +    "box/sticker-set/owner/title": "Владелец",
 +    "drawer/new-supergroup/title": "Создать супергруппу",
-+    "menu/first-message/title": "Начало истории",
++    "history/media/spoiler": "Медиа под спойлером",
 +    "info/peer-dc/inferred": "Предполагаемый дата-центр",
 +    "info/peer-id/broadcast": "ID канала",
 +    "info/peer-id/channel-like": "ID похожего на канал",
@@ -71,6 +71,7 @@ index 0000000000..0bd321f5a0
 +    "media/poll/forbidden-revotes-warning/text": "В этом опросе нельзя менять свой голос",
 +    "media/poll/forbidden-revotes-warning/confirm": "Проголосовать",
 +    "media/poll/forbidden-revotes-warning/cancel": "Отказаться",
++    "menu/first-message/title": "Начало истории",
 +    "nya": "Муррр >.<",
 +    "optgroup/interface": "Интерфейс",
 +    "optgroup/tweaks": "Твики",
