@@ -6,11 +6,12 @@ Subject: [PATCH] (Style)(Opt) Old-style spoilers
 ---
  Telegram/CMakeLists.txt                       |  2 ++
  Telegram/Resources/langs/yukigram/en.json     |  2 ++
- .../history/view/media/history_view_media.cpp | 20 ++++++++++++++++
- .../yukigram/settings/old_style_spoilers.cpp  | 19 +++++++++++++++
+ .../history/view/media/history_view_media.cpp | 19 ++++++++++++++
+ .../yukigram/settings/old_style_spoilers.cpp  | 19 ++++++++++++++
  .../yukigram/settings/old_style_spoilers.h    |  5 ++++
- Telegram/lib_ui/ui/effects/spoiler_mess.cpp   | 23 ++++++++++++++++---
- 6 files changed, 68 insertions(+), 3 deletions(-)
+ Telegram/lib_ui/ui/effects/spoiler_mess.cpp   | 26 ++++++++++++++++---
+ Telegram/lib_ui/ui/text/text_renderer.cpp     |  6 ++++-
+ 7 files changed, 75 insertions(+), 4 deletions(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.h
 
@@ -41,7 +42,7 @@ index 263325d5f8..f47f70440f 100644
      "opt/show-channel-joined-below-about/desc": "",
      "opt/show-msgid/name": "Show message ID",
 diff --git a/Telegram/SourceFiles/history/view/media/history_view_media.cpp b/Telegram/SourceFiles/history/view/media/history_view_media.cpp
-index 8159b021f1..988fe0e0e8 100644
+index 8159b021f1..eddf7804c3 100644
 --- a/Telegram/SourceFiles/history/view/media/history_view_media.cpp
 +++ b/Telegram/SourceFiles/history/view/media/history_view_media.cpp
 @@ -30,6 +30,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -52,19 +53,11 @@ index 8159b021f1..988fe0e0e8 100644
  #include "core/ui_integration.h"
  #include "styles/style_chat.h"
  #include "styles/style_chat_helpers.h"
-@@ -352,6 +353,7 @@ void Media::fillImageSpoiler(
- 		history()->owner().registerHeavyViewPart(_parent);
- 	}
- 	_parent->clearCustomEmojiRepaint();
-+if (!Yukigram::Settings::OldStyleSpoilers->current()) {
- 	const auto pausedSpoiler = context.paused
- 		|| On(PowerSaving::kChatSpoiler);
- 	Ui::FillSpoilerRect(
-@@ -361,6 +363,24 @@ void Media::fillImageSpoiler(
+@@ -361,6 +362,24 @@ void Media::fillImageSpoiler(
  		Ui::DefaultImageSpoiler().frame(
  			spoiler->animation->index(context.now, pausedSpoiler)),
  		spoiler->cornerCache);
-+} else {
++if (Yukigram::Settings::OldStyleSpoilers->current()) {
 +	const auto text = tr::lng_sr_message_spoiler(tr::now);
 +	const auto font = st::defaultTextStyle.font;
 +	const auto margin = 5;
@@ -122,7 +115,7 @@ index 0000000000..4a84202013
 +extern const char kOptionOldStyleSpoilers[];
 +}
 diff --git a/Telegram/lib_ui/ui/effects/spoiler_mess.cpp b/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
-index d4413de547..090b204754 100644
+index d4413de547..f8525937a8 100644
 --- a/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
 +++ b/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
 @@ -10,6 +10,7 @@
@@ -133,14 +126,14 @@ index d4413de547..090b204754 100644
  #include "base/random.h"
  #include "base/flags.h"
  
-@@ -428,14 +429,30 @@ SpoilerMessCached GenerateSpoilerMess(
+@@ -428,14 +429,33 @@ SpoilerMessCached GenerateSpoilerMess(
  		size);
  }
  
 +extern bool Yukigram_OldStyleSpoilers;
 +bool Yukigram_OldStyleSpoilers = false;
 +
-+void FillSpoilerRectEx(QPainter &p, QRect rect, const SpoilerMessFrame &frame, QPoint originShift, bool round = false);
++void FillSpoilerRectEx(QPainter &p, QRect rect, const SpoilerMessFrame &frame, QPoint originShift, bool round = false, bool forText = false);
 +
  void FillSpoilerRect(
  		QPainter &p,
@@ -150,11 +143,14 @@ index d4413de547..090b204754 100644
 +	return FillSpoilerRectEx(p, rect, frame, originShift, true);
 +}
 +
-+void FillSpoilerRectEx(QPainter &p, QRect rect, const SpoilerMessFrame &frame, QPoint originShift, bool round) {
++void FillSpoilerRectEx(QPainter &p, QRect rect, const SpoilerMessFrame &frame, QPoint originShift, bool round, bool forText) {
  	if (rect.isEmpty()) {
  		return;
  	}
 +	if (Yukigram_OldStyleSpoilers) {
++		if (!forText) {
++			return;
++		}
 +		const auto radius = round ? 2 : 0;
 +		auto path = QPainterPath();
 +		path.addRoundedRect(rect, radius, radius);
@@ -164,7 +160,7 @@ index d4413de547..090b204754 100644
  	const auto &image = *frame.image;
  	const auto source = frame.source;
  	const auto ratio = style::DevicePixelRatio();
-@@ -520,7 +537,7 @@ void FillSpoilerRect(
+@@ -520,7 +540,7 @@ void FillSpoilerRect(
  		&& (!mask.p[kTopRight] || mask.p[kTopRight]->isNull())
  		&& (!mask.p[kBottomLeft] || mask.p[kBottomLeft]->isNull())
  		&& (!mask.p[kBottomRight] || mask.p[kBottomRight]->isNull())) {
@@ -173,7 +169,7 @@ index d4413de547..090b204754 100644
  		return;
  	}
  	const auto ratio = style::DevicePixelRatio();
-@@ -532,7 +549,7 @@ void FillSpoilerRect(
+@@ -532,7 +552,7 @@ void FillSpoilerRect(
  		return std::max(cornerSize(left), cornerSize(right));
  	};
  	const auto fillBg = [&](QRect part) {
@@ -182,7 +178,7 @@ index d4413de547..090b204754 100644
  			p,
  			part.translated(rect.topLeft()),
  			frame,
-@@ -556,7 +573,7 @@ void FillSpoilerRect(
+@@ -556,7 +576,7 @@ void FillSpoilerRect(
  		const auto target = QRect(QPoint(), size);
  		auto q = QPainter(&cornerCache);
  		q.setCompositionMode(QPainter::CompositionMode_Source);
@@ -191,6 +187,30 @@ index d4413de547..090b204754 100644
  			q,
  			target,
  			frame,
+diff --git a/Telegram/lib_ui/ui/text/text_renderer.cpp b/Telegram/lib_ui/ui/text/text_renderer.cpp
+index d866f14758..c627534383 100644
+--- a/Telegram/lib_ui/ui/text/text_renderer.cpp
++++ b/Telegram/lib_ui/ui/text/text_renderer.cpp
+@@ -18,6 +18,10 @@
+ #include <private/qharfbuzz_p.h>
+ #endif // Qt < 6.0.0
+ 
++namespace Ui {
++void FillSpoilerRectEx(QPainter &p, QRect rect, const SpoilerMessFrame &frame, QPoint originShift, bool round = false, bool forText = false);
++}
++
+ namespace Ui::Text {
+ namespace {
+ 
+@@ -1616,7 +1620,7 @@ void Renderer::paintSpoilerRects(
+ 	const auto frame = _spoilerCache->lookup(color->c)->frame(index);
+ 	if (_spoilerCache) {
+ 		for (const auto &rect : rects) {
+-			Ui::FillSpoilerRect(*_p, rect, frame, -rect.topLeft());
++			Ui::FillSpoilerRectEx(*_p, rect, frame, -rect.topLeft(), true, true);
+ 		}
+ 	} else {
+ 		// Show forgotten spoiler context part.
 -- 
 2.53.0
 
