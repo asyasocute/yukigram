@@ -110,7 +110,7 @@ index 0000000000..4a84202013
 +extern const char kOptionOldStyleSpoilers[];
 +}
 diff --git a/Telegram/lib_ui/ui/effects/spoiler_mess.cpp b/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
-index d4413de547..f8525937a8 100644
+index d4413de547..4d1943c888 100644
 --- a/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
 +++ b/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
 @@ -10,6 +10,7 @@
@@ -146,7 +146,7 @@ index d4413de547..f8525937a8 100644
 +		if (!forText) {
 +			return;
 +		}
-+		const auto radius = round ? 2 : 0;
++		const auto radius = round ? st::roundRadiusSmall : 0;
 +		auto path = QPainterPath();
 +		path.addRoundedRect(rect, radius, radius);
 +		p.fillPath(path, st::defaultTextPalette.spoilerFg->c);
