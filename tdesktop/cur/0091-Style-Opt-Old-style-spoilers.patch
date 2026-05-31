@@ -8,10 +8,10 @@ Subject: [PATCH] (Style)(Opt) Old-style spoilers
  .../history/view/media/history_view_media.cpp | 20 +++++++++++++++++++
  .../yukigram/settings/old_style_spoilers.cpp  | 19 ++++++++++++++++++
  .../yukigram/settings/old_style_spoilers.h    |  5 +++++
- Telegram/lib_ui/ui/effects/spoiler_mess.cpp   | 19 ++++++++++++++++++
+ Telegram/lib_ui/ui/effects/spoiler_mess.cpp   | 20 +++++++++++++++++++
  Telegram/lib_ui/ui/text/text_renderer.cpp     |  6 +++++-
  .../ui/widgets/fields/custom_field_object.cpp |  4 +++-
- 7 files changed, 73 insertions(+), 2 deletions(-)
+ 7 files changed, 74 insertions(+), 2 deletions(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.h
 
@@ -110,7 +110,7 @@ index 0000000000..4a84202013
 +extern const char kOptionOldStyleSpoilers[];
 +}
 diff --git a/Telegram/lib_ui/ui/effects/spoiler_mess.cpp b/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
-index d4413de547..1fded162e2 100644
+index d4413de547..5e834a11c4 100644
 --- a/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
 +++ b/Telegram/lib_ui/ui/effects/spoiler_mess.cpp
 @@ -10,6 +10,7 @@
@@ -121,7 +121,7 @@ index d4413de547..1fded162e2 100644
  #include "base/random.h"
  #include "base/flags.h"
  
-@@ -428,14 +429,32 @@ SpoilerMessCached GenerateSpoilerMess(
+@@ -428,14 +429,33 @@ SpoilerMessCached GenerateSpoilerMess(
  		size);
  }
  
@@ -144,6 +144,7 @@ index d4413de547..1fded162e2 100644
  	}
 +	if (Yukigram_OldStyleSpoilers) {
 +		if (!forText) {
++			p.fillRect(rect, Qt::transparent);
 +			return;
 +		}
 +		auto path = QPainterPath();
