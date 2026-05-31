@@ -62,7 +62,7 @@ index 0000000000..1bce51908a
 +extern const char kOptionSystemEmoji[];
 +}
 diff --git a/Telegram/lib_ui/ui/emoji_config.cpp b/Telegram/lib_ui/ui/emoji_config.cpp
-index f92235f536..0b34dbd869 100644
+index f92235f536..b49358ea46 100644
 --- a/Telegram/lib_ui/ui/emoji_config.cpp
 +++ b/Telegram/lib_ui/ui/emoji_config.cpp
 @@ -71,6 +71,7 @@ private:
@@ -83,7 +83,7 @@ index f92235f536..0b34dbd869 100644
  void Draw(QPainter &p, EmojiPtr emoji, int size, int x, int y) {
 +	if (Yukigram_UseSystemEmojiFont) {
 +		const auto oldFont = p.font();
-+		EmojiFont.setPixelSize(size);
++		EmojiFont.setPointSizeF(size * .75 / style::DevicePixelRatio());
 +		p.setFont(EmojiFont);
 +		p.drawText(QRect(x, y + 1, size + 1, size + 1), emoji->text());
 +		p.setFont(oldFont);

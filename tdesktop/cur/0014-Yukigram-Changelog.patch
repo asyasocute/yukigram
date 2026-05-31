@@ -4,14 +4,14 @@ Date: Sun, 24 May 2026 15:47:18 +0300
 Subject: [PATCH] (Yukigram) Changelog
 
 ---
- changelog.txt | 275 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 275 insertions(+)
+ changelog.txt | 276 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 276 insertions(+)
 
 diff --git a/changelog.txt b/changelog.txt
-index 46242d956c..928373af71 100644
+index 46242d956c..7d0046773b 100644
 --- a/changelog.txt
 +++ b/changelog.txt
-@@ -1,3 +1,35 @@
+@@ -1,3 +1,36 @@
 +9999 wip (01.01.99)
 +
 +- Fix translations
@@ -20,6 +20,7 @@ index 46242d956c..928373af71 100644
 +- Shorten message signature size
 +- Fix scheduled message id display
 +- tg://woof
++- Fix emoji size on non-100%-scaling when system emoji font is used
 +
 +6.8.4.1 beta (29.05.26)
 +
@@ -47,7 +48,7 @@ index 46242d956c..928373af71 100644
  6.8.4 beta (27.05.26)
  
  - Drag-and-drop of photos into chats.
-@@ -10,6 +42,31 @@
+@@ -10,6 +43,31 @@
  - Fix borders in Instant View tables.
  - Fix several possible crashes.
  
@@ -79,7 +80,7 @@ index 46242d956c..928373af71 100644
  6.8.3 beta (19.05.26)
  
  - In-app markdown file viewer.
-@@ -20,6 +77,63 @@
+@@ -20,6 +78,63 @@
  - Upgrade to Qt 6.11.1 on macOS and Linux.
  - Test QRhi for Thanos effect on Qt 6.11.1.
  
@@ -143,7 +144,7 @@ index 46242d956c..928373af71 100644
  6.8.2 (12.05.26)
  
  - Fix non-premium sending of existing custom reactions.
-@@ -32,6 +146,23 @@
+@@ -32,6 +147,23 @@
  - Return "Chatbots" to Telegram Business.
  - Separate badge background color keys for sidebar buttons.
  
@@ -167,7 +168,7 @@ index 46242d956c..928373af71 100644
  6.8.1 (08.05.26)
  
  - Fix crash in anonymous group admins messages.
-@@ -49,6 +180,54 @@
+@@ -49,6 +181,54 @@
  - Fix tg:// link handling on cold start and login widget window activation.
  - Copy and paste formatting to and from HTML.
  
@@ -222,7 +223,7 @@ index 46242d956c..928373af71 100644
  6.7.8 (24.04.26)
  
  - Proxy auto-rotation option.
-@@ -65,6 +244,12 @@
+@@ -65,6 +245,12 @@
  - Fix crash in proxy sharing before auth.
  - Fix layout for RTL messages.
  
@@ -235,7 +236,7 @@ index 46242d956c..928373af71 100644
  6.7.7 beta (20.04.26)
  
  - Proxy auto-rotation option.
-@@ -79,6 +264,32 @@
+@@ -79,6 +265,32 @@
  - Fix stories in albums with reorder enabled.
  - Fix layout for RTL messages.
  
@@ -268,7 +269,7 @@ index 46242d956c..928373af71 100644
  6.7.6 (14.04.26)
  
  - Gradient-reveal animation for text appearing in messages.
-@@ -95,6 +306,40 @@
+@@ -95,6 +307,40 @@
  - Fix several poll display and voting menu issues.
  - Fix possible crashes in chats list, url auth and others.
  
@@ -309,7 +310,7 @@ index 46242d956c..928373af71 100644
  6.7.5 (07.04.26)
  
  - Support for gradual appearing of bot reply messages.
-@@ -114,6 +359,36 @@
+@@ -114,6 +360,36 @@
  - Fix tooltip crash in top peers selector with small width.
  - Fix preserving markers after video quality switch in media view.
  
