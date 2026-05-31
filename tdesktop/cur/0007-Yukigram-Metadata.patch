@@ -69,7 +69,7 @@ index 81242142ad..be84e4c7e9 100644
  
  		st::notifyClose.icon.paint(p, w - st::notifyClosePos.x() - st::notifyClose.width + st::notifyClose.iconPosition.x(), st::notifyClosePos.y() + st::notifyClose.iconPosition.y(), w);
 diff --git a/Telegram/SourceFiles/window/main_window.cpp b/Telegram/SourceFiles/window/main_window.cpp
-index 5b11b2eaf4..599f8d25ca 100644
+index 32fce2d733..d25852d27e 100644
 --- a/Telegram/SourceFiles/window/main_window.cpp
 +++ b/Telegram/SourceFiles/window/main_window.cpp
 @@ -847,7 +847,7 @@ void MainWindow::updateTitle() {
