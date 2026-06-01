@@ -4,17 +4,17 @@ Date: Thu, 28 May 2026 22:20:22 +0000
 Subject: [PATCH] (Translations) Russian
 
 ---
- Telegram/Resources/langs/yukigram/ru.json    | 152 +++++++++++++++++++
+ Telegram/Resources/langs/yukigram/ru.json    | 154 +++++++++++++++++++
  Telegram/Resources/qrc/telegram/yukigram.qrc |   1 +
- 2 files changed, 153 insertions(+)
+ 2 files changed, 155 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/ru.json
 
 diff --git a/Telegram/Resources/langs/yukigram/ru.json b/Telegram/Resources/langs/yukigram/ru.json
 new file mode 100644
-index 0000000000..d81c530ac9
+index 0000000000..f73bdb7d86
 --- /dev/null
 +++ b/Telegram/Resources/langs/yukigram/ru.json
-@@ -0,0 +1,152 @@
+@@ -0,0 +1,154 @@
 +{
 +    "about/1/text": "Неофициальный форк {tdesktop_link},\nкоторый добавляет фичи и убирает мусор.",
 +    "about/1/tdesktop": "Telegram Desktop",
@@ -123,6 +123,8 @@ index 0000000000..d81c530ac9
 +    "opt/icon-theme-symbolic/desc": "",
 +    "opt/inferred-peer-dc/name": "Угадывать дата-центр пира",
 +    "opt/inferred-peer-dc/desc": "",
++    "opt/large-sticker-preview/name": "Полноразмерный предпросмотр стикеров",
++    "opt/large-sticker-preview/desc": "",
 +    "opt/mpris-call-hangup/name": "Управлять звонками с помощью MPRIS",
 +    "opt/mpris-call-hangup/desc": "Прош/След/Стоп — положить трубку.\nПроигр/Пауза/ПроигрПауза — снять трубку.\nЭта настркойка конфликтует со встроенным медиапроигрывателем",
 +    "opt/no-shout-buttons/name": "Перестать ОРАТЬ на кнопках",

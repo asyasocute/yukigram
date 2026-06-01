@@ -82,6 +82,8 @@ path = [
     "tdesktop/cur/*-Major-Retract-quiz-vote.patch",
     "tdesktop/cur/*-Translations-Russian.patch",
     "tdesktop/cur/*-Info-Deleted-reply-ID.patch",
+    "tdesktop/cur/*-Shortcut-Normal-send-in-context-menu.patch",
+    "tdesktop/cur/*-Style-Opt-Large-sticker-preview.patch",
 ]
 SPDX-License-Identifier = "GPL-3.0-or-later WITH LicenseRef-sqlitestudio-OpenSSL-exception"
 SPDX-FileCopyrightText = "Yukigram contributors <https://github.com/yukigram/yukigram>"

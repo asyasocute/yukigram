@@ -117,6 +117,7 @@ These are placed under `(Info)` category.
     when it is possible to send messages without joining
     (e.g. in linked discussion groups)
 - :star: Allow opening group from peer info
+- Plain send in context menu
 
 These are placed under `(Shortcut)` category.
 
@@ -181,6 +182,7 @@ These are placed under `(Chat)` category.
 - Revert button rounding in history top bar
     (Forward, Delete, Send now)
 - Revert button rounding in bot keyboard
+- :star: :gear: Large sticker size in preview
 
 These are placed under `(Style)` category.
 

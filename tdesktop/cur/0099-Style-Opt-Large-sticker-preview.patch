@@ -1,0 +1,82 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Mon, 1 Jun 2026 15:17:22 +0000
+Subject: [PATCH] (Style)(Opt) Large sticker preview
+
+---
+ Telegram/CMakeLists.txt                             |  2 ++
+ .../SourceFiles/window/window_media_preview.cpp     |  4 ++++
+ .../yukigram/settings/large_sticker_preview.cpp     | 13 +++++++++++++
+ .../yukigram/settings/large_sticker_preview.h       |  5 +++++
+ 4 files changed, 24 insertions(+)
+ create mode 100644 Telegram/SourceFiles/yukigram/settings/large_sticker_preview.cpp
+ create mode 100644 Telegram/SourceFiles/yukigram/settings/large_sticker_preview.h
+
+diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
+index 92f06168b1..c621eece8c 100644
+--- a/Telegram/CMakeLists.txt
++++ b/Telegram/CMakeLists.txt
+@@ -1981,6 +1981,8 @@ PRIVATE
+     yukigram/settings/inferred_peer_dc.h
+     yukigram/settings/icon_theme_symbolic.cpp
+     yukigram/settings/icon_theme_symbolic.h
++    yukigram/settings/large_sticker_preview.cpp
++    yukigram/settings/large_sticker_preview.h
+     yukigram/settings/mirrored.cpp
+     yukigram/settings/mpris_call_hangup.cpp
+     yukigram/settings/mpris_call_hangup.h
+diff --git a/Telegram/SourceFiles/window/window_media_preview.cpp b/Telegram/SourceFiles/window/window_media_preview.cpp
+index e81ece340a..8775e353e8 100644
+--- a/Telegram/SourceFiles/window/window_media_preview.cpp
++++ b/Telegram/SourceFiles/window/window_media_preview.cpp
+@@ -24,6 +24,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "ui/rect.h"
+ #include "ui/ui_utility.h"
+ #include "window/window_session_controller.h"
++#include "yukigram/settings/large_sticker_preview.h"
+ #include "styles/style_chat_helpers.h"
+ #include "styles/style_chat.h"
+ #include "styles/style_layers.h"
+@@ -365,6 +366,9 @@ QSize MediaPreviewWidget::currentDimensions() const {
+ 		}
+ 		if (_document->sticker()) {
+ 			box = QSize(st::maxStickerSize, st::maxStickerSize);
++			if (Yukigram::Settings::LargeStickerPreview->current()) {
++				box *= 2;
++			}
+ 			if (_document->isPremiumSticker()) {
+ 				result = (box /= kPremiumDownscale);
+ 			}
+diff --git a/Telegram/SourceFiles/yukigram/settings/large_sticker_preview.cpp b/Telegram/SourceFiles/yukigram/settings/large_sticker_preview.cpp
+new file mode 100644
+index 0000000000..a0858bc2b2
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/settings/large_sticker_preview.cpp
+@@ -0,0 +1,13 @@
++#include "yukigram/settings/large_sticker_preview.h"
++#include "yukigram/options.h"
++
++namespace Yukigram::Settings {
++
++rpl::variable<bool> *LargeStickerPreview = Yukigram::Options::make(kOptionLargeStickerPreview, {
++	.keywords = { u"yukigram"_q, u"sticker"_q, u"preview"_q },
++	.category = "style",
++});
++
++const char kOptionLargeStickerPreview[] = "large-sticker-preview";
++
++}
+diff --git a/Telegram/SourceFiles/yukigram/settings/large_sticker_preview.h b/Telegram/SourceFiles/yukigram/settings/large_sticker_preview.h
+new file mode 100644
+index 0000000000..babb404946
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/settings/large_sticker_preview.h
+@@ -0,0 +1,5 @@
++#include "rpl/rpl.h"
++namespace Yukigram::Settings {
++extern rpl::variable<bool> *LargeStickerPreview;
++extern const char kOptionLargeStickerPreview[];
++}
+-- 
+2.53.0
+

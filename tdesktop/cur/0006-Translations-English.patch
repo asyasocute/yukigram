@@ -4,14 +4,14 @@ Date: Sat, 30 May 2026 20:56:58 +0000
 Subject: [PATCH] (Translations) English
 
 ---
- Telegram/Resources/langs/yukigram/en.json | 143 ++++++++++++++++++++++
- 1 file changed, 143 insertions(+)
+ Telegram/Resources/langs/yukigram/en.json | 145 ++++++++++++++++++++++
+ 1 file changed, 145 insertions(+)
 
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index a54f5182fa..729b243df8 100644
+index a54f5182fa..3a3632bd46 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -1,3 +1,146 @@
+@@ -1,3 +1,148 @@
  {
 +    "about/1/text": "Unofficial {tdesktop_link} fork\nthat adds features and removes annoyances.",
 +    "about/1/tdesktop": "Telegram Desktop",
@@ -114,6 +114,8 @@ index a54f5182fa..729b243df8 100644
 +    "opt/icon-theme-symbolic/desc": "",
 +    "opt/inferred-peer-dc/name": "Show inferred peer DC",
 +    "opt/inferred-peer-dc/desc": "",
++    "opt/large-sticker-preview/name": "Fullsize sticker preview",
++    "opt/large-sticker-preview/desc": "",
 +    "opt/mpris-call-hangup/name": "Control calls with MPRIS",
 +    "opt/mpris-call-hangup/desc": "Use Prev/Next/Stop to hangup or decline.\nUse Play/Pause/PlayPause to accept.\nThis option conflicts with internal media player controls",
 +    "opt/no-shout-buttons/name": "Disable SHOUT-case in buttons",
