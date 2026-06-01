@@ -67,7 +67,7 @@ index 3d4eda91da..59ce88648c 100644
  		.title = tr::lng_settings_language(),
 diff --git a/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp b/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
 new file mode 100644
-index 0000000000..45da66d48c
+index 0000000000..0eb915b499
 --- /dev/null
 +++ b/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
 @@ -0,0 +1,165 @@
@@ -168,10 +168,10 @@ index 0000000000..45da66d48c
 +	for (const auto &category : Categories) {
 +		const auto &toggles = byCategory[category];
 +		if (!category.empty() && !toggles.empty()) {
++			builder.addSkip();
 +			if (isFirstNamedSection) {
 +				isFirstNamedSection = false;
 +			} else {
-+				builder.addSkip();
 +				builder.addDivider();
 +				builder.addSkip();
 +			}
