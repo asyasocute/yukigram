@@ -8,7 +8,7 @@ Subject: [PATCH] (Translations) English
  1 file changed, 145 insertions(+)
 
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index a54f5182fa..fbaeed0793 100644
+index a54f5182fa..10e58636bd 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
 @@ -1,3 +1,148 @@
@@ -71,7 +71,7 @@ index a54f5182fa..fbaeed0793 100644
 +    "optgroup/tweaks": "Tweaks",
 +    "optgroup/dialogs": "Chat list",
 +    "optgroup/style": "Style",
-+    "optgroup/history": "Messages",
++    "optgroup/messages": "Messages",
 +    "optgroup/reactions": "Reactions",
 +    "optgroup/compose": "Composing messages",
 +    "optgroup/picker": "Stickers and Emoji picker",

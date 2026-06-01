@@ -116,7 +116,7 @@ index 1cfff66d67..d44beecf29 100644
  
 diff --git a/Telegram/SourceFiles/yukigram/settings/show_message_id.cpp b/Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
 new file mode 100644
-index 0000000000..790e875ada
+index 0000000000..082b3f027e
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
 @@ -0,0 +1,14 @@
@@ -127,7 +127,7 @@ index 0000000000..790e875ada
 +
 +rpl::variable<bool> *ShowMsgId = Yukigram::Options::make(kOptionShowMsgId, {
 +	.keywords = { u"yukigram"_q, u"message"_q, u"id"_q },
-+	.category = "history",
++	.category = "messages",
 +	.restartRequired = true,
 +});
 +

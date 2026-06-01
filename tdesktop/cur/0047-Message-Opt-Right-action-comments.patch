@@ -106,7 +106,7 @@ index 22321dd539..ef6fe69e90 100644
  			_comments = nullptr;
 diff --git a/Telegram/SourceFiles/yukigram/settings/right_action_comments.cpp b/Telegram/SourceFiles/yukigram/settings/right_action_comments.cpp
 new file mode 100644
-index 0000000000..cc249f4de1
+index 0000000000..c74326c80f
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/settings/right_action_comments.cpp
 @@ -0,0 +1,13 @@
@@ -117,7 +117,7 @@ index 0000000000..cc249f4de1
 +
 +rpl::variable<bool> *RightActionComments = Yukigram::Options::make(kOptionRightActionComments, {
 +	.keywords = { u"yukigram"_q, u"comments"_q, u"right"_q, u"compact"_q },
-+	.category = "history",
++	.category = "messages",
 +});
 +
 +const char kOptionRightActionComments[] = "comments-button-always-right";
