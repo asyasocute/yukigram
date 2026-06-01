@@ -46,8 +46,6 @@ These are placed under `(Yukigram)` category.
     (current one is `$XDG_DATA_HOME/io.github.yukigram`,
     or with `.devel` appended for development builds)
 - Disable `~/.TelegramDesktop` tdata fallback
-- Allow using symbolic (monochrome) tray icon from icon theme
-    instead of bundled one with Yukigram name.
 - Make webview socket paths more unique by adding random integers
     (original paths only depended on PID,
     and PIDs are reused heavily in Flatpak context,
@@ -121,10 +119,16 @@ These are placed under `(Info)` category.
 
 These are placed under `(Shortcut)` category.
 
-## Major
+## System
+- Allow using symbolic (monochrome) tray icon from icon theme
+    instead of bundled one with Yukigram name.
 - :zap: :gear: Control calls with MPRIS
     (play/pause/play-pause: accept,
     next/prev/stop: decline/hangup)
+
+These are placed under `(System)` category.
+
+## Major
 - tg://openmessage and tg://user links support
 - New Supergroup button
 - Mention users by id
