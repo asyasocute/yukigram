@@ -11,7 +11,7 @@ Subject: [PATCH] (Translations) Russian
 
 diff --git a/Telegram/Resources/langs/yukigram/ru.json b/Telegram/Resources/langs/yukigram/ru.json
 new file mode 100644
-index 0000000000..f73bdb7d86
+index 0000000000..54c8faeee3
 --- /dev/null
 +++ b/Telegram/Resources/langs/yukigram/ru.json
 @@ -0,0 +1,154 @@
@@ -79,7 +79,7 @@ index 0000000000..f73bdb7d86
 +    "optgroup/interface": "Интерфейс",
 +    "optgroup/tweaks": "Твики",
 +    "optgroup/dialogs": "Список чатов",
-+    "optgroup/style": "Стиль чата",
++    "optgroup/style": "Стиль",
 +    "optgroup/history": "Сообщения",
 +    "optgroup/reactions": "Реакции",
 +    "optgroup/compose": "Окно написания сообщений",
