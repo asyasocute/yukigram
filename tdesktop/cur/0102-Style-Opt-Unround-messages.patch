@@ -1,0 +1,144 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Wed, 3 Jun 2026 16:56:56 +0000
+Subject: [PATCH] (Style)(Opt) Unround messages
+
+---
+ Telegram/CMakeLists.txt                             |  2 ++
+ .../history/view/media/history_view_gif.cpp         | 11 +++++++++++
+ .../SourceFiles/media/player/media_player_float.cpp |  7 +++++++
+ .../yukigram/settings/unround_messages.cpp          | 13 +++++++++++++
+ .../yukigram/settings/unround_messages.h            |  5 +++++
+ 5 files changed, 38 insertions(+)
+ create mode 100644 Telegram/SourceFiles/yukigram/settings/unround_messages.cpp
+ create mode 100644 Telegram/SourceFiles/yukigram/settings/unround_messages.h
+
+diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
+index 21d746b3dd..e5eebe8d0a 100644
+--- a/Telegram/CMakeLists.txt
++++ b/Telegram/CMakeLists.txt
+@@ -2006,6 +2006,8 @@ PRIVATE
+     yukigram/settings/system_emoji.h
+     yukigram/settings/time_with_seconds.cpp
+     yukigram/settings/time_with_seconds.h
++    yukigram/settings/unround_messages.cpp
++    yukigram/settings/unround_messages.h
+     yukigram/settings/wide_messages.cpp
+     yukigram/settings/wide_messages.h
+     apiwrap.cpp
+diff --git a/Telegram/SourceFiles/history/view/media/history_view_gif.cpp b/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
+index a51e2b41a3..17873f1220 100644
+--- a/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
++++ b/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
+@@ -37,6 +37,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "history/view/media/history_view_media_common.h"
+ #include "history/view/media/history_view_media_spoiler.h"
+ #include "window/window_session_controller.h"
++#include "yukigram/settings/unround_messages.h"
+ #include "core/application.h" // Application::showDocument.
+ #include "core/core_settings.h"
+ #include "ui/chat/attach/attach_prepare.h"
+@@ -607,8 +608,10 @@ void Gif::draw(Painter &p, const PaintContext &context) const {
+ 			} else {
+ 				displayMute = true;
+ 			}
++		if (!Yukigram::Settings::UnroundMessages->current()) {
+ 			validateRoundingMask(request.outer);
+ 			request.mask = _roundingMask;
++		}
+ 		} else {
+ 			request.rounding = MediaRoundingMask(rounding);
+ 		}
+@@ -665,7 +668,11 @@ void Gif::draw(Painter &p, const PaintContext &context) const {
+ 				auto q = QPainter(&frame);
+ 				fillImageSpoiler(q, _spoiler.get(), rthumb, context);
+ 			}
++		if (!Yukigram::Settings::UnroundMessages->current()) {
+ 			p.drawImage(rthumb.topLeft(), Images::Circle(std::move(frame)));
++		} else {
++			p.drawImage(rthumb.topLeft(), std::move(frame));
++		}
+ 		}
+ 		p.setOpacity(1.);
+ 	}
+@@ -1134,9 +1141,13 @@ void Gif::validateThumbCache(
+ 		return;
+ 	}
+ 	auto cache = prepareThumbCache(outer);
++if (!Yukigram::Settings::UnroundMessages->current()) {
+ 	_thumbCache = isEllipse
+ 		? Images::Circle(std::move(cache))
+ 		: Images::Round(std::move(cache), MediaRoundingMask(rounding));
++} else {
++	_thumbCache = std::move(cache);
++}
+ 	_thumbCacheRounding = rounding;
+ 	_thumbCacheBlurred = blurred;
+ }
+diff --git a/Telegram/SourceFiles/media/player/media_player_float.cpp b/Telegram/SourceFiles/media/player/media_player_float.cpp
+index 2fa095e364..cb534f839e 100644
+--- a/Telegram/SourceFiles/media/player/media_player_float.cpp
++++ b/Telegram/SourceFiles/media/player/media_player_float.cpp
+@@ -17,6 +17,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "media/streaming/media_streaming_instance.h"
+ #include "media/view/media_view_playback_progress.h"
+ #include "media/player/media_player_instance.h"
++#include "yukigram/settings/unround_messages.h"
+ #include "window/window_session_controller.h"
+ #include "window/section_widget.h"
+ #include "core/application.h"
+@@ -57,7 +58,9 @@ bool RoundPainter::fillFrame(const QSize &size) {
+ 		if (_roundingMask.size() != request.outer) {
+ 			_roundingMask = Images::EllipseMask(frameInner().size());
+ 		}
++	if (!Yukigram::Settings::UnroundMessages->current()) {
+ 		request.mask = _roundingMask;
++	}
+ 		auto frame = streamed->frame(request);
+ 		if (!frame.isNull()) {
+ 			_frame.fill(Qt::transparent);
+@@ -75,7 +78,11 @@ bool RoundPainter::fillFrame(const QSize &size) {
+ 		PainterHighQualityEnabler hq(p);
+ 		p.setPen(Qt::NoPen);
+ 		p.setBrush(st::imageBg);
++	if (!Yukigram::Settings::UnroundMessages->current()) {
+ 		p.drawEllipse(frameInner());
++	} else {
++		p.drawRect(frameInner());
++	}
+ 	}
+ 	return false;
+ }
+diff --git a/Telegram/SourceFiles/yukigram/settings/unround_messages.cpp b/Telegram/SourceFiles/yukigram/settings/unround_messages.cpp
+new file mode 100644
+index 0000000000..3e39e47562
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/settings/unround_messages.cpp
+@@ -0,0 +1,13 @@
++#include "yukigram/settings/unround_messages.h"
++#include "yukigram/options.h"
++
++namespace Yukigram::Settings {
++
++rpl::variable<bool> *UnroundMessages = Yukigram::Options::make(kOptionUnroundMessages, {
++	.keywords = { u"yukigram"_q, u"round"_q, u"messages"_q, u"square"_q },
++	.category = "style",
++});
++
++const char kOptionUnroundMessages[] = "unround-messages";
++
++}
+diff --git a/Telegram/SourceFiles/yukigram/settings/unround_messages.h b/Telegram/SourceFiles/yukigram/settings/unround_messages.h
+new file mode 100644
+index 0000000000..73564b7ab3
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/settings/unround_messages.h
+@@ -0,0 +1,5 @@
++#include "rpl/rpl.h"
++namespace Yukigram::Settings {
++extern rpl::variable<bool> *UnroundMessages;
++extern const char kOptionUnroundMessages[];
++}
+-- 
+2.53.0
+

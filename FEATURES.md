@@ -189,6 +189,9 @@ These are placed under `(Chat)` category.
     (Forward, Delete, Send now)
 - Revert button rounding in bot keyboard
 - :star: :gear: Large sticker size in preview
+- Constrain round messages width
+    (don't push "Forwarded from" outside the screen on small screen widths)
+- :star: :gear: Square round messages
 
 These are placed under `(Style)` category.
 

@@ -4,17 +4,17 @@ Date: Thu, 28 May 2026 22:20:22 +0000
 Subject: [PATCH] (Translations) Russian
 
 ---
- Telegram/Resources/langs/yukigram/ru.json    | 159 +++++++++++++++++++
+ Telegram/Resources/langs/yukigram/ru.json    | 161 +++++++++++++++++++
  Telegram/Resources/qrc/telegram/yukigram.qrc |   1 +
- 2 files changed, 160 insertions(+)
+ 2 files changed, 162 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/ru.json
 
 diff --git a/Telegram/Resources/langs/yukigram/ru.json b/Telegram/Resources/langs/yukigram/ru.json
 new file mode 100644
-index 0000000000..3708f15ad0
+index 0000000000..45a92066c6
 --- /dev/null
 +++ b/Telegram/Resources/langs/yukigram/ru.json
-@@ -0,0 +1,159 @@
+@@ -0,0 +1,161 @@
 +{
 +    "about/1/text": "Неофициальный форк {tdesktop_link},\nкоторый добавляет фичи и убирает мусор.",
 +    "about/1/tdesktop": "Telegram Desktop",
@@ -154,6 +154,8 @@ index 0000000000..3708f15ad0
 +    "opt/time-with-seconds/desc": "",
 +    "opt/unlimited-recent-stickers/name": "Неограниченные недавние стикеры",
 +    "opt/unlimited-recent-stickers/desc": "",
++    "opt/unround-messages/name": "Квадратные кружочки",
++    "opt/unround-messages/desc": "",
 +    "opt/use-small-msg-bubble-radius/name": "Менее круглые сообщения",
 +    "opt/use-small-msg-bubble-radius/desc": "",
 +    "opt/view-profile-in-chats-list-context-menu/name": "Открыть профиль из меню",

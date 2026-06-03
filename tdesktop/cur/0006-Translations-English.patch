@@ -4,14 +4,14 @@ Date: Sat, 30 May 2026 20:56:58 +0000
 Subject: [PATCH] (Translations) English
 
 ---
- Telegram/Resources/langs/yukigram/en.json | 150 ++++++++++++++++++++++
- 1 file changed, 150 insertions(+)
+ Telegram/Resources/langs/yukigram/en.json | 152 ++++++++++++++++++++++
+ 1 file changed, 152 insertions(+)
 
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
-index a54f5182fa..dad1c39261 100644
+index a54f5182fa..4cbcb5f805 100644
 --- a/Telegram/Resources/langs/yukigram/en.json
 +++ b/Telegram/Resources/langs/yukigram/en.json
-@@ -1,3 +1,153 @@
+@@ -1,3 +1,155 @@
  {
 +    "about/1/text": "Unofficial {tdesktop_link} fork\nthat adds features and removes annoyances.",
 +    "about/1/tdesktop": "Telegram Desktop",
@@ -145,6 +145,8 @@ index a54f5182fa..dad1c39261 100644
 +    "opt/time-with-seconds/desc": "",
 +    "opt/unlimited-recent-stickers/name": "Unlimited recent stickers",
 +    "opt/unlimited-recent-stickers/desc": "",
++    "opt/unround-messages/name": "Square round messages",
++    "opt/unround-messages/desc": "",
 +    "opt/use-small-msg-bubble-radius/name": "Use small message bubble radius",
 +    "opt/use-small-msg-bubble-radius/desc": "",
 +    "opt/view-profile-in-chats-list-context-menu/name": "View profile button in context menu",

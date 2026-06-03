@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yuki Sireneva <sylfn@disroot.org>
+Date: Wed, 3 Jun 2026 18:36:45 +0000
+Subject: [PATCH] (Style) Constrain round messages width
+
+---
+ .../SourceFiles/history/view/media/history_view_gif.cpp     | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Telegram/SourceFiles/history/view/media/history_view_gif.cpp b/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
+index fab6d5b2dc..a51e2b41a3 100644
+--- a/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
++++ b/Telegram/SourceFiles/history/view/media/history_view_gif.cpp
+@@ -391,11 +391,17 @@ QSize Gif::countCurrentSize(int newWidth) {
+ 		auto reply = _parent->Get<Reply>();
+ 		auto forwarded = item->Get<HistoryMessageForwarded>();
+ 		if (via || reply || forwarded) {
++			const auto prevWidth = newWidth;
+ 			auto additional = additionalWidth(reply, via, forwarded);
+ 			newWidth += additional;
+ 			accumulate_min(newWidth, availableWidth);
+ 			auto usew = maxWidth() - additional;
+ 			auto availw = newWidth - usew - st::msgReplyPadding.left() - st::msgReplyPadding.left() - st::msgReplyPadding.left();
++			const auto diff = newWidth - prevWidth;
++			if (diff < 128) {
++				newHeight -= (128 - diff);
++				availw = 128;
++			}
+ 			if (!forwarded && via) {
+ 				via->resize(availw);
+ 			}
+-- 
+2.53.0
+
