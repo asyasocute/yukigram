@@ -8,11 +8,11 @@ Subject: [PATCH] (Yukigram) Changelog
  1 file changed, 291 insertions(+)
 
 diff --git a/changelog.txt b/changelog.txt
-index 46242d956c..7c7121fa4a 100644
+index 46242d956c..6d8a3d0d0f 100644
 --- a/changelog.txt
 +++ b/changelog.txt
 @@ -1,3 +1,51 @@
-+9999 wip (01.01.99)
++6.8.4.3 beta (04.06.26)
 +
 +- Show deleted reply ID
 +- Plain send option in context menu
