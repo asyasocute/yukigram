@@ -7,11 +7,11 @@ Subject: [PATCH] (Yukigram) Options framework
  Telegram/CMakeLists.txt                       |   4 +
  Telegram/SourceFiles/core/launcher.cpp        |   3 +
  .../settings/settings_experimental.cpp        |   2 +
- Telegram/SourceFiles/yukigram/options.cpp     | 112 ++++++++++++++++++
- Telegram/SourceFiles/yukigram/options.h       |  43 +++++++
+ Telegram/SourceFiles/yukigram/options.cpp     | 118 ++++++++++++++++++
+ Telegram/SourceFiles/yukigram/options.h       |  44 +++++++
  .../SourceFiles/yukigram/options_database.h   |  45 +++++++
  .../SourceFiles/yukigram/options_runtime.h    |  10 ++
- 7 files changed, 219 insertions(+)
+ 7 files changed, 226 insertions(+)
  create mode 100644 Telegram/SourceFiles/yukigram/options.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/options.h
  create mode 100644 Telegram/SourceFiles/yukigram/options_database.h
@@ -82,10 +82,10 @@ index 5a521869d4..051cb50089 100644
  		}
 diff --git a/Telegram/SourceFiles/yukigram/options.cpp b/Telegram/SourceFiles/yukigram/options.cpp
 new file mode 100644
-index 0000000000..36935034e4
+index 0000000000..86b4f76b9f
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/options.cpp
-@@ -0,0 +1,112 @@
+@@ -0,0 +1,118 @@
 +#include "yukigram/options.h"
 +#include "yukigram/options_database.h"
 +#include "yukigram/options_runtime.h"
@@ -194,16 +194,22 @@ index 0000000000..36935034e4
 +	return std::bind_front(BoundedImpl, lower, upper);
 +}
 +
++std::function<rpl::producer<QString>()> BoundedHint(int lower, int upper) {
++	return [=]() {
++		return rktr("input/bounded/hint", { "lower", QString::number(lower) }, { "upper", QString::number(upper) });
++	};
++}
++
 +} // namespace Valid
 +
 +
 +} // namespace Yukigram::Options
 diff --git a/Telegram/SourceFiles/yukigram/options.h b/Telegram/SourceFiles/yukigram/options.h
 new file mode 100644
-index 0000000000..1092a5438a
+index 0000000000..4f7ac13e0e
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/options.h
-@@ -0,0 +1,43 @@
+@@ -0,0 +1,44 @@
 +#pragma once
 +
 +#include "rpl/rpl.h"
@@ -220,6 +226,7 @@ index 0000000000..1092a5438a
 +	return {};
 +}
 +CheckValid<int> Bounded(int lower, int upper);
++std::function<rpl::producer<QString>()> BoundedHint(int lower, int upper);
 +} // namespace Valid
 +
 +template<typename T> struct Description {
@@ -230,7 +237,7 @@ index 0000000000..1092a5438a
 +	T defaultValue;
 +	std::function<void(T)> link = [](T) {};
 +	CheckValid<T> checkValid = Valid::Always<T>;
-+	rpl::producer<QString> valid = rpl::single(u""_q);
++	std::function<rpl::producer<QString>()> validHint;
 +};
 +
 +template<typename T> rpl::variable<T> *make(const char *key, Description<T> &&d) {
