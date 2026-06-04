@@ -8,7 +8,7 @@ Subject: [PATCH] (Interface) Sensible peer id and join date rendering
  1 file changed, 52 insertions(+), 49 deletions(-)
 
 diff --git a/Telegram/SourceFiles/info/profile/info_profile_actions.cpp b/Telegram/SourceFiles/info/profile/info_profile_actions.cpp
-index a829ca7d30..af61dc2c0a 100644
+index 3e5882ab0a..8e26ba30b6 100644
 --- a/Telegram/SourceFiles/info/profile/info_profile_actions.cpp
 +++ b/Telegram/SourceFiles/info/profile/info_profile_actions.cpp
 @@ -69,6 +69,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -71,7 +71,7 @@ index a829ca7d30..af61dc2c0a 100644
  [[nodiscard]] bool AreNonTrivialHours(const Data::WorkingHours &hours) {
  	if (!hours) {
  		return false;
-@@ -1601,6 +1557,48 @@ Section DetailsFiller::makeInfo() {
+@@ -1602,6 +1558,48 @@ Section DetailsFiller::makeInfo() {
  				}
  			});
  	};
@@ -120,7 +120,7 @@ index a829ca7d30..af61dc2c0a 100644
  	if (const auto user = _peer->asUser()) {
  		if (user->session().supportMode()) {
  			addInfoLineGeneric(
-@@ -1635,8 +1633,8 @@ Section DetailsFiller::makeInfo() {
+@@ -1636,8 +1634,8 @@ Section DetailsFiller::makeInfo() {
  			? tr::lng_info_about_label()
  			: tr::lng_info_bio_label();
  		addTranslateToMenu(
@@ -131,7 +131,7 @@ index a829ca7d30..af61dc2c0a 100644
  
  		const auto usernameLine = addInfoOneLine(
  			UsernamesSubtext(_peer, tr::lng_info_username_label()),
-@@ -1684,6 +1682,8 @@ Section DetailsFiller::makeInfo() {
+@@ -1685,6 +1683,8 @@ Section DetailsFiller::makeInfo() {
  			return false;
  		});
  
@@ -140,7 +140,7 @@ index a829ca7d30..af61dc2c0a 100644
  		if (!user->isBot()) {
  			tracker.track(result->add(
  				CreateBirthday(result, controller, user),
-@@ -1798,10 +1798,13 @@ Section DetailsFiller::makeInfo() {
+@@ -1799,10 +1799,13 @@ Section DetailsFiller::makeInfo() {
  
  		const auto about = addInfoLine(tr::lng_info_about_label(), _topic
  			? rpl::single(TextWithEntities())

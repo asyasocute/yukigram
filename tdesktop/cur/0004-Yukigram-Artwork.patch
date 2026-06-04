@@ -13,10 +13,10 @@ Subject: [PATCH] (Yukigram) Artwork
  create mode 100644 Telegram/Resources/art/yukigram.svg
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 22988d4d2d..9eecfac1ce 100644
+index af06425f91..893c1a4f54 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -2406,20 +2406,7 @@ if (LINUX AND DESKTOP_APP_USE_PACKAGED)
+@@ -2411,20 +2411,7 @@ if (LINUX AND DESKTOP_APP_USE_PACKAGED)
      configure_file("../lib/xdg/io.github.yukigram.metainfo.xml" "${CMAKE_CURRENT_BINARY_DIR}/${YUKIGRAM_APP_ID}.metainfo.xml" @ONLY)
      generate_appstream_changelog(Telegram "${CMAKE_SOURCE_DIR}/changelog.txt" "${CMAKE_CURRENT_BINARY_DIR}/${YUKIGRAM_APP_ID}.metainfo.xml")
      install(TARGETS Telegram RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}" BUNDLE DESTINATION "${CMAKE_INSTALL_BINDIR}")
@@ -51,7 +51,7 @@ index 0000000000..e9ddc94952
 +    <path d="M2,8.625l2.5,0.9375L5.75,13l1.788-2.3875L10.75,11.75l1.25-8.75L2,8.625zM6.481,10.15l-0.5725,1.553l-0.6787-1.9487l5.251-4.769L6.481,10.15z" fill="#eee" />
 +</svg>
 diff --git a/Telegram/Resources/qrc/telegram/telegram.qrc b/Telegram/Resources/qrc/telegram/telegram.qrc
-index 2c1be7a05c..d677d96e4b 100644
+index d7347f2fa1..6e4843bbb1 100644
 --- a/Telegram/Resources/qrc/telegram/telegram.qrc
 +++ b/Telegram/Resources/qrc/telegram/telegram.qrc
 @@ -5,8 +5,8 @@

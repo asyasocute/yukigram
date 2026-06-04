@@ -13,10 +13,10 @@ Subject: [PATCH] (Compose)(Opt) Hide Send As button
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_send_as.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index e43369001b..2fcdeb424c 100644
+index b29ad19c30..3a0e8f8f2e 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1959,6 +1959,8 @@ PRIVATE
+@@ -1963,6 +1963,8 @@ PRIVATE
      yukigram/settings/force_mobile_layout.h
      yukigram/settings/hide_send_as_premium.cpp
      yukigram/settings/hide_send_as_premium.h

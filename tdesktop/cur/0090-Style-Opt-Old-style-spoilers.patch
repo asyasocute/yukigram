@@ -16,10 +16,10 @@ Subject: [PATCH] (Style)(Opt) Old-style spoilers
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index c8dc83bf9c..af57008788 100644
+index 4e1c2cbd20..befe873ac3 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1984,6 +1984,8 @@ PRIVATE
+@@ -1988,6 +1988,8 @@ PRIVATE
      yukigram/settings/mirrored.cpp
      yukigram/settings/mpris_call_hangup.cpp
      yukigram/settings/mpris_call_hangup.h

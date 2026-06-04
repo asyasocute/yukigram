@@ -17,10 +17,10 @@ Subject: [PATCH] (Interface)(Opt) Compact chat list
  create mode 100644 Telegram/SourceFiles/yukigram/settings/compact_chat_list.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 0ff1e0b91f..661ae74fd6 100644
+index ea9e3b761e..742ae166f7 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1951,6 +1951,8 @@ PRIVATE
+@@ -1955,6 +1955,8 @@ PRIVATE
      yukigram/options.h
      yukigram/settings/always_show_scheduled.cpp
      yukigram/settings/always_show_scheduled.h
@@ -76,7 +76,7 @@ index 5a6ab2d037..60026a5ec3 100644
  		return false;
  	}
 diff --git a/Telegram/SourceFiles/dialogs/dialogs_inner_widget.cpp b/Telegram/SourceFiles/dialogs/dialogs_inner_widget.cpp
-index 3561c14642..34fe4c3cd1 100644
+index 46f951ff64..c8e4ead5a3 100644
 --- a/Telegram/SourceFiles/dialogs/dialogs_inner_widget.cpp
 +++ b/Telegram/SourceFiles/dialogs/dialogs_inner_widget.cpp
 @@ -36,6 +36,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -132,7 +132,7 @@ index 3561c14642..34fe4c3cd1 100644
  	auto pixmap = QPixmap(Size(st.height * style::DevicePixelRatio()));
  	pixmap.setDevicePixelRatio(style::DevicePixelRatio());
  	pixmap.fill(Qt::transparent);
-@@ -5333,7 +5337,7 @@ void InnerWidget::repaintDialogRowCornerStatus(not_null<History*> history) {
+@@ -5354,7 +5358,7 @@ void InnerWidget::repaintDialogRowCornerStatus(not_null<History*> history) {
  		: st::dialogsCallBadgeSize;
  	const auto stroke = st::dialogsOnlineBadgeStroke;
  	const auto skip = user

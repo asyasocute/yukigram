@@ -26,10 +26,10 @@ Original author: c0re100 <corehusky@gmail.com>
  create mode 100644 Telegram/SourceFiles/yukigram/settings/time_with_seconds.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 7f884d73df..7539507d83 100644
+index a145e454de..d3d1afeb82 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1962,6 +1962,8 @@ PRIVATE
+@@ -1966,6 +1966,8 @@ PRIVATE
      yukigram/settings/mpris_call_hangup.h
      yukigram/settings/right_action_comments.cpp
      yukigram/settings/right_action_comments.h
@@ -107,7 +107,7 @@ index 2e8ee8c52d..4a11612dad 100644
  }
  
 diff --git a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
-index c8cf4ac7f4..b09229bb0c 100644
+index 4ec359c432..f027093e76 100644
 --- a/Telegram/SourceFiles/history/history_inner_widget.cpp
 +++ b/Telegram/SourceFiles/history/history_inner_widget.cpp
 @@ -3818,7 +3818,7 @@ TextForMimeData HistoryInner::getSelectedText() const {
@@ -120,7 +120,7 @@ index c8cf4ac7f4..b09229bb0c 100644
  		}).first;
  		fullSize += i->second.time.size()
 diff --git a/Telegram/SourceFiles/history/history_item.cpp b/Telegram/SourceFiles/history/history_item.cpp
-index 35e67676fa..52c3d6db08 100644
+index b552c5e648..e61c3d0470 100644
 --- a/Telegram/SourceFiles/history/history_item.cpp
 +++ b/Telegram/SourceFiles/history/history_item.cpp
 @@ -1349,7 +1349,7 @@ void HistoryItem::setCommentsItemId(FullMsgId id) {
@@ -132,7 +132,7 @@ index 35e67676fa..52c3d6db08 100644
  	}
  	return QString();
  }
-@@ -7781,7 +7781,7 @@ PreparedServiceText HistoryItem::prepareCallScheduledText(
+@@ -7791,7 +7791,7 @@ PreparedServiceText HistoryItem::prepareCallScheduledText(
  	};
  	const auto time = QLocale().toString(
  		scheduled.time(),
@@ -142,10 +142,10 @@ index 35e67676fa..52c3d6db08 100644
  		prepareWithDate(tr::lng_group_call_starts_date(
  			tr::now,
 diff --git a/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp b/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
-index 1dcb93feb4..d9e1b4d257 100644
+index fe1996d6bb..be52733bad 100644
 --- a/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
-@@ -457,7 +457,7 @@ void BottomInfo::layoutDateText() {
+@@ -469,7 +469,7 @@ void BottomInfo::layoutDateText() {
  	const auto prefix = !author.isEmpty() ? u", "_q : QString();
  	const auto date = edited + ((_data.flags & Data::Flag::ForwardedDate)
  		? Ui::FormatDateTimeSavedFrom(_data.date)
@@ -155,10 +155,10 @@ index 1dcb93feb4..d9e1b4d257 100644
  	const auto afterAuthorWidth = st::msgDateFont->width(afterAuthor);
  	const auto authorWidth = st::msgDateFont->width(author);
 diff --git a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
-index 34cb5f67de..6a045eda6b 100644
+index 7312cfc80c..cf8128fd14 100644
 --- a/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_list_widget.cpp
-@@ -2807,7 +2807,7 @@ TextForMimeData ListWidget::getSelectedText() const {
+@@ -2808,7 +2808,7 @@ TextForMimeData ListWidget::getSelectedText() const {
  			not_null<HistoryItem*> item,
  			TextForMimeData &&unwrapped) {
  		auto time = QString("[%1] ").arg(
@@ -266,10 +266,10 @@ index ec576b07e3..e60a0ecb0b 100644
  [[nodiscard]] rpl::producer<> Updated();
  [[nodiscard]] QString GetNonDefaultValue(const QByteArray &key);
 diff --git a/Telegram/SourceFiles/ui/controls/who_reacted_context_action.cpp b/Telegram/SourceFiles/ui/controls/who_reacted_context_action.cpp
-index f1a2e0d9fb..3e35f14289 100644
+index bb659f5e5a..2cf15b48c8 100644
 --- a/Telegram/SourceFiles/ui/controls/who_reacted_context_action.cpp
 +++ b/Telegram/SourceFiles/ui/controls/who_reacted_context_action.cpp
-@@ -668,7 +668,7 @@ void WhenAction::resolveMinWidth() {
+@@ -671,7 +671,7 @@ void WhenAction::resolveMinWidth() {
  	const auto sampleDate = QDate::currentDate();
  	const auto sampleTime = QLocale().toString(
  		QTime::currentTime(),

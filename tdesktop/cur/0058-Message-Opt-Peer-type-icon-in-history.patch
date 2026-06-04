@@ -16,10 +16,10 @@ Original author: RadRussianRus <radrussianrus@gmail.com>
  create mode 100644 Telegram/SourceFiles/yukigram/settings/history_peer_type_icons.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 0421ec2c61..80265f5298 100644
+index 1cb63305fb..a69423ba31 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1955,6 +1955,8 @@ PRIVATE
+@@ -1959,6 +1959,8 @@ PRIVATE
      yukigram/settings/disable_animoji.h
      yukigram/settings/force_mobile_layout.cpp
      yukigram/settings/force_mobile_layout.h
@@ -114,10 +114,10 @@ index 1323172631..2d7ec53cda 100644
  			recordLinkRipplePoint(point, trect.topLeft());
  			_fromLinkRipplePointSet = 1;
 diff --git a/Telegram/SourceFiles/ui/chat/chat.style b/Telegram/SourceFiles/ui/chat/chat.style
-index d24fec2c48..6b8084e46a 100644
+index a6849c6da3..15bc6df9b6 100644
 --- a/Telegram/SourceFiles/ui/chat/chat.style
 +++ b/Telegram/SourceFiles/ui/chat/chat.style
-@@ -755,6 +755,17 @@ historyCommentsOpenInSelected: icon {{ "history_comments_open", msgFileThumbLink
+@@ -762,6 +762,17 @@ historyCommentsOpenInSelected: icon {{ "history_comments_open", msgFileThumbLink
  historyCommentsOpenOut: icon {{ "history_comments_open", msgFileThumbLinkOutFg }};
  historyCommentsOpenOutSelected: icon {{ "history_comments_open", msgFileThumbLinkOutFgSelected }};
  

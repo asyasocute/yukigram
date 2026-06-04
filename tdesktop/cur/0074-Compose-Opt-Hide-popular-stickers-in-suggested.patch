@@ -13,10 +13,10 @@ Subject: [PATCH] (Compose)(Opt) Hide popular stickers in suggested
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_popular_sticker_suggest.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index c22aa6a1cb..93a062b571 100644
+index 898b19a637..bf55c56dea 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1959,6 +1959,8 @@ PRIVATE
+@@ -1963,6 +1963,8 @@ PRIVATE
      yukigram/settings/force_mobile_layout.h
      yukigram/settings/hide_message_tail.cpp
      yukigram/settings/hide_message_tail.h

@@ -112,7 +112,7 @@ index 2d6005ee8d..917cfd78fc 100644
  
  [[maybe_unused]] constexpr auto kShowFolder = {
 diff --git a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
-index 400b303373..8581b22c58 100644
+index 93c4b69c0e..beb7a90502 100644
 --- a/Telegram/SourceFiles/history/history_inner_widget.cpp
 +++ b/Telegram/SourceFiles/history/history_inner_widget.cpp
 @@ -11,6 +11,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -123,7 +123,7 @@ index 400b303373..8581b22c58 100644
  #include "core/click_handler_types.h"
  #include "core/phone_click_handler.h"
  #include "data/data_chat_participant_status.h"
-@@ -482,6 +483,8 @@ HistoryInner::HistoryInner(
+@@ -483,6 +484,8 @@ HistoryInner::HistoryInner(
  		update();
  	}, lifetime());
  
@@ -132,7 +132,7 @@ index 400b303373..8581b22c58 100644
  	HistoryView::Reactions::SetupManagerList(
  		_reactionsManager.get(),
  		_reactionsItem.value());
-@@ -5971,6 +5974,38 @@ bool CanSendReply(not_null<const HistoryItem*> item) {
+@@ -5973,6 +5976,38 @@ bool CanSendReply(not_null<const HistoryItem*> item) {
  	return true;
  }
  

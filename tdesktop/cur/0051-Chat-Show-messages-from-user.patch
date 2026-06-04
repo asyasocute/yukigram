@@ -27,12 +27,12 @@ index 20e35cada0..fefc936816 100644
  	if (user && !_peer->isBroadcast()) {
  		const auto isSelf = user->isSelf();
 diff --git a/Telegram/SourceFiles/history/history_inner_widget.cpp b/Telegram/SourceFiles/history/history_inner_widget.cpp
-index fe2900de1d..c8cf4ac7f4 100644
+index e242ef5144..4ec359c432 100644
 --- a/Telegram/SourceFiles/history/history_inner_widget.cpp
 +++ b/Telegram/SourceFiles/history/history_inner_widget.cpp
-@@ -2829,6 +2829,17 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
- 				}
- 			}
+@@ -2828,6 +2828,17 @@ void HistoryInner::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
+ 				std::move(callback),
+ 				&st::menuIconStats);
  		}
 +		const auto peer = item->history()->peer;
 +		if (peer->isChat() || peer->isMegagroup()) {
@@ -49,7 +49,7 @@ index fe2900de1d..c8cf4ac7f4 100644
  	const auto addPhotoActions = [&](not_null<PhotoData*> photo, HistoryItem *item) {
  		const auto media = photo->activeMediaView();
 diff --git a/Telegram/SourceFiles/history/view/history_view_context_menu.cpp b/Telegram/SourceFiles/history/view/history_view_context_menu.cpp
-index dbaed5f6bc..1d00a329a2 100644
+index 5e6b57675b..04f897e7f8 100644
 --- a/Telegram/SourceFiles/history/view/history_view_context_menu.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_context_menu.cpp
 @@ -446,6 +446,27 @@ void AddForwardAction(

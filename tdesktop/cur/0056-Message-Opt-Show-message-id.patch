@@ -17,10 +17,10 @@ Original author: c0re100 <corehusky@gmail.com>
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 5938c472e6..0421ec2c61 100644
+index fc9325722d..1cb63305fb 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1966,6 +1966,8 @@ PRIVATE
+@@ -1970,6 +1970,8 @@ PRIVATE
      yukigram/settings/quick_recent_actions.h
      yukigram/settings/right_action_comments.cpp
      yukigram/settings/right_action_comments.h
@@ -30,7 +30,7 @@ index 5938c472e6..0421ec2c61 100644
      yukigram/settings/time_with_seconds.h
      yukigram/settings/wide_messages.cpp
 diff --git a/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp b/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
-index d9e1b4d257..bea8730233 100644
+index be52733bad..af492563f9 100644
 --- a/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
 @@ -23,6 +23,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -41,7 +41,7 @@ index d9e1b4d257..bea8730233 100644
  #include "base/unixtime.h"
  #include "chat_helpers/emoji_interactions.h"
  #include "core/click_handler_types.h"
-@@ -457,7 +458,8 @@ void BottomInfo::layoutDateText() {
+@@ -469,7 +470,8 @@ void BottomInfo::layoutDateText() {
  	const auto prefix = !author.isEmpty() ? u", "_q : QString();
  	const auto date = edited + ((_data.flags & Data::Flag::ForwardedDate)
  		? Ui::FormatDateTimeSavedFrom(_data.date)
@@ -51,9 +51,9 @@ index d9e1b4d257..bea8730233 100644
  	const auto afterAuthor = prefix + date;
  	const auto afterAuthorWidth = st::msgDateFont->width(afterAuthor);
  	const auto authorWidth = st::msgDateFont->width(author);
-@@ -678,6 +680,27 @@ BottomInfo::Data BottomInfoDataFromMessage(not_null<Message*> message) {
- 	if (item->isScheduled()) {
- 		result.scheduleRepeatPeriod = item->scheduleRepeatPeriod();
+@@ -696,6 +698,27 @@ BottomInfo::Data BottomInfoDataFromMessage(not_null<Message*> message) {
+ 			result.flags |= Flag::Silent;
+ 		}
  	}
 +	if (const auto id = item->fullId().msg; Yukigram::Settings::ShowMsgId->current()) {
 +		const auto formatted = [&]() -> int64 {
@@ -80,10 +80,10 @@ index d9e1b4d257..bea8730233 100644
  		return result;
  	}
 diff --git a/Telegram/SourceFiles/history/view/history_view_bottom_info.h b/Telegram/SourceFiles/history/view/history_view_bottom_info.h
-index ef3d261c86..81e2f918b2 100644
+index 91a1d434b2..da83efc973 100644
 --- a/Telegram/SourceFiles/history/view/history_view_bottom_info.h
 +++ b/Telegram/SourceFiles/history/view/history_view_bottom_info.h
-@@ -50,6 +50,7 @@ public:
+@@ -51,6 +51,7 @@ public:
  
  		QDateTime date;
  		QString author;
@@ -92,7 +92,7 @@ index ef3d261c86..81e2f918b2 100644
  		int64 tonStake = 0;
  		int stars = 0;
 diff --git a/Telegram/SourceFiles/history/view/history_view_element.cpp b/Telegram/SourceFiles/history/view/history_view_element.cpp
-index 1cfff66d67..d44beecf29 100644
+index 1df49af56d..8b5c2f9605 100644
 --- a/Telegram/SourceFiles/history/view/history_view_element.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_element.cpp
 @@ -62,6 +62,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL

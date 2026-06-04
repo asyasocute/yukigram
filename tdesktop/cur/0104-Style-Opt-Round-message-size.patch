@@ -13,10 +13,10 @@ Subject: [PATCH] (Style)(Opt) Round message size
  create mode 100644 Telegram/SourceFiles/yukigram/settings/round_size.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index e319af4a69..30d4cdbfb4 100644
+index 526ce23663..c57aa1f60d 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1998,6 +1998,8 @@ PRIVATE
+@@ -2002,6 +2002,8 @@ PRIVATE
      yukigram/settings/quick_recent_actions.h
      yukigram/settings/right_action_comments.cpp
      yukigram/settings/right_action_comments.h

@@ -15,10 +15,10 @@ Co-Authored-By: Lunya <241520024+lunya-miaou@users.noreply.github.com>
  create mode 100644 Telegram/SourceFiles/settings/sections/settings_yukigram.h
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 035279a328..8d100b6fcc 100644
+index ddae275b6f..49138c9d26 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1741,6 +1741,8 @@ PRIVATE
+@@ -1743,6 +1743,8 @@ PRIVATE
      settings/sections/settings_shortcuts.h
      settings/sections/settings_websites.cpp
      settings/sections/settings_websites.h
@@ -28,7 +28,7 @@ index 035279a328..8d100b6fcc 100644
      storage/details/storage_file_utilities.h
      storage/details/storage_settings_scheme.cpp
 diff --git a/Telegram/Resources/langs/lang.strings b/Telegram/Resources/langs/lang.strings
-index 3cf430918e..05011b4a9e 100644
+index 83f36712ae..4956106bbf 100644
 --- a/Telegram/Resources/langs/lang.strings
 +++ b/Telegram/Resources/langs/lang.strings
 @@ -849,6 +849,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
