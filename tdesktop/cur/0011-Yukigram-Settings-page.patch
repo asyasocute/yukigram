@@ -8,9 +8,9 @@ Co-Authored-By: Lunya <241520024+lunya-miaou@users.noreply.github.com>
  Telegram/CMakeLists.txt                       |   2 +
  Telegram/Resources/langs/lang.strings         |   1 +
  .../settings/sections/settings_main.cpp       |   8 +
- .../settings/sections/settings_yukigram.cpp   | 276 ++++++++++++++++++
+ .../settings/sections/settings_yukigram.cpp   | 299 ++++++++++++++++++
  .../settings/sections/settings_yukigram.h     |   9 +
- 5 files changed, 296 insertions(+)
+ 5 files changed, 319 insertions(+)
  create mode 100644 Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
  create mode 100644 Telegram/SourceFiles/settings/sections/settings_yukigram.h
 
@@ -67,10 +67,10 @@ index 3d4eda91da..59ce88648c 100644
  		.title = tr::lng_settings_language(),
 diff --git a/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp b/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
 new file mode 100644
-index 0000000000..08aa8627c1
+index 0000000000..ce887337f1
 --- /dev/null
 +++ b/Telegram/SourceFiles/settings/sections/settings_yukigram.cpp
-@@ -0,0 +1,276 @@
+@@ -0,0 +1,299 @@
 +#include "settings/sections/settings_yukigram.h"
 +#include "yukigram/options_database.h"
 +
@@ -107,13 +107,24 @@ index 0000000000..08aa8627c1
 +	return QString::fromStdString(std::string(v));
 +};
 +
++void ConfirmRestart(Window::SessionController *controller) {
++	controller->show(Ui::MakeConfirmBox({
++		.text = tr::lng_settings_need_restart(),
++		.confirmed = [] { Core::Restart(); },
++		.confirmText = tr::lng_settings_restart_now(),
++		.cancelText = tr::lng_settings_restart_later(),
++	}));
++}
++
 +void InputBox(
 +	not_null<Ui::GenericBox*> box,
++	Window::SessionController *controller,
 +	rpl::producer<QString> title,
 +	QString description,
 +	rpl::producer<QString> validHint,
 +	QString current,
-+	std::function<QString(QString)> maybeUpdate
++	std::function<QString(QString)> maybeUpdate,
++	bool restartRequired
 +) {
 +	const auto content = box->verticalLayout();
 +
@@ -133,6 +144,9 @@ index 0000000000..08aa8627c1
 +			Ui::Toast::Show(reason);
 +			return;
 +		}
++		if (restartRequired) {
++			ConfirmRestart(controller);
++		}
 +		box->closeBox();
 +	};
 +
@@ -149,9 +163,15 @@ index 0000000000..08aa8627c1
 +	box->setFocusCallback([=] { valueInput->setFocusFast(); });
 +}
 +
-+object_ptr<Ui::GenericBox> InputInt(std::string_view key, const Yukigram::Options::Description<int> &d, std::shared_ptr<rpl::variable<int>> v) {
-+	return Box(
++void InputInt(
++	Window::SessionController *controller,
++	std::string_view key,
++	const Yukigram::Options::Description<int> &d,
++	std::shared_ptr<rpl::variable<int>> v
++) {
++	controller->show(Box(
 +		InputBox,
++		controller,
 +		rktr(u"opt/%1/name"_q.arg(key)),
 +		ktr(u"opt/%1/desc"_q.arg(key)),
 +		d.validHint(),
@@ -167,13 +187,20 @@ index 0000000000..08aa8627c1
 +				*v = value;
 +			}
 +			return reason;
-+		}
-+	);
++		},
++		d.restartRequired
++	));
 +}
 +
-+object_ptr<Ui::GenericBox> InputString(std::string_view key, const Yukigram::Options::Description<QString> &d, std::shared_ptr<rpl::variable<QString>> v) {
-+	return Box(
++void InputString(
++	Window::SessionController *controller,
++	std::string_view key,
++	const Yukigram::Options::Description<QString> &d,
++	std::shared_ptr<rpl::variable<QString>> v
++) {
++	controller->show(Box(
 +		InputBox,
++		controller,
 +		rktr(u"opt/%1/name"_q.arg(key)),
 +		ktr(u"opt/%1/desc"_q.arg(key)),
 +		d.validHint(),
@@ -184,8 +211,9 @@ index 0000000000..08aa8627c1
 +				*v = s;
 +			}
 +			return reason;
-+		}
-+	);
++		},
++		d.restartRequired
++	));
 +}
 +
 +template<typename T>
@@ -208,10 +236,10 @@ index 0000000000..08aa8627c1
 +		args.toggled = rpl::single(v->current());
 +	} else if constexpr (std::is_same_v<T, int>) {
 +		args.label = v->value() | rpl::map([](int i) { return QString::number(i); });
-+		args.onClick = [=] { c->show(InputInt(key, d, v)); };
++		args.onClick = [=] { InputInt(c, key, d, v); };
 +	} else if constexpr (std::is_same_v<T, QString>) {
 +		args.label = v->value();
-+		args.onClick = [=] { c->show(InputString(key, d, v)); };
++		args.onClick = [=] { InputString(c, key, d, v); };
 +	}
 +
 +	return builder.addButton(std::move(args));
@@ -242,12 +270,7 @@ index 0000000000..08aa8627c1
 +		}) | rpl::on_next([=, d = o.d](bool toggled) {
 +			*v = toggled;
 +			if (d.restartRequired) {
-+				controller->show(Ui::MakeConfirmBox({
-+					.text = tr::lng_settings_need_restart(),
-+					.confirmed = [] { Core::Restart(); },
-+					.confirmText = tr::lng_settings_restart_now(),
-+					.cancelText = tr::lng_settings_restart_later(),
-+				}));
++				ConfirmRestart(controller);
 +			}
 +		}, button->lifetime());
 +
