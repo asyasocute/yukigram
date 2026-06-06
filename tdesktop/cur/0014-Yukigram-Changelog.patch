@@ -8,11 +8,11 @@ Subject: [PATCH] (Yukigram) Changelog
  1 file changed, 295 insertions(+)
 
 diff --git a/changelog.txt b/changelog.txt
-index c77f815092..5986e9ac2d 100644
+index c77f815092..e746f692ee 100644
 --- a/changelog.txt
 +++ b/changelog.txt
 @@ -1,3 +1,7 @@
-+9999 wip (01.01.99)
++6.8.5.0 beta (06.06.26)
 +
 +- Upstream updated to 6.8.5-beta
 +
