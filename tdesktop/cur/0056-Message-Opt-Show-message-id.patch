@@ -7,12 +7,12 @@ This patch is adapted from 64Gram.
 Original author: c0re100 <corehusky@gmail.com>
 ---
  Telegram/CMakeLists.txt                       |  2 ++
- .../history/view/history_view_bottom_info.cpp | 25 ++++++++++++++++++-
+ .../history/view/history_view_bottom_info.cpp |  7 +++++-
  .../history/view/history_view_bottom_info.h   |  1 +
- .../history/view/history_view_element.cpp     |  5 ++++
+ .../history/view/history_view_element.cpp     |  6 +++++
  .../yukigram/settings/show_message_id.cpp     | 14 +++++++++++
- .../yukigram/settings/show_message_id.h       |  5 ++++
- 6 files changed, 51 insertions(+), 1 deletion(-)
+ .../yukigram/settings/show_message_id.h       | 23 +++++++++++++++++++
+ 6 files changed, 52 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.h
 
@@ -30,7 +30,7 @@ index fc9325722d..1cb63305fb 100644
      yukigram/settings/time_with_seconds.h
      yukigram/settings/wide_messages.cpp
 diff --git a/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp b/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
-index be52733bad..af492563f9 100644
+index be52733bad..951da676f8 100644
 --- a/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_bottom_info.cpp
 @@ -23,6 +23,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
@@ -51,30 +51,12 @@ index be52733bad..af492563f9 100644
  	const auto afterAuthor = prefix + date;
  	const auto afterAuthorWidth = st::msgDateFont->width(afterAuthor);
  	const auto authorWidth = st::msgDateFont->width(author);
-@@ -696,6 +698,27 @@ BottomInfo::Data BottomInfoDataFromMessage(not_null<Message*> message) {
+@@ -696,6 +698,9 @@ BottomInfo::Data BottomInfoDataFromMessage(not_null<Message*> message) {
  			result.flags |= Flag::Silent;
  		}
  	}
-+	if (const auto id = item->fullId().msg; Yukigram::Settings::ShowMsgId->current()) {
-+		const auto formatted = [&]() -> int64 {
-+			if (id.bare > 0) {
-+				if (id < ServerMaxMsgId) {
-+					return id.bare;
-+				} else if (id < ScheduledMaxMsgId) {
-+					return (id - ServerMaxMsgId).bare;
-+				} else if (id < ShortcutMaxMsgId) {
-+					return (id - ScheduledMaxMsgId).bare;
-+				}
-+			} else if (IsClientMsgId(id)) {
-+				return ClientMsgIndex(id);
-+			} else if (IsStoryMsgId(id)) {
-+				return StoryIdFromMsgId(id);
-+			}
-+			return -1;
-+		}();
-+		if (formatted >= 0) {
-+			result.msgId = QString(" (%1)").arg(formatted);
-+		}
++	if (const auto id = CleanMessageId(item->fullId().msg); Yukigram::Settings::ShowMsgId->current() && id >= 0) {
++		result.msgId = QString(" (%1)").arg(id);
 +	}
  	if (!forwarded) {
  		return result;
@@ -92,10 +74,18 @@ index 91a1d434b2..da83efc973 100644
  		int64 tonStake = 0;
  		int stars = 0;
 diff --git a/Telegram/SourceFiles/history/view/history_view_element.cpp b/Telegram/SourceFiles/history/view/history_view_element.cpp
-index 1df49af56d..8b5c2f9605 100644
+index 1df49af56d..70434f99e0 100644
 --- a/Telegram/SourceFiles/history/view/history_view_element.cpp
 +++ b/Telegram/SourceFiles/history/view/history_view_element.cpp
-@@ -62,6 +62,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+@@ -29,6 +29,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
+ #include "history/history.h"
+ #include "history/history_item_components.h"
+ #include "history/history_item_helpers.h"
++#include "yukigram/settings/show_message_id.h"
+ #include "base/unixtime.h"
+ #include "boxes/premium_preview_box.h"
+ #include "core/application.h"
+@@ -62,6 +63,7 @@ https://github.com/telegramdesktop/tdesktop/blob/master/LEGAL
  #include "data/data_message_reactions.h"
  #include "data/data_user.h"
  #include "lang/lang_keys.h"
@@ -103,13 +93,13 @@ index 1df49af56d..8b5c2f9605 100644
  #include "styles/style_chat.h"
  #include "styles/style_dialogs.h"
  
-@@ -698,6 +699,10 @@ QString DateTooltipText(not_null<Element*> view) {
+@@ -698,6 +700,10 @@ QString DateTooltipText(not_null<Element*> view) {
  	if (const auto stars = item->out() ? item->starsPaid() : 0) {
  		dateText += '\n' + tr::lng_you_paid_stars(tr::now, lt_count, stars);
  	}
 +	if (const auto msgId = view->data()->fullId().msg) {
-+		dateText += '\n' + ktr("history/tooltip/message-id", { "id", QString::number(msgId.bare) });
-+		dateText += '\n' + ktr("history/tooltip/message-id-hex", { "id", QString::number(msgId.bare, 16) });
++		const auto clean = CleanMessageId(msgId);
++		dateText += '\n' + ktr("history/tooltip/message-id", { "id", QString::number(clean >= 0 ? clean : msgId.bare) });
 +	}
  	return dateText;
  }
@@ -136,15 +126,33 @@ index 0000000000..54058eabf6
 +}
 diff --git a/Telegram/SourceFiles/yukigram/settings/show_message_id.h b/Telegram/SourceFiles/yukigram/settings/show_message_id.h
 new file mode 100644
-index 0000000000..8c19d311c2
+index 0000000000..7c4412e110
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/settings/show_message_id.h
-@@ -0,0 +1,5 @@
+@@ -0,0 +1,23 @@
 +#include "rpl/rpl.h"
 +namespace Yukigram::Settings {
 +extern rpl::variable<bool> *ShowMsgId;
 +extern const char kOptionShowMsgId[];
 +}
++
++#include "data/data_msg_id.h"
++int64 CleanMessageId(MsgId id) {
++	if (id.bare > 0) {
++		if (id < ServerMaxMsgId) {
++			return id.bare;
++		} else if (id < ScheduledMaxMsgId) {
++			return (id - ServerMaxMsgId).bare;
++		} else if (id < ShortcutMaxMsgId) {
++			return (id - ScheduledMaxMsgId).bare;
++		}
++	} else if (IsClientMsgId(id)) {
++		return ClientMsgIndex(id);
++	} else if (IsStoryMsgId(id)) {
++		return StoryIdFromMsgId(id);
++	}
++	return -1;
++};
 -- 
 2.53.0
 
