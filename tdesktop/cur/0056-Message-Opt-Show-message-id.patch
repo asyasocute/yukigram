@@ -7,12 +7,12 @@ This patch is adapted from 64Gram.
 Original author: c0re100 <corehusky@gmail.com>
 ---
  Telegram/CMakeLists.txt                       |  2 ++
- .../history/view/history_view_bottom_info.cpp |  7 +++++-
+ .../history/view/history_view_bottom_info.cpp |  7 ++++-
  .../history/view/history_view_bottom_info.h   |  1 +
- .../history/view/history_view_element.cpp     |  6 +++++
- .../yukigram/settings/show_message_id.cpp     | 14 +++++++++++
- .../yukigram/settings/show_message_id.h       | 23 +++++++++++++++++++
- 6 files changed, 52 insertions(+), 1 deletion(-)
+ .../history/view/history_view_element.cpp     |  6 ++++
+ .../yukigram/settings/show_message_id.cpp     | 31 +++++++++++++++++++
+ .../yukigram/settings/show_message_id.h       |  8 +++++
+ 6 files changed, 54 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/show_message_id.h
 
@@ -106,10 +106,10 @@ index 41081bd995..32bf2438d9 100644
  
 diff --git a/Telegram/SourceFiles/yukigram/settings/show_message_id.cpp b/Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
 new file mode 100644
-index 0000000000..54058eabf6
+index 0000000000..7bd3fc300a
 --- /dev/null
 +++ b/Telegram/SourceFiles/yukigram/settings/show_message_id.cpp
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,31 @@
 +#include "yukigram/settings/show_message_id.h"
 +#include "yukigram/options.h"
 +
@@ -124,19 +124,7 @@ index 0000000000..54058eabf6
 +const char kOptionShowMsgId[] = "show-msgid";
 +
 +}
-diff --git a/Telegram/SourceFiles/yukigram/settings/show_message_id.h b/Telegram/SourceFiles/yukigram/settings/show_message_id.h
-new file mode 100644
-index 0000000000..7c4412e110
---- /dev/null
-+++ b/Telegram/SourceFiles/yukigram/settings/show_message_id.h
-@@ -0,0 +1,23 @@
-+#include "rpl/rpl.h"
-+namespace Yukigram::Settings {
-+extern rpl::variable<bool> *ShowMsgId;
-+extern const char kOptionShowMsgId[];
-+}
 +
-+#include "data/data_msg_id.h"
 +int64 CleanMessageId(MsgId id) {
 +	if (id.bare > 0) {
 +		if (id < ServerMaxMsgId) {
@@ -153,6 +141,20 @@ index 0000000000..7c4412e110
 +	}
 +	return -1;
 +};
+diff --git a/Telegram/SourceFiles/yukigram/settings/show_message_id.h b/Telegram/SourceFiles/yukigram/settings/show_message_id.h
+new file mode 100644
+index 0000000000..6f36d0441e
+--- /dev/null
++++ b/Telegram/SourceFiles/yukigram/settings/show_message_id.h
+@@ -0,0 +1,8 @@
++#include "rpl/rpl.h"
++namespace Yukigram::Settings {
++extern rpl::variable<bool> *ShowMsgId;
++extern const char kOptionShowMsgId[];
++}
++
++#include "data/data_msg_id.h"
++int64 CleanMessageId(MsgId id);
 -- 
 2.53.0
 
