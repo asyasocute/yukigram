@@ -3,6 +3,8 @@
   stdenv,
   telegram-desktop,
   gst_all_1,
+  minizip,
+  zlib,
 }:
 telegram-desktop.overrideAttrs (final: prev: {
   pname = "yukigram";
@@ -16,6 +18,8 @@ telegram-desktop.overrideAttrs (final: prev: {
     cmakeFlags = prev.cmakeFlags ++ [
       (lib.cmakeBool "DEVEL" true)
     ];
+    # system minizip and zlib are required since 6.9.0
+    buildInputs = (prev.buildInputs or []) ++ [minizip zlib];
     patches = let
       readDir' = d: lib.pipe d [builtins.readDir builtins.attrNames (map (lib.path.append d))];
     in
