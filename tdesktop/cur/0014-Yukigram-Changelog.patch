@@ -4,14 +4,18 @@ Date: Sun, 24 May 2026 15:47:18 +0300
 Subject: [PATCH] (Yukigram) Changelog
 
 ---
- changelog.txt | 313 ++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 313 insertions(+)
+ changelog.txt | 317 ++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 317 insertions(+)
 
 diff --git a/changelog.txt b/changelog.txt
-index f3f5e1d399..bcb020b6c9 100644
+index f3f5e1d399..178357cd6b 100644
 --- a/changelog.txt
 +++ b/changelog.txt
-@@ -1,3 +1,21 @@
+@@ -1,3 +1,25 @@
++9999 wip (01.01.99)
++
++- No changes
++
 +6.9.1.0 (10.06.26)
 +
 +- Various fixes, features and other improvements. See changelogs of 6.8.3.x, 6.8.4.x, 6.8.5.x, and 6.9.1.0-rc.x for more.
@@ -33,7 +37,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.9.1 (09.06.26)
  
  - Fix sending several same custom emoji.
-@@ -11,6 +29,10 @@
+@@ -11,6 +33,10 @@
  - Viewer for Markdown files in .md format.
  - Instant View that's really instant.
  
@@ -44,7 +48,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.8.5 beta (04.06.26)
  
  - Animated 3D objects on settings covers (premium star, coin, diamond).
-@@ -27,6 +49,54 @@
+@@ -27,6 +53,54 @@
  - Fix pause of animated reactions when opening their context menu.
  - Improve performance with RHI enabled.
  
@@ -99,7 +103,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.8.4 beta (27.05.26)
  
  - Drag-and-drop of photos into chats.
-@@ -39,6 +109,31 @@
+@@ -39,6 +113,31 @@
  - Fix borders in Instant View tables.
  - Fix several possible crashes.
  
@@ -131,7 +135,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.8.3 beta (19.05.26)
  
  - In-app markdown file viewer.
-@@ -49,6 +144,63 @@
+@@ -49,6 +148,63 @@
  - Upgrade to Qt 6.11.1 on macOS and Linux.
  - Test QRhi for Thanos effect on Qt 6.11.1.
  
@@ -195,7 +199,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.8.2 (12.05.26)
  
  - Fix non-premium sending of existing custom reactions.
-@@ -61,6 +213,23 @@
+@@ -61,6 +217,23 @@
  - Return "Chatbots" to Telegram Business.
  - Separate badge background color keys for sidebar buttons.
  
@@ -219,7 +223,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.8.1 (08.05.26)
  
  - Fix crash in anonymous group admins messages.
-@@ -78,6 +247,54 @@
+@@ -78,6 +251,54 @@
  - Fix tg:// link handling on cold start and login widget window activation.
  - Copy and paste formatting to and from HTML.
  
@@ -274,7 +278,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.7.8 (24.04.26)
  
  - Proxy auto-rotation option.
-@@ -94,6 +311,12 @@
+@@ -94,6 +315,12 @@
  - Fix crash in proxy sharing before auth.
  - Fix layout for RTL messages.
  
@@ -287,7 +291,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.7.7 beta (20.04.26)
  
  - Proxy auto-rotation option.
-@@ -108,6 +331,32 @@
+@@ -108,6 +335,32 @@
  - Fix stories in albums with reorder enabled.
  - Fix layout for RTL messages.
  
@@ -320,7 +324,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.7.6 (14.04.26)
  
  - Gradient-reveal animation for text appearing in messages.
-@@ -124,6 +373,40 @@
+@@ -124,6 +377,40 @@
  - Fix several poll display and voting menu issues.
  - Fix possible crashes in chats list, url auth and others.
  
@@ -361,7 +365,7 @@ index f3f5e1d399..bcb020b6c9 100644
  6.7.5 (07.04.26)
  
  - Support for gradual appearing of bot reply messages.
-@@ -143,6 +426,36 @@
+@@ -143,6 +430,36 @@
  - Fix tooltip crash in top peers selector with small width.
  - Fix preserving markers after video quality switch in media view.
  
