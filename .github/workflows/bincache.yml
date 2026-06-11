@@ -118,7 +118,6 @@ jobs:
 
 
   macos:
-    # Experimental spike — never gates releases, runs only on manual dispatch.
     if: ${{ inputs.enable_macos }}
     continue-on-error: true
     timeout-minutes: ${{ inputs.short_run && 10 || 360 }}
