@@ -24,6 +24,9 @@ on:
       disable_pmos:
         description: 'Disable postmarketOS build'
         type: boolean
+      enable_macos:
+        description: 'Enable experimental macOS build (spike)'
+        type: boolean
       prerelease:
         description: 'Mark as pre-release'
         type: boolean
@@ -113,6 +116,98 @@ jobs:
           name: binary-${{ env.ARCH }}
           path: yukigram-worktree/app
 
+
+  macos:
+    # Experimental spike — never gates releases, runs only on manual dispatch.
+    if: ${{ inputs.enable_macos }}
+    continue-on-error: true
+    timeout-minutes: ${{ inputs.short_run && 10 || 360 }}
+    name: macOS build (experimental)
+    runs-on: macos-latest
+
+    steps:
+      - name: Clone yukigram
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+          path: yukigram
+
+      - name: Clone tdesktop
+        uses: actions/checkout@v6
+        with:
+          repository: telegramdesktop/tdesktop
+          ref: v6.9.1
+          path: tdesktop
+          submodules: recursive
+
+      - name: Fix cloned repositories
+        run: |
+          set -exuo pipefail
+          git config --global --add safe.directory "$PWD/yukigram"
+          git config --global --add safe.directory "$PWD/tdesktop"
+
+      - name: Patch patches
+        run: |
+          set -exuo pipefail
+          pushd yukigram
+          commit=$(git describe --abbrev=12 HEAD)
+          # macOS sed needs an explicit (empty) backup suffix for -i
+          sed -i '' "s/@commit/$commit/" tdesktop/cur/*-Yukigram-Version.patch
+          popd
+
+      - name: Apply patches
+        run: |
+          set -exuo pipefail
+          pushd tdesktop
+          for p in ../yukigram/tdesktop/cur/*.patch; do
+            printf '==== %s ====\n' "$p"
+            patch -p1 <"$p"
+          done
+          popd
+
+      - name: Install dependencies
+        run: |
+          set -exuo pipefail
+          brew install automake libtool cmake wget pkg-config gnu-tar ninja nasm meson
+          sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Cache prepared Libraries
+        uses: actions/cache@v4
+        with:
+          path: Libraries
+          # prepare/mac.sh output is keyed to the upstream tag.
+          key: macos-libraries-v6.9.1
+
+      - name: Prepare libraries
+        run: |
+          set -exuo pipefail
+          # mac.sh expects to run with tdesktop and Libraries as siblings.
+          ./tdesktop/Telegram/build/prepare/mac.sh
+
+      - name: Configure
+        run: |
+          set -exuo pipefail
+          pushd tdesktop/Telegram
+          ./configure.sh \
+            -D TDESKTOP_API_ID=611335 \
+            -D TDESKTOP_API_HASH=d524b414d21f4d37f08684c1df41ac9c \
+            -D CMAKE_OSX_DEPLOYMENT_TARGET=10.15 \
+            -G Ninja
+          popd
+
+      - name: Build
+        run: |
+          set -exuo pipefail
+          # Unsigned local build — no Developer ID / notarization in this spike.
+          cmake --build tdesktop/out --config Release -- \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: macos-experimental
+          path: tdesktop/out/Release/*.app
+          if-no-files-found: warn
 
   flatpak:
     needs: [binary]
