@@ -4,20 +4,20 @@ Date: Wed, 20 May 2026 17:49:09 +0300
 Subject: [PATCH] (Yukigram) AppId
 
 ---
- Telegram/CMakeLists.txt                       | 73 ++++++++++++-------
+ Telegram/CMakeLists.txt                       | 72 ++++++++++++-------
  Telegram/Resources/qrc/telegram/telegram.qrc  |  1 -
  Telegram/Resources/qrc/telegram/yukigram.qrc  |  5 ++
  Telegram/SourceFiles/core/launcher.cpp        |  3 +-
  .../platform/linux/specific_linux.cpp         | 13 ++--
  Telegram/SourceFiles/yukigram/appid.cpp.in    |  3 +
- Telegram/SourceFiles/yukigram/appid.h         |  4 +
+ Telegram/SourceFiles/yukigram/appid.h         |  4 ++
  Telegram/build/changelog2appstream.py         |  2 +-
  build.sh                                      |  1 +
- ...top.desktop => io.github.yukigram.desktop} | 12 +--
- ...fo.xml => io.github.yukigram.metainfo.xml} |  8 +-
+ ...top.desktop => io.github.yukigram.desktop} | 12 ++--
+ ...fo.xml => io.github.yukigram.metainfo.xml} |  8 +--
  lib/xdg/io.github.yukigram.service            |  3 +
  lib/xdg/org.telegram.desktop.service          |  3 -
- 13 files changed, 84 insertions(+), 47 deletions(-)
+ 13 files changed, 83 insertions(+), 47 deletions(-)
  create mode 100644 Telegram/Resources/qrc/telegram/yukigram.qrc
  create mode 100644 Telegram/SourceFiles/yukigram/appid.cpp.in
  create mode 100644 Telegram/SourceFiles/yukigram/appid.h
@@ -27,20 +27,12 @@ Subject: [PATCH] (Yukigram) AppId
  delete mode 100644 lib/xdg/org.telegram.desktop.service
 
 diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index d434cf17ac..530b08723e 100644
+index 150e36a322..cd50aea1ce 100644
 --- a/Telegram/CMakeLists.txt
 +++ b/Telegram/CMakeLists.txt
-@@ -1951,6 +1951,7 @@ PRIVATE
-     window/themes/window_themes_embedded.h
-     window/themes/window_themes_generate_name.cpp
-     window/themes/window_themes_generate_name.h
-+    yukigram/appid.h
-     apiwrap.cpp
-     apiwrap.h
-     config.h
-@@ -1969,6 +1970,21 @@ PRIVATE
-     tray.h
- )
+@@ -1972,6 +1972,21 @@ PRIVATE
+ file(GLOB_RECURSE yuki_src CONFIGURE_DEPENDS "${src_loc}/yukigram/*.cpp" "${src_loc}/yukigram/*.h")
+ target_sources(Telegram PRIVATE ${yuki_src})
  
 +if (NOT DEVEL)
 +    set(YUKIGRAM_APP_ID "io.github.yukigram")
@@ -60,7 +52,7 @@ index d434cf17ac..530b08723e 100644
  if (APPLE)
      nice_target_sources(Telegram ${src_loc}
      PRIVATE
-@@ -2171,7 +2187,7 @@ else()
+@@ -2174,7 +2189,7 @@ else()
          set(bundle_identifier "com.tdesktop.Telegram")
      endif()
      set(bundle_entitlements "Telegram.entitlements")
@@ -69,7 +61,7 @@ index d434cf17ac..530b08723e 100644
  endif()
  
  if (CMAKE_GENERATOR STREQUAL Xcode)
-@@ -2217,7 +2233,7 @@ get_property(is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+@@ -2220,7 +2235,7 @@ get_property(is_multi_config GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
  if (APPLE
      OR is_multi_config
      OR NOT CMAKE_EXECUTABLE_SUFFIX STREQUAL ""
@@ -78,7 +70,7 @@ index d434cf17ac..530b08723e 100644
      set(output_folder ${CMAKE_BINARY_DIR})
  else()
      set(output_folder ${CMAKE_BINARY_DIR}/bin)
-@@ -2390,30 +2406,37 @@ elseif (build_winstore)
+@@ -2393,30 +2408,37 @@ elseif (build_winstore)
      )
  endif()
  

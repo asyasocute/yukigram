@@ -4,27 +4,13 @@ Date: Wed, 6 May 2026 11:15:18 +0300
 Subject: [PATCH] (Reactions)(Opt) Hide Star reaction count completely
 
 ---
- Telegram/CMakeLists.txt                            |  2 ++
  .../view/reactions/history_view_reactions.cpp      |  4 ++++
  .../yukigram/settings/star_hide_always.cpp         | 14 ++++++++++++++
  .../yukigram/settings/star_hide_always.h           |  5 +++++
- 4 files changed, 25 insertions(+)
+ 3 files changed, 23 insertions(+)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/star_hide_always.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/star_hide_always.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index ff7dd5a459..001418c847 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1993,6 +1993,8 @@ PRIVATE
-     yukigram/settings/right_action_comments.h
-     yukigram/settings/show_message_id.cpp
-     yukigram/settings/show_message_id.h
-+    yukigram/settings/star_hide_always.cpp
-+    yukigram/settings/star_hide_always.h
-     yukigram/settings/star_hide_empty.cpp
-     yukigram/settings/star_hide_empty.h
-     yukigram/settings/time_with_seconds.cpp
 diff --git a/Telegram/SourceFiles/history/view/reactions/history_view_reactions.cpp b/Telegram/SourceFiles/history/view/reactions/history_view_reactions.cpp
 index 3f1948e60b..60180e0d82 100644
 --- a/Telegram/SourceFiles/history/view/reactions/history_view_reactions.cpp

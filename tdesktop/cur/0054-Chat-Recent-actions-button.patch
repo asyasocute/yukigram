@@ -6,31 +6,17 @@ Subject: [PATCH] (Chat) Recent actions button
 This patch is adapted from 64Gram.
 Original author: c0re100 <corehusky@gmail.com>
 ---
- Telegram/CMakeLists.txt                       |  2 ++
  .../info/edit/group_manage_actions_topbar.svg | 13 ++++++++
  .../view/history_view_top_bar_widget.cpp      | 32 +++++++++++++++++++
  .../view/history_view_top_bar_widget.h        |  1 +
  Telegram/SourceFiles/info/info.style          |  4 +++
  .../settings/quick_recent_actions.cpp         | 13 ++++++++
  .../yukigram/settings/quick_recent_actions.h  |  5 +++
- 7 files changed, 70 insertions(+)
+ 6 files changed, 68 insertions(+)
  create mode 100644 Telegram/Resources/icons/info/edit/group_manage_actions_topbar.svg
  create mode 100644 Telegram/SourceFiles/yukigram/settings/quick_recent_actions.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/quick_recent_actions.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index ad3c8f4289..b56c67f88c 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1971,6 +1971,8 @@ PRIVATE
-     yukigram/settings/mirrored.cpp
-     yukigram/settings/mpris_call_hangup.cpp
-     yukigram/settings/mpris_call_hangup.h
-+    yukigram/settings/quick_recent_actions.cpp
-+    yukigram/settings/quick_recent_actions.h
-     yukigram/settings/right_action_comments.cpp
-     yukigram/settings/right_action_comments.h
-     yukigram/settings/time_with_seconds.cpp
 diff --git a/Telegram/Resources/icons/info/edit/group_manage_actions_topbar.svg b/Telegram/Resources/icons/info/edit/group_manage_actions_topbar.svg
 new file mode 100644
 index 0000000000..220814e44b

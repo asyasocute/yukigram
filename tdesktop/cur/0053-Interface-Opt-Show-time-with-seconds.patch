@@ -6,7 +6,6 @@ Subject: [PATCH] (Interface)(Opt) Show time with seconds
 This patch is adapted from 64Gram.
 Original author: c0re100 <corehusky@gmail.com>
 ---
- Telegram/CMakeLists.txt                       |  2 ++
  Telegram/SourceFiles/api/api_who_reacted.cpp  | 19 ++++--------
  .../SourceFiles/data/data_peer_values.cpp     | 10 +++----
  .../history/history_inner_widget.cpp          |  2 +-
@@ -21,23 +20,10 @@ Original author: c0re100 <corehusky@gmail.com>
  .../SourceFiles/ui/text/format_values.cpp     | 21 ++++----------
  .../yukigram/settings/time_with_seconds.cpp   | 14 +++++++++
  .../yukigram/settings/time_with_seconds.h     |  5 ++++
- 15 files changed, 75 insertions(+), 44 deletions(-)
+ 14 files changed, 73 insertions(+), 44 deletions(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/time_with_seconds.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/time_with_seconds.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index c99a08bcbe..ad3c8f4289 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1973,6 +1973,8 @@ PRIVATE
-     yukigram/settings/mpris_call_hangup.h
-     yukigram/settings/right_action_comments.cpp
-     yukigram/settings/right_action_comments.h
-+    yukigram/settings/time_with_seconds.cpp
-+    yukigram/settings/time_with_seconds.h
-     yukigram/settings/wide_messages.cpp
-     yukigram/settings/wide_messages.h
-     apiwrap.cpp
 diff --git a/Telegram/SourceFiles/api/api_who_reacted.cpp b/Telegram/SourceFiles/api/api_who_reacted.cpp
 index 5cc833ec41..020c95b5e9 100644
 --- a/Telegram/SourceFiles/api/api_who_reacted.cpp

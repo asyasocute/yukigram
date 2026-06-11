@@ -4,28 +4,14 @@ Date: Thu, 4 Jun 2026 01:31:03 +0000
 Subject: [PATCH] (Style)(Opt) Sticker size
 
 ---
- Telegram/CMakeLists.txt                         |  2 ++
  .../history/view/media/history_view_sticker.cpp |  1 +
  Telegram/SourceFiles/ui/chat/chat.style         |  2 +-
  .../yukigram/settings/sticker_size.cpp          | 17 +++++++++++++++++
  .../yukigram/settings/sticker_size.h            |  5 +++++
- 5 files changed, 26 insertions(+), 1 deletion(-)
+ 4 files changed, 24 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/sticker_size.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/sticker_size.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 253c9b881d..437891bd31 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -2013,6 +2013,8 @@ PRIVATE
-     yukigram/settings/star_hide_always.h
-     yukigram/settings/star_hide_empty.cpp
-     yukigram/settings/star_hide_empty.h
-+    yukigram/settings/sticker_size.cpp
-+    yukigram/settings/sticker_size.h
-     yukigram/settings/system_emoji.cpp
-     yukigram/settings/system_emoji.h
-     yukigram/settings/time_with_seconds.cpp
 diff --git a/Telegram/SourceFiles/history/view/media/history_view_sticker.cpp b/Telegram/SourceFiles/history/view/media/history_view_sticker.cpp
 index 4ef4cc7be1..67c31f4874 100644
 --- a/Telegram/SourceFiles/history/view/media/history_view_sticker.cpp

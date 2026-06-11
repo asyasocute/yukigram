@@ -14,28 +14,14 @@ State mapping:
 
 Co-Authored-By: Sonya Sireneva <sleirsgoevy@gmail.com>
 ---
- Telegram/CMakeLists.txt                       |  2 +
  Telegram/SourceFiles/calls/calls_instance.cpp | 90 ++++++++++++++++++-
  Telegram/SourceFiles/calls/calls_instance.h   |  7 ++
  .../yukigram/settings/mpris_call_hangup.cpp   | 14 +++
  .../yukigram/settings/mpris_call_hangup.h     |  5 ++
- 5 files changed, 117 insertions(+), 1 deletion(-)
+ 4 files changed, 115 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/mpris_call_hangup.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/mpris_call_hangup.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 188b41ad5f..00dcc9b1dc 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1963,6 +1963,8 @@ PRIVATE
-     yukigram/settings/icon_theme_symbolic.cpp
-     yukigram/settings/icon_theme_symbolic.h
-     yukigram/settings/mirrored.cpp
-+    yukigram/settings/mpris_call_hangup.cpp
-+    yukigram/settings/mpris_call_hangup.h
-     apiwrap.cpp
-     apiwrap.h
-     config.h
 diff --git a/Telegram/SourceFiles/calls/calls_instance.cpp b/Telegram/SourceFiles/calls/calls_instance.cpp
 index 42c7806086..915464608f 100644
 --- a/Telegram/SourceFiles/calls/calls_instance.cpp

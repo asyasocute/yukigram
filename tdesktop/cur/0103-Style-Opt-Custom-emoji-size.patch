@@ -5,27 +5,13 @@ Subject: [PATCH] (Style)(Opt) Custom emoji size
 
 WIP
 ---
- Telegram/CMakeLists.txt                         |  2 ++
  .../history/view/media/history_view_sticker.cpp |  3 ++-
  .../yukigram/settings/custom_emoji_size.cpp     | 17 +++++++++++++++++
  .../yukigram/settings/custom_emoji_size.h       |  5 +++++
- 4 files changed, 26 insertions(+), 1 deletion(-)
+ 3 files changed, 24 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/custom_emoji_size.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/custom_emoji_size.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 437891bd31..153eca5fb4 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1964,6 +1964,8 @@ PRIVATE
-     yukigram/settings/always_show_scheduled.h
-     yukigram/settings/compact_chat_list.cpp
-     yukigram/settings/compact_chat_list.h
-+    yukigram/settings/custom_emoji_size.cpp
-+    yukigram/settings/custom_emoji_size.h
-     yukigram/settings/disable_animoji.cpp
-     yukigram/settings/disable_animoji.h
-     yukigram/settings/disable_up_edit.cpp
 diff --git a/Telegram/SourceFiles/history/view/media/history_view_sticker.cpp b/Telegram/SourceFiles/history/view/media/history_view_sticker.cpp
 index 67c31f4874..7075a61cfa 100644
 --- a/Telegram/SourceFiles/history/view/media/history_view_sticker.cpp

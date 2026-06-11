@@ -6,31 +6,17 @@ Subject: [PATCH] (Chat) Admin list button
 This patch is adapted from 64Gram.
 Original author: c0re100 <corehusky@gmail.com>
 ---
- Telegram/CMakeLists.txt                       |  2 +
  .../info/edit/group_manage_admins_topbar.svg  |  7 ++++
  .../view/history_view_top_bar_widget.cpp      | 37 +++++++++++++++++++
  .../view/history_view_top_bar_widget.h        |  1 +
  Telegram/SourceFiles/info/info.style          |  4 ++
  .../yukigram/settings/quick_admin_list.cpp    | 13 +++++++
  .../yukigram/settings/quick_admin_list.h      |  5 +++
- 7 files changed, 69 insertions(+)
+ 6 files changed, 67 insertions(+)
  create mode 100644 Telegram/Resources/icons/info/edit/group_manage_admins_topbar.svg
  create mode 100644 Telegram/SourceFiles/yukigram/settings/quick_admin_list.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/quick_admin_list.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index b56c67f88c..934f5f6ad6 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1971,6 +1971,8 @@ PRIVATE
-     yukigram/settings/mirrored.cpp
-     yukigram/settings/mpris_call_hangup.cpp
-     yukigram/settings/mpris_call_hangup.h
-+    yukigram/settings/quick_admin_list.cpp
-+    yukigram/settings/quick_admin_list.h
-     yukigram/settings/quick_recent_actions.cpp
-     yukigram/settings/quick_recent_actions.h
-     yukigram/settings/right_action_comments.cpp
 diff --git a/Telegram/Resources/icons/info/edit/group_manage_admins_topbar.svg b/Telegram/Resources/icons/info/edit/group_manage_admins_topbar.svg
 new file mode 100644
 index 0000000000..07bc0f276e

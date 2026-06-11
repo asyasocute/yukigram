@@ -6,31 +6,17 @@ Subject: [PATCH] (Yukigram) Translation framework
 This patch is adapted from Kotatogram.
 Original author: RadRussianRus <radrussianrus@gmail.com>
 ---
- Telegram/CMakeLists.txt                      |   2 +
  Telegram/Resources/langs/yukigram/en.json    |   3 +
  Telegram/Resources/qrc/telegram/yukigram.qrc |   3 +
  Telegram/SourceFiles/core/application.cpp    |   2 +
  Telegram/SourceFiles/lang/lang_instance.cpp  |   3 +
  Telegram/SourceFiles/yukigram/lang.cpp       | 168 +++++++++++++++++++
  Telegram/SourceFiles/yukigram/lang.h         | 118 +++++++++++++
- 7 files changed, 299 insertions(+)
+ 6 files changed, 297 insertions(+)
  create mode 100644 Telegram/Resources/langs/yukigram/en.json
  create mode 100644 Telegram/SourceFiles/yukigram/lang.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/lang.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 4467290ab8..3a3378f273 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1952,6 +1952,8 @@ PRIVATE
-     window/themes/window_themes_generate_name.cpp
-     window/themes/window_themes_generate_name.h
-     yukigram/appid.h
-+    yukigram/lang.cpp
-+    yukigram/lang.h
-     apiwrap.cpp
-     apiwrap.h
-     config.h
 diff --git a/Telegram/Resources/langs/yukigram/en.json b/Telegram/Resources/langs/yukigram/en.json
 new file mode 100644
 index 0000000000..a54f5182fa

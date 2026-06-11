@@ -6,28 +6,14 @@ Subject: [PATCH] (Message)(Opt) Peer type icon in history
 This patch is adapted from Kotatogram.
 Original author: RadRussianRus <radrussianrus@gmail.com>
 ---
- Telegram/CMakeLists.txt                       |  2 +
  .../history/view/history_view_message.cpp     | 49 ++++++++++++++++++-
  Telegram/SourceFiles/ui/chat/chat.style       | 11 +++++
  .../settings/history_peer_type_icons.cpp      | 13 +++++
  .../settings/history_peer_type_icons.h        |  5 ++
- 5 files changed, 79 insertions(+), 1 deletion(-)
+ 4 files changed, 77 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/history_peer_type_icons.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/history_peer_type_icons.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 118d7b2144..70ede54afc 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1966,6 +1966,8 @@ PRIVATE
-     yukigram/settings/disable_animoji.h
-     yukigram/settings/force_mobile_layout.cpp
-     yukigram/settings/force_mobile_layout.h
-+    yukigram/settings/history_peer_type_icons.cpp
-+    yukigram/settings/history_peer_type_icons.h
-     yukigram/settings/icon_theme_symbolic.cpp
-     yukigram/settings/icon_theme_symbolic.h
-     yukigram/settings/mirrored.cpp
 diff --git a/Telegram/SourceFiles/history/view/history_view_message.cpp b/Telegram/SourceFiles/history/view/history_view_message.cpp
 index 35ec988e86..29a3eaf5fd 100644
 --- a/Telegram/SourceFiles/history/view/history_view_message.cpp

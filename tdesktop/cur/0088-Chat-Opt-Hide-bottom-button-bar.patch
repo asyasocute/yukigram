@@ -4,28 +4,14 @@ Date: Wed, 27 May 2026 19:11:30 +0000
 Subject: [PATCH] (Chat)(Opt) Hide bottom button bar
 
 ---
- Telegram/CMakeLists.txt                           |  2 ++
  Telegram/SourceFiles/history/history_widget.cpp   | 15 +++++++++++++++
  .../history/view/history_view_chat_section.cpp    |  5 +++++
  .../yukigram/settings/hide_bottom_bar.cpp         | 13 +++++++++++++
  .../yukigram/settings/hide_bottom_bar.h           |  5 +++++
- 5 files changed, 40 insertions(+)
+ 4 files changed, 38 insertions(+)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_bottom_bar.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_bottom_bar.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 27172bae11..4059e69a16 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1970,6 +1970,8 @@ PRIVATE
-     yukigram/settings/disable_up_edit.h
-     yukigram/settings/force_mobile_layout.cpp
-     yukigram/settings/force_mobile_layout.h
-+    yukigram/settings/hide_bottom_bar.cpp
-+    yukigram/settings/hide_bottom_bar.h
-     yukigram/settings/hide_message_tail.cpp
-     yukigram/settings/hide_message_tail.h
-     yukigram/settings/hide_popular_emoji_picker.cpp
 diff --git a/Telegram/SourceFiles/history/history_widget.cpp b/Telegram/SourceFiles/history/history_widget.cpp
 index 13ccfab4fb..3c2f93d89b 100644
 --- a/Telegram/SourceFiles/history/history_widget.cpp

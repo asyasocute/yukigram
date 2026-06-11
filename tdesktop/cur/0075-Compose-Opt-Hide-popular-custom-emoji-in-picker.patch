@@ -4,27 +4,13 @@ Date: Wed, 13 May 2026 22:32:24 +0300
 Subject: [PATCH] (Compose)(Opt) Hide popular custom emoji in picker
 
 ---
- Telegram/CMakeLists.txt                             |  2 ++
  .../SourceFiles/chat_helpers/emoji_list_widget.cpp  |  4 ++++
  .../yukigram/settings/hide_popular_emoji_picker.cpp | 13 +++++++++++++
  .../yukigram/settings/hide_popular_emoji_picker.h   |  5 +++++
- 4 files changed, 24 insertions(+)
+ 3 files changed, 22 insertions(+)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_popular_emoji_picker.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/hide_popular_emoji_picker.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index b21aea3eca..bc24714061 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1970,6 +1970,8 @@ PRIVATE
-     yukigram/settings/force_mobile_layout.h
-     yukigram/settings/hide_message_tail.cpp
-     yukigram/settings/hide_message_tail.h
-+    yukigram/settings/hide_popular_emoji_picker.cpp
-+    yukigram/settings/hide_popular_emoji_picker.h
-     yukigram/settings/hide_popular_sticker_suggest.cpp
-     yukigram/settings/hide_popular_sticker_suggest.h
-     yukigram/settings/hide_reply_background_emoji.cpp
 diff --git a/Telegram/SourceFiles/chat_helpers/emoji_list_widget.cpp b/Telegram/SourceFiles/chat_helpers/emoji_list_widget.cpp
 index dea062d1e5..dbc12debb3 100644
 --- a/Telegram/SourceFiles/chat_helpers/emoji_list_widget.cpp

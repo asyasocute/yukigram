@@ -4,30 +4,16 @@ Date: Wed, 27 May 2026 21:29:45 +0000
 Subject: [PATCH] (Style)(Opt) Old-style spoilers
 
 ---
- Telegram/CMakeLists.txt                       |  2 ++
  .../history/view/media/history_view_media.cpp | 14 +++++++++++++
  .../yukigram/settings/old_style_spoilers.cpp  | 18 +++++++++++++++++
  .../yukigram/settings/old_style_spoilers.h    |  5 +++++
  Telegram/lib_ui/ui/effects/spoiler_mess.cpp   | 20 +++++++++++++++++++
  Telegram/lib_ui/ui/text/text_renderer.cpp     |  6 +++++-
  .../ui/widgets/fields/custom_field_object.cpp |  4 +++-
- 7 files changed, 67 insertions(+), 2 deletions(-)
+ 6 files changed, 65 insertions(+), 2 deletions(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/old_style_spoilers.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index 4059e69a16..d120f1ef9c 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1995,6 +1995,8 @@ PRIVATE
-     yukigram/settings/mirrored.cpp
-     yukigram/settings/mpris_call_hangup.cpp
-     yukigram/settings/mpris_call_hangup.h
-+    yukigram/settings/old_style_spoilers.cpp
-+    yukigram/settings/old_style_spoilers.h
-     yukigram/settings/quick_admin_list.cpp
-     yukigram/settings/quick_admin_list.h
-     yukigram/settings/quick_recent_actions.cpp
 diff --git a/Telegram/SourceFiles/history/view/media/history_view_media.cpp b/Telegram/SourceFiles/history/view/media/history_view_media.cpp
 index 8159b021f1..a75c444bce 100644
 --- a/Telegram/SourceFiles/history/view/media/history_view_media.cpp

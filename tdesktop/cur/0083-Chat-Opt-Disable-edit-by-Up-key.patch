@@ -6,28 +6,14 @@ Subject: [PATCH] (Chat)(Opt) Disable edit by Up key
 This patch is adapted from Kotatogram.
 Original author: RadRussianRus <radrussianrus@gmail.com>
 ---
- Telegram/CMakeLists.txt                             |  2 ++
  Telegram/SourceFiles/history/history_widget.cpp     |  2 ++
  .../view/controls/history_view_compose_controls.cpp |  3 ++-
  .../yukigram/settings/disable_up_edit.cpp           | 13 +++++++++++++
  .../SourceFiles/yukigram/settings/disable_up_edit.h |  5 +++++
- 5 files changed, 24 insertions(+), 1 deletion(-)
+ 4 files changed, 22 insertions(+), 1 deletion(-)
  create mode 100644 Telegram/SourceFiles/yukigram/settings/disable_up_edit.cpp
  create mode 100644 Telegram/SourceFiles/yukigram/settings/disable_up_edit.h
 
-diff --git a/Telegram/CMakeLists.txt b/Telegram/CMakeLists.txt
-index bc24714061..27172bae11 100644
---- a/Telegram/CMakeLists.txt
-+++ b/Telegram/CMakeLists.txt
-@@ -1966,6 +1966,8 @@ PRIVATE
-     yukigram/settings/compact_chat_list.h
-     yukigram/settings/disable_animoji.cpp
-     yukigram/settings/disable_animoji.h
-+    yukigram/settings/disable_up_edit.cpp
-+    yukigram/settings/disable_up_edit.h
-     yukigram/settings/force_mobile_layout.cpp
-     yukigram/settings/force_mobile_layout.h
-     yukigram/settings/hide_message_tail.cpp
 diff --git a/Telegram/SourceFiles/history/history_widget.cpp b/Telegram/SourceFiles/history/history_widget.cpp
 index 6a7538e1c0..13ccfab4fb 100644
 --- a/Telegram/SourceFiles/history/history_widget.cpp
